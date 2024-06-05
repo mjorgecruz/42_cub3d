@@ -10,6 +10,8 @@ NAME = cub3d
 
 CFLAGS = -Wall -Werror -Wextra -g
 
+LIBMLX_DIR = lib/
+
 VGFLAGS = valgrind --leak-check=full --suppressions=sup --track-origins=yes --show-leak-kinds=all --log-file=leaks.log -s
 
 TESTFLAGS = -fsanitize=address
@@ -19,10 +21,9 @@ ODIR:=obj
 
 SRC := main.c
 
-LIBRARY = 
 OBJ := $(patsubst %.c, $(ODIR)/%.o,$(SRC))
 
-LIBFLAGS =
+LIBFLAGS = -I$(LIBMLX_DIR) -L$(LIBMLX_DIR) -lmlx -lX11 -lXext -lm
 
 CC = cc
 
@@ -34,13 +35,13 @@ COMPILED_FILES := $(shell if [ -d "$(ODIR)" ]; then find $(ODIR) -name "*.o" | w
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBFLAGS)
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFLAGS) -o $(NAME)
 	@printf "$(BOLD_GREEN)...cub3d in the making: $$(echo "$(shell find $(ODIR) -name "*.o" | wc -l) $(TOTAL_FILES)" | awk '{printf "%.2f", $$1/$$2 * 100}')%%$(RES)\r"
 	@printf "\n"
 	@echo "${BOLD_GREEN}cub3d is reborn...${END}"
 
 test: $(OBJ)
-	@$(CC) $(CFLAGS) $(TESTFLAGS) $(OBJ) -o $(NAME) $(LIBFLAGS)
+	@$(CC) $(CFLAGS) $(TESTFLAGS) $(OBJ) $(LIBFLAGS) -o $(NAME)
 	@echo "${BOLD_GREEN}...cub3d is reborn${END}"
 
 $(ODIR):
@@ -53,9 +54,9 @@ $(ODIR)/%.o: $(INCDIR)/%.c
 
 fclean: clean
 	@$(RM) $(NAME)
-	@echo "${RED}cub3d is no more...${END}"
 
 clean:
 	@$(RM) $(OBJ)
+	@echo "${RED}cub3d is no more...${END}"
 
 re: fclean all
