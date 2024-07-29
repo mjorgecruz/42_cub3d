@@ -30,6 +30,14 @@ typedef struct s_player
 
 typedef struct s_data
 {
+    int fl_rgb;
+    int cl_rgb;
+    int cub_fd;
+    int no_fd;
+    int so_fd;
+    int we_fd;
+    int ea_fd;
+
 	int		map_w;
 	int		map_h;
 	int		**map;
@@ -50,6 +58,19 @@ enum ERRORS
 {
     DATA,
     PLAYER,
+    INPUTERR,
+    MAPNAME,
+    CANTOPEN,
+    IVALIDMAP,
+    PATHERR  
+};
+
+enum DIRECTION
+{
+    NORTH,
+    SOUTH,
+    WEST,
+    EAST 
 };
 
 /* ************************************************************************** */
