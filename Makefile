@@ -19,7 +19,8 @@ TESTFLAGS = -fsanitize=address
 INCDIR:=srcs
 ODIR:=obj
 
-SRC := main.c
+SRC := closing.c freeing.c handlers.c init_window.c \
+		main.c main_utils.c minimaper.c raycaster.c
 
 OBJ := $(patsubst %.c, $(ODIR)/%.o,$(SRC))
 
