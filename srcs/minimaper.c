@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:32:31 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/29 15:54:05 by masoares         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:23:17 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -41,12 +41,12 @@ void	render_rect_wall(t_data *img, int pos_x, int pos_y)
 	int		j;
     int     color;
 
-	i = pos_x;
-	j = pos_y;
-	while (i < pos_x + 5)
+	i = pos_x * 5;
+	j = pos_y * 5;
+	while (i < pos_x * 5 + 5)
 	{
 		j = 0;
-		while (j < pos_y + 5)
+		while (j < pos_y * 5 + 5)
 		{
 			color = 0x305060;
 			pixel_put(img, i, j, color);
@@ -62,12 +62,12 @@ void	render_rect_ground(t_data *img, int pos_x, int pos_y)
 	int		j;
     int     color;
 
-	i = pos_x;
-	j = pos_y;
-	while (i < pos_x + 5)
+	i = pos_x * 5;
+	j = pos_y * 5;
+	while (i < pos_x * 5 + 5)
 	{
 		j = 0;
-		while (j < pos_y + 5)
+		while (j < pos_y * 5 + 5)
 		{
 			color = 0x000000;
 			pixel_put(img, i, j, color);

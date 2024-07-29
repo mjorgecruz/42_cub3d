@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/29 15:35:38 by masoares         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:27:10 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -15,7 +15,15 @@
 void	init_fields(t_data *cub)
 {
 	cub->mlx_ptr = mlx_init();
+	if (cub->mlx_ptr == NULL)
+		return (-1);
 	cub->win_ptr = mlx_new_window(cub->mlx_ptr, WIN_W, WIN_H, "CUB3D");
+	if (cub->win_ptr == NULL)
+	{
+		free(cub->mlx_ptr);
+		free(cub->win_ptr);
+		return (-2);
+	}
 	cub->img_w = 1920;
 	cub->img_h = 1080;
 	cub->img = mlx_new_image(cub->mlx_ptr, cub->img_w, cub->img_h);
