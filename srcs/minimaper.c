@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:32:31 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/29 16:34:52 by masoares         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:36:36 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -76,6 +76,4 @@ void	render_rect_ground(t_data *img, int pos_x, int pos_y)
 		i++;
 	}
 }
-
-
 

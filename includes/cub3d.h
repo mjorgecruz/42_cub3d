@@ -19,7 +19,6 @@
 
 typedef struct s_player
 {
-    
     double posX;
     double posY;
     double dirX;
@@ -51,6 +50,8 @@ typedef struct s_data
 	int		line_length;
 	int		bits_per_pixel;
     char    player_init_ori;
+    double  init_x;
+    double  init_y;
     t_player    *player;
 }		t_data;
 
