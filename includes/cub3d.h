@@ -87,7 +87,7 @@ void	check_user_input(int ac, char *s);
 /*                             INIT_WINDOWS                                   */
 /* ************************************************************************** */
 /*Initialize values for struct cub, create window and first image*/
-void	init_fields(t_data *cub);
+int	init_fields(t_data *cub);
 
 /*Initialize all player infos*/
 t_player *init_player(t_data *cub);
@@ -129,5 +129,17 @@ int	close_win_free(t_data *cub);
 void	general_free(t_data *cub);
 
 
+/* ************************************************************************** */
+/*                               MINIMAPER                                    */
+/* ************************************************************************** */
+
+int minimaper(t_data *cub);
+
+
+/* ************************************************************************** */
+/*                                ERRORS                                      */
+/* ************************************************************************** */
+
+void ft_error(int n, t_data *cub);
 
 #endif

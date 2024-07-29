@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   init_window.c                                      :+:      :+:    :+:   */
@@ -6,13 +6,13 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/29 16:27:10 by masoares         ###   ########.fr       */
+/*   Updated: 2024/07/29 22:50:43 by masoares         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	init_fields(t_data *cub)
+int	init_fields(t_data *cub)
 {
 	cub->mlx_ptr = mlx_init();
 	if (cub->mlx_ptr == NULL)
@@ -31,15 +31,17 @@ void	init_fields(t_data *cub)
 			&cub->line_length, &cub->endian);
 	cub->map_h = 0;
 	cub->map_w = 0;
+	
 	cub->map = NULL;
-	cub->player = init_player(cub->player_init_ori);
+	cub->player = init_player(cub);
+	return (0);
 }
 
 t_player *init_player(t_data *cub)
 {
 	t_player *player = (t_player *) malloc(sizeof(t_player) * 1);
 	if (player == NULL)
-		errors(PLAYER, cub);
+		ft_error(PLAYER, cub);
 	init_orientation(player, cub->player_init_ori);
 	init_position(player, cub->map);
 
@@ -73,5 +75,7 @@ void init_orientation(t_player *player, char player_init_ori)
 
 void init_position(t_player *player,int **map)
 {
+	(void) player;
+	(void) map;
 	return ;
 }
