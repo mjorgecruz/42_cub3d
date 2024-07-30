@@ -1,43 +1,43 @@
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <time.h>
-#include <math.h>
-#include <signal.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <stdbool.h>
+// #include <unistd.h>
+// #include <stdlib.h>
+// #include <stdio.h>
+// #include <fcntl.h>
+// #include <time.h>
+// #include <math.h>
+// #include <signal.h>
+// #include <sys/stat.h>
+// #include <sys/types.h>
+// #include <stdbool.h>
 
-enum direction
-{
-    North,
-    South,
-    West,
-    East 
-};
+// enum direction
+// {
+//     North,
+//     South,
+//     West,
+//     East 
+// };
 
-enum errmsg
-{
-    INPUTERR,
-    MAPNAME,
-    CANTOPEN,
-    IVALIDMAP,
-    PATHERR  
-};
+// enum errmsg
+// {
+//     INPUTERR,
+//     MAPNAME,
+//     CANTOPEN,
+//     IVALIDMAP,
+//     PATHERR  
+// };
 
-void ft_error(int n)
-{
-    if  (n == INPUTERR)
-        printf("ERROR 001\nInvalid input\nUSE:[./cub3d mapname.cub]\n");
-    if  (n == MAPNAME)
-        printf("ERROR 002\nIncorrect map name\nUSE:[./cub3d mapname.cub]\n");
-    if  (n == CANTOPEN)
-        printf("ERROR\nCouldn't open file\n");
-        if  (n == PATHERR)
-        printf("ERROR\nCouldn't reach texture path\n");
-}
+// void ft_error(int n)
+// {
+//     if  (n == INPUTERR)
+//         printf("ERROR 001\nInvalid input\nUSE:[./cub3d mapname.cub]\n");
+//     if  (n == MAPNAME)
+//         printf("ERROR 002\nIncorrect map name\nUSE:[./cub3d mapname.cub]\n");
+//     if  (n == CANTOPEN)
+//         printf("ERROR\nCouldn't open file\n");
+//         if  (n == PATHERR)
+//         printf("ERROR\nCouldn't reach texture path\n");
+// }
 
 //////////////////////////////////////////////////////////////////////
 //                                                                  //
@@ -45,15 +45,15 @@ void ft_error(int n)
 //                                                                  //
 //////////////////////////////////////////////////////////////////////
 
-int	ft_strcmp(char *s1, char *s2)
-{
-	int i;
+// int	ft_strcmp(char *s1, char *s2)
+// {
+// 	int i;
 
-	i = 0;
-	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
-		i++;
-	return (s1[i] - s2[i]);
-}
+// 	i = 0;
+// 	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+// 		i++;
+// 	return (s1[i] - s2[i]);
+// }
 
 
 /*
@@ -306,26 +306,26 @@ char *save_path(char *path)
 //////////////////////////////////////////////////////////////////////
 //                                                                  //
 //                                MAIN                              //
-//                                                                  //
-//////////////////////////////////////////////////////////////////////
+// //                                                                  //
+// //////////////////////////////////////////////////////////////////////
 
 
-int main(int argc, char **argv)
-{
-    printf("M: start -----------------\n");
+// int main(int argc, char **argv)
+// {
+//     printf("M: start -----------------\n");
     
-    t_data data;
+//     t_data data;
     
-    if (check_input(argc, argv) == false)
-        return (1);
+//     if (check_input(argc, argv) == false)
+//         return (1);
     
-    printf("M: checkpoint \n");
+//     printf("M: checkpoint \n");
     
-    read_mapfile(&data, argv[1]);
+//     read_mapfile(&data, argv[1]);
     
-    printf("M: Final\n");
-    return (0);
-}
+//     printf("M: Final\n");
+//     return (0);
+// }
 
 
 

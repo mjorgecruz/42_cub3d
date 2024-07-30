@@ -12,6 +12,8 @@
 # include <signal.h>
 # include <sys/stat.h>
 # include <sys/types.h>
+# include <stdbool.h>
+
 # include "../lib/mlx.h"
 # include "../libft/libft.h"
 
@@ -33,10 +35,11 @@ typedef struct s_data
     int fl_rgb;
     int cl_rgb;
     int cub_fd;
-    int no_fd;
-    int so_fd;
-    int we_fd;
-    int ea_fd;
+
+    char *north;
+    char *south;
+    char *west;
+    char *east;
 
 	int		map_w;
 	int		map_h;
@@ -80,9 +83,12 @@ enum DIRECTION
 /* ************************************************************************** */
 
 /*Checks if the user input is correct (maximum 2 arguments)*/
-void	check_user_input(int ac, char *s);
+bool	ft_cubfile(char *str);
 
+/*Verifies file format .cub */
+void	check_user_input(int ac, char *av, t_data *cub);
 
+int		ft_strcmp(char *s1, char *s2);
 
 /* ************************************************************************** */
 /*                             INIT_WINDOWS                                   */
@@ -98,6 +104,8 @@ void init_orientation(t_player *player, char player_init_ori);
 
 /*Define initial position of player*/
 void init_position(t_player *player,int **map);
+
+void init_textures_to_null(t_data *cub);
 
 /* ************************************************************************** */
 /*                                 RENDER                                     */
@@ -129,18 +137,34 @@ int	close_win_free(t_data *cub);
 /**/
 void	general_free(t_data *cub);
 
-
 /* ************************************************************************** */
 /*                               MINIMAPER                                    */
 /* ************************************************************************** */
 
 int minimaper(t_data *cub);
 
+/* ************************************************************************** */
+/*                               FILEREADER                                   */
+/* ************************************************************************** */
+
+/**/
+void read_mapfile(t_data *cub, char *filename);
+
+/* ************************************************************************** */
+/*                            FILEREADER UTILS                                */
+/* ************************************************************************** */
+
+/**/
+int get_texture_id(char *str);
+
+/**/
+void is_fd_invalid(int fd, t_data *cub);
 
 /* ************************************************************************** */
 /*                                ERRORS                                      */
 /* ************************************************************************** */
 
+/*has a free and exit inside to terminate everything when displaying the error*/
 void ft_error(int n, t_data *cub);
 
 #endif

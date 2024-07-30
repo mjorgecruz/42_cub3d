@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   closing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:04:45 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/29 14:45:51 by masoares         ###   ########.fr       */
+/*   Updated: 2024/07/30 11:49:07 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
@@ -18,7 +18,7 @@ int	close_win_free(t_data *cub)
 	mlx_destroy_image(cub->mlx_ptr, cub->img);
 	mlx_destroy_display(cub->mlx_ptr);
 	free(cub->mlx_ptr);
-	printf("\n-- Display Cleared --\n");
+	ft_printf("\n-- Display Cleared --\n");
 	general_free(cub);
 	exit(EXIT_SUCCESS);
 }

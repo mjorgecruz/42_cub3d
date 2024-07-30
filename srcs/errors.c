@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:31:18 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/29 22:44:02 by masoares         ###   ########.fr       */
+/*   Updated: 2024/07/30 12:18:54 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 void ft_error(int n, t_data *cub)
 {
+    ft_printf("\033[31mERROR\033[0m\n");
     if  (n == INPUTERR)
-        printf("ERROR 001\nInvalid input\nUSE:[./cub3d mapname.cub]\n");
+        ft_printf("\033[31mInvalid input\033[0m\nUSE:[./cub3d mapname.cub]\n");
     else if  (n == MAPNAME)
-        printf("ERROR 002\nIncorrect map name\nUSE:[./cub3d mapname.cub]\n");
+        ft_printf("\033[31mIncorrect map name\033[0m\nUSE:[./cub3d mapname.cub]\n");
     else if  (n == CANTOPEN)
-        printf("ERROR\nCouldn't open file\n");
+        ft_printf("\033[31mCouldn't open file\033[0m\n");
     else if  (n == PATHERR)
-        printf("ERROR\nCouldn't reach texture path\n");
+        ft_printf("\033[31mCouldn't reach texture path\033[0m\n");
     close_win_free(cub);
     exit(EXIT_FAILURE);
 }

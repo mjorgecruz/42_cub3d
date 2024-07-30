@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_window.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/29 22:50:43 by masoares         ###   ########.fr       */
+/*   Updated: 2024/07/30 12:06:40 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	init_fields(t_data *cub)
 {
+	init_textures_to_null(cub); //check it
 	cub->mlx_ptr = mlx_init();
 	if (cub->mlx_ptr == NULL)
 		return (-1);
@@ -78,4 +79,12 @@ void init_position(t_player *player,int **map)
 	(void) player;
 	(void) map;
 	return ;
+}
+
+void init_textures_to_null(t_data *cub)
+{
+	cub->north = NULL;
+	cub->south = NULL;
+	cub->west = NULL;
+	cub->east = NULL;
 }
