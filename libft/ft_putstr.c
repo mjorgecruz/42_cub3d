@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 09:57:38 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/07/30 10:53:23 by luis-ffe         ###   ########.fr       */
+/*   Created: 2023/10/12 09:35:58 by luis-ffe          #+#    #+#             */
+/*   Updated: 2023/11/10 18:28:05 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-void	window_updater(t_data *cub)
+//used in ft_printf()
+
+int	ft_putstr_fd_pf(char *s, int fd)
 {
-	mlx_destroy_image(cub->mlx_ptr, cub->img);
-	cub->img = mlx_new_image(cub->mlx_ptr, cub->img_w, cub->img_h);
-}
+	int	i;
 
-int	main(int argc, char **argv)
-{
-	t_data	cub;
-
-	check_user_input(argc, argv[1]);
-	init_fields(&cub);
-	minimaper(&cub);
-	run_window(&cub);
+	i = 0;
+	if (!s)
+		return (write (1, "(null)", 6));
+	while (s[i])
+		write (fd, &s[i++], 1);
+	return (i);
 }

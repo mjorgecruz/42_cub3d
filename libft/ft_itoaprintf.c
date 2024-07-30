@@ -1,29 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_itoaprintf.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 09:57:38 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/07/30 10:53:23 by luis-ffe         ###   ########.fr       */
+/*   Created: 2023/10/12 09:39:11 by luis-ffe          #+#    #+#             */
+/*   Updated: 2023/11/10 17:25:12 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-void	window_updater(t_data *cub)
+//used in ft_printf()
+
+char	*ft_itoa_pf(int n)
 {
-	mlx_destroy_image(cub->mlx_ptr, cub->img);
-	cub->img = mlx_new_image(cub->mlx_ptr, cub->img_w, cub->img_h);
-}
+	char			*s;
+	long int		size;
+	unsigned int	aux;
 
-int	main(int argc, char **argv)
-{
-	t_data	cub;
-
-	check_user_input(argc, argv[1]);
-	init_fields(&cub);
-	minimaper(&cub);
-	run_window(&cub);
+	size = countnbr_pf(n);
+	s = (char *)malloc(sizeof(char) * (size + 1));
+	if (!s)
+		return (0);
+	s[size--] = '\0';
+	if (n == 0)
+		s[0] = '0';
+	if (n < 0)
+	{
+		aux = n * -1;
+		s[0] = '-';
+	}
+	else
+		aux = n;
+	s = set_nbr_str_pf(aux, s, size);
+	return (s);
 }

@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 09:57:38 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/07/30 10:53:23 by luis-ffe         ###   ########.fr       */
+/*   Created: 2023/10/03 11:54:32 by luis-ffe          #+#    #+#             */
+/*   Updated: 2023/10/04 23:52:21 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-void	window_updater(t_data *cub)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	mlx_destroy_image(cub->mlx_ptr, cub->img);
-	cub->img = mlx_new_image(cub->mlx_ptr, cub->img_w, cub->img_h);
-}
+	unsigned char	*d;
+	unsigned char	*s;
 
-int	main(int argc, char **argv)
-{
-	t_data	cub;
-
-	check_user_input(argc, argv[1]);
-	init_fields(&cub);
-	minimaper(&cub);
-	run_window(&cub);
+	if (!dest && !src)
+		return (NULL);
+	d = (unsigned char *)dest;
+	s = (unsigned char *)src;
+	if (s < d && d < s + n)
+		while (n--)
+			d[n] = s[n];
+	else
+		while (n--)
+			*d++ = *s++;
+	return (dest);
 }

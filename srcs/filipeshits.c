@@ -1,14 +1,3 @@
-/******************************************************************************/
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 11:03:25 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/07/29 16:30:20 by masoares         ###   ########.fr       */
-/*                                                                            */
-/******************************************************************************/
 
 #include <unistd.h>
 #include <stdlib.h>
@@ -121,10 +110,10 @@ typedef struct s_data
 /*texture path saved here in fd. 
 if invalid what to do ? are they always present? if not what to do ?*/
     int cub_fd;
-    int no_fd;
-    int so_fd;
-    int we_fd;
-    int ea_fd;
+    char *no;
+    char *so;
+    char *we;
+    char *ea;
     int **map; 
 }   t_data;
 
@@ -279,44 +268,37 @@ int texture_id(char *str)
 }
 
 // negative return for errors
-int get_texture_fd(char *path)
+char *save_path(char *path)
 {
-    int fd;
+    char *ret;
     
     if (!path)
     {
         ft_error(PATHERR);
-        return (-1);
+        return (NULL);
     }
-    fd = open(path, O_RDONLY, 0);
-    if (is_fd_invalid(fd))
-    {    
-        ft_error(PATHERR);
-        return (-1);
-    }
-    return(fd);
+    ret = malloc(ft_strlen(path));
+    
+    return(ret);
 }
 
 //Negative return for errors
 //having the direction and the path we can fill in the values
 
-int validate_textures(t_data *data, char *path, int direction)
-{
-    int fd;
-
-    fd = get_texture_fd(path);
-    if (direction == North)
-    data->no_fd = fd;
-    if (direction == South)
-    data->so_fd = fd;
-    if (direction == West)
-    data->we_fd = fd;
-    if (direction == East)
-    data->ea_fd = fd;
-    else if (fd < 0)
-        return (-1);
-    return (0);
-}
+// int validate_textures(t_data *data, char *path, int direction)
+// {
+//     if (direction == North)
+//     data->no_fd = fd;
+//     if (direction == South)
+//     data->so_fd = fd;
+//     if (direction == West)
+//     data->we_fd = fd;
+//     if (direction == East)
+//     data->ea_fd = fd;
+//     else if (fd < 0)
+//         return (-1);
+//     return (0);
+// }
 
 //have to close the open ones in case any of them gets error
 

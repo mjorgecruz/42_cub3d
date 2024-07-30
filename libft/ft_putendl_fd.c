@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 09:57:38 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/07/30 10:53:23 by luis-ffe         ###   ########.fr       */
+/*   Created: 2023/10/06 07:38:39 by luis-ffe          #+#    #+#             */
+/*   Updated: 2023/10/08 11:56:25 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-void	window_updater(t_data *cub)
+void	ft_putendl_fd(char *s, int fd)
 {
-	mlx_destroy_image(cub->mlx_ptr, cub->img);
-	cub->img = mlx_new_image(cub->mlx_ptr, cub->img_w, cub->img_h);
-}
-
-int	main(int argc, char **argv)
-{
-	t_data	cub;
-
-	check_user_input(argc, argv[1]);
-	init_fields(&cub);
-	minimaper(&cub);
-	run_window(&cub);
+	if (!s)
+		return ;
+	ft_putstr_fd(s, fd);
+	write(fd, "\n", 1);
 }

@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 09:57:38 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/07/30 10:53:23 by luis-ffe         ###   ########.fr       */
+/*   Created: 2023/10/04 22:09:38 by luis-ffe          #+#    #+#             */
+/*   Updated: 2023/10/05 00:47:44 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-void	window_updater(t_data *cub)
+char	*ft_strnstr(const char *s1, const char *s2, size_t n)
 {
-	mlx_destroy_image(cub->mlx_ptr, cub->img);
-	cub->img = mlx_new_image(cub->mlx_ptr, cub->img_w, cub->img_h);
-}
+	size_t	len2;
 
-int	main(int argc, char **argv)
-{
-	t_data	cub;
-
-	check_user_input(argc, argv[1]);
-	init_fields(&cub);
-	minimaper(&cub);
-	run_window(&cub);
+	if (!*s2)
+		return ((char *)s1);
+	len2 = ft_strlen(s2);
+	while (*s1 && n >= len2)
+	{
+		if (*s1 == *s2 && ft_strncmp(s1, s2, len2) == 0)
+		{
+			return ((char *)s1);
+		}
+		s1++;
+		n--;
+	}
+	return (NULL);
 }

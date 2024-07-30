@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 09:57:38 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/07/30 10:53:23 by luis-ffe         ###   ########.fr       */
+/*   Created: 2023/10/06 07:32:28 by luis-ffe          #+#    #+#             */
+/*   Updated: 2023/10/08 15:45:05 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-void	window_updater(t_data *cub)
+char	*ft_strtrim(char const *s1, char const *set)
 {
-	mlx_destroy_image(cub->mlx_ptr, cub->img);
-	cub->img = mlx_new_image(cub->mlx_ptr, cub->img_w, cub->img_h);
-}
+	size_t	size;
+	size_t	i;
 
-int	main(int argc, char **argv)
-{
-	t_data	cub;
-
-	check_user_input(argc, argv[1]);
-	init_fields(&cub);
-	minimaper(&cub);
-	run_window(&cub);
+	i = 0;
+	size = ft_strlen(s1);
+	if (!s1 || !set)
+		return (NULL);
+	while (ft_strchr(set, s1[i]) && i < size)
+		i++;
+	if (i == size)
+		return (ft_strdup(""));
+	while (ft_strchr(set, s1[size - 1]) && size)
+		size--;
+	return (ft_substr(s1, i, (size - i)));
 }

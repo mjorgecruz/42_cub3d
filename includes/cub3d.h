@@ -13,6 +13,7 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include "../lib/mlx.h"
+# include "../libft/libft.h"
 
 # define WIN_W 1920
 # define WIN_H 1080
