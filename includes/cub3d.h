@@ -159,6 +159,9 @@ int	bresenham(t_data *img, double ang);
 
 int	max_finder(double varu, double varv);
 
+/*This function only serves while we do not have a map*/
+int minimaper_initial(t_data *cub);
+
 
 /* ************************************************************************** */
 /*                                ERRORS                                      */

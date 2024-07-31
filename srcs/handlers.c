@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:53:30 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/30 16:34:30 by masoares         ###   ########.fr       */
+/*   Updated: 2024/07/31 09:18:29 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -32,26 +32,21 @@ int	key_detect(int key, t_data *cub)
 void control_rot(t_data *cub, int dir)
 {
 	if (dir > 0)
-		cub->player->player_ang += DG_RAD;
+		cub->player->player_ang += DG_RAD*5;
 	else
-		(cub->player->player_ang) -= DG_RAD;
+		(cub->player->player_ang) -= DG_RAD*5;
 }
 
 void control_trans(t_data *cub, int dir)
 {
 	if (dir > 0)
 	{
-		cub->player->posX = cub->player->posX + cos(cub->player->player_ang);
-		printf("%f\n", cub->player->posX);
-		printf("%f\n", cos(cub->player->player_ang));
-		
-		
-		cub->player->posY = cub->player->posY + sin(cub->player->player_ang);
-		printf("%f\n", cub->player->posY);
+		cub->player->posX = cub->player->posX + cos(cub->player->player_ang)/10;	
+		cub->player->posY = cub->player->posY + sin(cub->player->player_ang)/10;
 	}	
 	else
 	{
-		cub->player->posX -= (sin(cub->player->player_ang) * 50);
-		cub->player->posY -= (cos(cub->player->player_ang) * 50);
+		cub->player->posX -= (cos(cub->player->player_ang)/10);
+		cub->player->posY -= (sin(cub->player->player_ang)/10);
 	}
 }

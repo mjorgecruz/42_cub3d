@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:32:31 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/30 16:38:08 by masoares         ###   ########.fr       */
+/*   Updated: 2024/07/31 09:17:19 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -28,34 +28,29 @@ void	render_point_player(t_data *img, double pos_x, double pos_y)
     int     color;
 
 	color = 0xFFFFFF;
-	pixel_put(img, (pos_x + 0.5) * 50, (pos_y + 0.5) * 50, color);
-	pixel_put(img, (pos_x + 0.5) * 50 + 1, (pos_y + 0.5) * 50, color);
-	pixel_put(img, (pos_x + 0.5) * 50 - 1, (pos_y + 0.5) * 50, color);
-	pixel_put(img, (pos_x + 0.5) * 50, (pos_y + 0.5) * 50 + 1, color);
-	pixel_put(img, (pos_x + 0.5) * 50, (pos_y + 0.5) * 50 - 1, color);
+	pixel_put(img, pos_x, pos_y, color);
+	pixel_put(img, pos_x + 1, pos_y, color);
+	pixel_put(img, pos_x - 1, pos_y , color);
+	pixel_put(img, pos_x, pos_y + 1, color);
+	pixel_put(img, pos_x, pos_y - 1, color);
 	
 	
 	
 }
 
-void	render_rect_wall(t_data *img, int pos_x, int pos_y)
+void	render_rect_wall(t_data *img, int pos_x, int pos_y, int scale)
 {
 	int		i;
 	int		j;
     int     color;
 
-	i = pos_x * 50;
-	j = pos_y * 50;
-	
-	// if (pos_x == 0 || pos_x == img->map_w - 1)
-	// {
-				
-	// }
+	i = pos_x * scale;
+	j = pos_y * scale;
 
-	while (i < pos_x * 50 + 49)
+	while (i < pos_x * scale + scale - 1)
 	{
-		j = pos_y * 50;
-		while (j < pos_y * 50 + 49)
+		j = pos_y * scale;
+		while (j < pos_y * scale + scale - 1)
 		{
 			color = 0x305060;
 			pixel_put(img, i, j, color);
@@ -65,18 +60,18 @@ void	render_rect_wall(t_data *img, int pos_x, int pos_y)
 	}
 }
 
-void	render_rect_ground(t_data *img, int pos_x, int pos_y)
+void	render_rect_ground(t_data *img, int pos_x, int pos_y, int scale)
 {
 	int		i;
 	int		j;
     int     color;
 
-	i = pos_x * 50;
-	j = pos_y * 50;
-	while (i < pos_x * 50 + 50)
+	i = pos_x * scale;
+	j = pos_y * scale;
+	while (i < pos_x * scale + scale)
 	{
-		j = pos_y * 50;
-		while (j < pos_y * 50 + 50)
+		j = pos_y * scale;
+		while (j < pos_y * scale + scale)
 		{
 			color = 0x000000;
 			pixel_put(img, i, j, color);
@@ -91,7 +86,44 @@ int minimaper(t_data *cub)
 	double		x;
 	double		y;
 	int 	map[4][4] = {{1, 1, 1, 1},{1, 0, 0, 1}, {1, 0, 'N', 1}, {1, 1, 1, 1}};
+	int		map_scale;
+
+	map_scale = 20;
 	
+	cub->map_h = 4;
+	cub->map_w = 4;
+	y = 0;
+	x = 0;
+	
+	while (y < cub->map_h)
+	{
+		x = 0;
+		while (x < cub->map_w)
+		{
+			if (map[(int) x][(int) y] == 1)
+				render_rect_wall(cub, x, y, map_scale);
+			else
+				render_rect_ground(cub, x, y, map_scale);
+			x++;
+		}
+		y++;
+	}
+	render_point_player(cub, x * map_scale, y * map_scale);
+	bresenham(cub, cub->player->player_ang);
+	bresenham(cub, cub->player->player_ang + (cub->player->fov / 2));
+	bresenham(cub, cub->player->player_ang - (cub->player->fov / 2));
+	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
+	return (1);
+}
+
+int minimaper_initial(t_data *cub)
+{
+	double		x;
+	double		y;
+	int 	map[4][4] = {{1, 1, 1, 1},{1, 0, 0, 1}, {1, 0, 'N', 1}, {1, 1, 1, 1}};
+	int		map_scale;
+
+	map_scale = 20;
 	cub->map_h = 4;
 	cub->map_w = 4;
 	y = 0;
@@ -103,12 +135,12 @@ int minimaper(t_data *cub)
 		while (x < 4)
 		{
 			if (map[(int) x][(int) y] == 1)
-				render_rect_wall(cub, x, y);
+				render_rect_wall(cub, x, y, map_scale);
 			else if (map[(int) x][(int) y] == 0)
-				render_rect_ground(cub, x, y);
+				render_rect_ground(cub, x, y, map_scale);
 			else
 			{
-				render_rect_ground(cub, x, y);
+				render_rect_ground(cub, x, y, map_scale);
 				render_point_player(cub, x, y);
 				cub->player->posX = x + 0.5;
 				cub->player->posY = y + 0.5;
@@ -117,7 +149,7 @@ int minimaper(t_data *cub)
 		}
 		y++;
 	}
-	render_point_player(cub, x, y);
+	render_point_player(cub, x * map_scale, y * map_scale);
 	bresenham(cub, cub->player->player_ang);
 	bresenham(cub, cub->player->player_ang + (cub->player->fov / 2));
 	bresenham(cub, cub->player->player_ang - (cub->player->fov / 2));
@@ -130,7 +162,7 @@ int	bresenham(t_data *img, double ang)
 	double	varu;
 	double	varv;
 	int		max;
-	int		map_scale = 50;
+	int		map_scale = 10;
 	
 	double u;
 	double v;
