@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:43:00 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/31 11:48:12 by masoares         ###   ########.fr       */
+/*   Updated: 2024/07/31 11:55:09 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -36,7 +36,6 @@ void render(t_data *cub)
 
 		double sideDistX; //distance to the next edge in x
     	double sideDistY; //distance to the next edge in y
-
 		double deltaDistX; //distance to progress one unit in x
       	double deltaDistY; //distance to progress one unit in y
 		
@@ -92,7 +91,7 @@ void render(t_data *cub)
         	//Check if ray has hit a wall
         	if (map[mapX][mapY] > 0)
 				hit = 1;
-      }
+    	}
 		if(side == 0)
 			perpWallDist = (sideDistX - deltaDistX);
     	else
