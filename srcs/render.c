@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:43:00 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/31 09:21:41 by masoares         ###   ########.fr       */
+/*   Updated: 2024/07/31 10:23:35 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -75,6 +75,9 @@ void render(t_data *cub)
     	    stepY = 1;
     	    sideDistY = (mapY + 1.0 - cub->player->posY) * deltaDistY;
 		}
+		while (hit == 0)
+		{
+		
 	}
 	minimaper(cub);
 }
