@@ -157,6 +157,8 @@ int minimaper(t_data *cub);
 
 int	bresenham(t_data *img, double ang);
 
+int	bresenham_wall(t_data *img, double x, double x1, double y, double y1);
+
 int	max_finder(double varu, double varv);
 
 /*This function only serves while we do not have a map*/

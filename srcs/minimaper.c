@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:32:31 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/31 09:17:19 by masoares         ###   ########.fr       */
+/*   Updated: 2024/07/31 11:36:12 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -112,6 +112,7 @@ int minimaper(t_data *cub)
 	bresenham(cub, cub->player->player_ang);
 	bresenham(cub, cub->player->player_ang + (cub->player->fov / 2));
 	bresenham(cub, cub->player->player_ang - (cub->player->fov / 2));
+	mlx_destroy_image(cub->mlx_ptr, cub->img);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
 	return (1);
 }
@@ -186,6 +187,27 @@ int	bresenham(t_data *img, double ang)
 		u += varu;
 		v += varv;
 		i++;
+	}
+	return (1);
+}
+
+int	bresenham_wall(t_data *img, double x, double x1, double y, double y1)
+{
+	double	varu;
+	double	varv;
+	int		max;
+	
+	varu = x1 - x;
+	varv = y1 - y;
+	max = max_finder(varu, varv);
+	varu /= max;
+	varv /= max;
+	
+	while (((int)(x - x1) || (int)(y - y1)))
+	{
+		pixel_put(img, (int) x, (int) y, 0xFFFFFF);
+		x += varu;
+		y += varv;
 	}
 	return (1);
 }
