@@ -109,6 +109,8 @@ void	check_user_input(int ac, char *av, t_data *cub);
 
 int		ft_strcmp(char *s1, char *s2);
 
+void	window_updater(t_data *cub);
+
 /* ************************************************************************** */
 /*                             INIT_WINDOWS                                   */
 /* ************************************************************************** */

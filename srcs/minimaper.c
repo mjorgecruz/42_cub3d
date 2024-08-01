@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:32:31 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/01 13:58:18 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:30:00 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -94,7 +94,8 @@ int minimaper(t_data *cub)
 	cub->map_w = 4;
 	y = 0;
 	x = 0;
-
+	mlx_destroy_image(cub->mlx_ptr, cub->img);
+	cub->img = mlx_new_image(cub->mlx_ptr, cub->img_w, cub->img_h);
 	while (y < cub->map_h)
 	{
 		x = 0;
@@ -108,16 +109,27 @@ int minimaper(t_data *cub)
 		}
 		y++;
 	}
-	printf("AQUI %i, %i", (int) (cub->player->posX * map_scale), (int) (cub->player->posY * map_scale));
-	render_point_player(cub, (int) (x * map_scale), (int) (y * map_scale));
-	//bresenham(cub, cub->player->player_ang);
-	//int ang = (cub->player->fov / 2);
-	// while (ang <= cub->player->fov / 2)
-	// {
-	// 	bresenham(cub, cub->player->player_ang + (ang));
-	// 	ang++;
-	// }	
-	mlx_destroy_image(cub->mlx_ptr, cub->img);
+	render_point_player(cub, (int) (cub->player->posX * map_scale), (int) (cub->player->posY * map_scale));	
+	bresenham(cub, cub->player->player_ang);
+	double ang = (-cub->player->fov / 2);
+	while (ang <= cub->player->fov / 2)
+	{
+		
+		double sideDistX; //distance to the next edge in x
+    	double sideDistY; //distance to the next edge in y
+		double deltaDistX; //distance to progress one unit in x
+    	double deltaDistY; //distance to progress one unit in y
+	
+		double rayDirX = cub->player->dirX + ang;
+    	double rayDirY = cub->player->dirY + ang;
+
+		
+
+
+
+		bresenham(cub, cub->player->player_ang + (ang));
+		ang+=0.05;
+	}	
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
 	return (1);
 }
@@ -157,13 +169,17 @@ int minimaper_initial(t_data *cub)
 	}
 	render_point_player(cub, cub->player->posX * map_scale, cub->player->posY * map_scale);
 	bresenham(cub, cub->player->player_ang);
-	bresenham(cub, cub->player->player_ang + (cub->player->fov / 2));
-	bresenham(cub, cub->player->player_ang - (cub->player->fov / 2));
+	double ang = (-cub->player->fov / 2);
+	while (ang <= cub->player->fov / 2)
+	{
+		bresenham(cub, cub->player->player_ang + (ang));
+		ang+=0.05;
+	}	
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
 	return (1);
 }
 
-int	bresenham(t_data *img, double ang)
+int	bresenham(t_data *img, double ang, double u1, double v1)
 {
 	double	varu;
 	double	varv;
@@ -172,13 +188,11 @@ int	bresenham(t_data *img, double ang)
 	
 	double u;
 	double v;
-	double u1;
-	double v1;
 	
 	u = img->player->posX * map_scale;
 	v = img->player->posY * map_scale;
-	u1 = u + 1*(cos(ang) * map_scale);
-	v1 = v + 1*(sin(ang) * map_scale);
+	u1 = ;
+	v1 = ;
 	varu = u1 - u;
 	varv = v1 - v;
 	max = max_finder(varu, varv);
