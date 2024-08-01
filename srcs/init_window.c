@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   init_window.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/01 11:58:45 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/01 12:20:54 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
@@ -43,7 +43,7 @@ t_player *init_player(t_data *cub)
 	t_player *player = (t_player *) malloc(sizeof(t_player) * 1);
 	if (player == NULL)
 		ft_error(PLAYER, cub);
-	init_map(cub);
+	//init_map(cub);
 	init_orientation(player, cub->player_init_ori);
 	init_position(player, cub->map);
 	//init_camera(cub);
@@ -81,14 +81,15 @@ void init_camera(t_data *cub)
 	(cub->player->cam) = cam;
 }
 
-void init_map(cub)
-{
+// void init_map(cub)
+// {
 	
-	int ** map;
-	int * line;
+// 	int ** map;
+// 	int * line;
 
 	
-}
+// }
+
 void init_textures_to_null(t_data *cub)
 {
 	cub->north = NULL;

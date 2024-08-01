@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:23:03 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/01 11:51:50 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/01 12:22:36 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ void save_path(char *line, t_data *cub, int id)
 
 void save_rgb(char *line, t_data *cub, int id)
 {
-    int i;
+    //int i;
 
-    i = jump_whitepaces(line);
+    //i = jump_whitepaces(line);
     fill_counter(cub, id);
-    
+    (void) line;
     //pegar nos valores e separar por espacos e virgulas
     //guardars os na estrutura
     
