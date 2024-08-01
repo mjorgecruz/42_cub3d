@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/01 12:20:54 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/01 12:32:17 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,5 @@ void init_textures_to_null(t_data *cub)
 	cub->south = NULL;
 	cub->west = NULL;
 	cub->east = NULL;
+	cub->in_map = false;
 }

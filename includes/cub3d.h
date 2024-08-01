@@ -55,6 +55,8 @@ typedef struct s_data
     char *south;
     char *west;
     char *east;
+    bool in_map;
+
     /*header done End  */
 
 	int		map_w;
@@ -192,12 +194,19 @@ int minimaper_initial(t_data *cub);
 /* ************************************************************************** */
 
 /**/
+bool is_empty_line(char *str);
+bool is_valid_element(int c);
+bool has_reached_map(char *line, t_data *cub);
+//void    build_map(t_data *cub, char *line);
+void get_map_size(t_data *cub, char *filename);
+
 void check_duplicates(t_data *cub, int id);
 void fill_counter(t_data *cub, int id);
 void save_path(char *line, t_data *cub, int id);
 void save_rgb(char *line, t_data *cub, int id);
 void get_scenic_id(char *str, t_data *cub);
 void read_mapfile(t_data *cub, char *filename);
+
 
 /* ************************************************************************** */
 /*                            FILEREADER UTILS                                */

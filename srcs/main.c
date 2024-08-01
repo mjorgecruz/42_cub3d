@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 09:57:38 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/01 12:19:13 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/01 15:48:12 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,37 @@ void	window_updater(t_data *cub)
 	cub->img = mlx_new_image(cub->mlx_ptr, cub->img_w, cub->img_h);
 }
 
+void tester_print(t_data *cub)
+{
+	ft_printf("MAP H: [%i]\n", cub->map_h);
+	ft_printf("MAP W: [%i]\n", cub->map_w);
+	ft_printf("MAP SCENICS: [%i] [%i] [%i] [%i] [%i] [%i]\n", cub->count[0], cub->count[1], cub->count[2], cub->count[3], cub->count[4], cub->count[5]);
+	ft_printf("PATH NO: [%s]\n", cub->north);
+	ft_printf("PATH SO: [%s]\n", cub->south);
+	ft_printf("PATH WE: [%s]\n", cub->west);
+	ft_printf("PATH EA: [%s]\n", cub->east);
+}
+
+
 int	main(int argc, char **argv)
 {
 	t_data	cub;
-	ft_printf("[0]\n");
 
 	check_user_input(argc, argv[1], &cub);
-	/*testing GNL */
 	
-	ft_printf("[1]\n");
+	cub.map_h = 0;
+	cub.map_w = 0;
+	cub.count[0] = 0;
+	cub.count[1] = 0;
+	cub.count[2] = 0;
+	cub.count[3] = 0;
+	cub.count[4] = 0;
+	cub.count[5] = 0;
+	cub.in_map = false;                //initialize this as false please
+	
+	//get_map_size(&cub, argv[1]);
 	read_mapfile(&cub, argv[1]);
-	ft_printf("[2]\n");
-	
-	/*coment this up here if you need */	
+	tester_print(&cub);
 	// init_fields(&cub);
 	// run_window(&cub);
 }
