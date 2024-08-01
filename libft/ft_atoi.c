@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freeing.c                                          :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 14:07:04 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/30 12:07:39 by luis-ffe         ###   ########.fr       */
+/*   Created: 2023/09/03 16:20:25 by luis-ffe          #+#    #+#             */
+/*   Updated: 2023/10/04 21:33:19 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-void	general_free(t_data *cub)
+int	ft_atoi(const char *str)
 {
-	int	k;
+	int	i;
+	int	j;
+	int	sign;
 
-	k = 0;
-	while (k < cub->map_h)
+	i = 0;
+	j = 0;
+	sign = 1;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+		i++;
+	if (str[i] == 43 || str[i] == 45)
 	{
-		free(cub->map[k]);
-		k++;
+		if (str[i] == 45)
+			sign *= -1;
+		i++;
 	}
-	free(cub->map);
-	// free(cub->south);
-	// free(cub->north);
-	// free(cub->west);
-	// free(cub->east);
-	ft_printf("\n -- GENERAL FREED -- \n");
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		j *= 10;
+		j += str[i++] - '0';
+	}
+	return (j * sign);
 }

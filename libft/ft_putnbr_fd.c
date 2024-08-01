@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freeing.c                                          :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 14:07:04 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/30 12:07:39 by luis-ffe         ###   ########.fr       */
+/*   Created: 2023/10/06 07:39:36 by luis-ffe          #+#    #+#             */
+/*   Updated: 2023/10/06 22:09:03 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-void	general_free(t_data *cub)
+void	ft_putnbr_fd(int n, int fd)
 {
-	int	k;
-
-	k = 0;
-	while (k < cub->map_h)
+	if (n == -2147483648)
 	{
-		free(cub->map[k]);
-		k++;
+		ft_putstr_fd("-2147483648", fd);
+		return ;
 	}
-	free(cub->map);
-	// free(cub->south);
-	// free(cub->north);
-	// free(cub->west);
-	// free(cub->east);
-	ft_printf("\n -- GENERAL FREED -- \n");
+	if (n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		n *= -1;
+	}
+	if (n > 9)
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd(n % 10, fd);
+	}
+	else
+		ft_putchar_fd(n + '0', fd);
 }

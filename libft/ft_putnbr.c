@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freeing.c                                          :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 14:07:04 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/30 12:07:39 by luis-ffe         ###   ########.fr       */
+/*   Created: 2023/10/12 10:56:20 by luis-ffe          #+#    #+#             */
+/*   Updated: 2023/11/10 17:31:26 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-void	general_free(t_data *cub)
+//used in ft_printf()
+
+int	ft_putnbr_fd_pf(int n, int fd)
 {
-	int	k;
+	char	*s;
+	int		x;
 
-	k = 0;
-	while (k < cub->map_h)
-	{
-		free(cub->map[k]);
-		k++;
-	}
-	free(cub->map);
-	// free(cub->south);
-	// free(cub->north);
-	// free(cub->west);
-	// free(cub->east);
-	ft_printf("\n -- GENERAL FREED -- \n");
+	x = 0;
+	s = ft_itoa_pf(n);
+	x = ft_putstr_fd_pf(s, fd);
+	free(s);
+	return (x);
 }

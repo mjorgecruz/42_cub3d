@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freeing.c                                          :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 14:07:04 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/30 12:07:39 by luis-ffe         ###   ########.fr       */
+/*   Created: 2023/10/08 18:42:30 by luis-ffe          #+#    #+#             */
+/*   Updated: 2023/10/08 18:43:53 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-void	general_free(t_data *cub)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	int	k;
-
-	k = 0;
-	while (k < cub->map_h)
+	if (!lst && !f)
+		return ;
+	while (lst)
 	{
-		free(cub->map[k]);
-		k++;
+		f(lst->content);
+		lst = lst->next;
 	}
-	free(cub->map);
-	// free(cub->south);
-	// free(cub->north);
-	// free(cub->west);
-	// free(cub->east);
-	ft_printf("\n -- GENERAL FREED -- \n");
 }

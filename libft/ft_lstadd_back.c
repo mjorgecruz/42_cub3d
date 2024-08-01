@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freeing.c                                          :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 14:07:04 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/30 12:07:39 by luis-ffe         ###   ########.fr       */
+/*   Created: 2023/10/08 18:21:30 by luis-ffe          #+#    #+#             */
+/*   Updated: 2023/11/08 14:09:56 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-void	general_free(t_data *cub)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	int	k;
-
-	k = 0;
-	while (k < cub->map_h)
+	if (lst)
 	{
-		free(cub->map[k]);
-		k++;
+		if (*lst)
+			ft_lstlast(*lst)->next = new;
+		else
+			*lst = new;
 	}
-	free(cub->map);
-	// free(cub->south);
-	// free(cub->north);
-	// free(cub->west);
-	// free(cub->east);
-	ft_printf("\n -- GENERAL FREED -- \n");
 }

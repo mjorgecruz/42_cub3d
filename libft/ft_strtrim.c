@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freeing.c                                          :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 14:07:04 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/30 12:07:39 by luis-ffe         ###   ########.fr       */
+/*   Created: 2023/10/06 07:32:28 by luis-ffe          #+#    #+#             */
+/*   Updated: 2023/10/08 15:45:05 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-void	general_free(t_data *cub)
+char	*ft_strtrim(char const *s1, char const *set)
 {
-	int	k;
+	size_t	size;
+	size_t	i;
 
-	k = 0;
-	while (k < cub->map_h)
-	{
-		free(cub->map[k]);
-		k++;
-	}
-	free(cub->map);
-	// free(cub->south);
-	// free(cub->north);
-	// free(cub->west);
-	// free(cub->east);
-	ft_printf("\n -- GENERAL FREED -- \n");
+	i = 0;
+	size = ft_strlen(s1);
+	if (!s1 || !set)
+		return (NULL);
+	while (ft_strchr(set, s1[i]) && i < size)
+		i++;
+	if (i == size)
+		return (ft_strdup(""));
+	while (ft_strchr(set, s1[size - 1]) && size)
+		size--;
+	return (ft_substr(s1, i, (size - i)));
 }

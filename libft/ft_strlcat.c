@@ -1,31 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freeing.c                                          :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 14:07:04 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/30 12:07:39 by luis-ffe         ###   ########.fr       */
+/*   Created: 2023/10/03 15:34:54 by luis-ffe          #+#    #+#             */
+/*   Updated: 2023/10/04 23:35:22 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-void	general_free(t_data *cub)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	int	k;
+	size_t	i;
+	size_t	j;
+	char	*srcptr;
 
-	k = 0;
-	while (k < cub->map_h)
+	srcptr = (char *)src;
+	i = 0;
+	while (i < size && *dst)
 	{
-		free(cub->map[k]);
-		k++;
+		dst++;
+		i++;
 	}
-	free(cub->map);
-	// free(cub->south);
-	// free(cub->north);
-	// free(cub->west);
-	// free(cub->east);
-	ft_printf("\n -- GENERAL FREED -- \n");
+	if (i == size)
+		return (i + ft_strlen(src));
+	j = 0;
+	while (srcptr[j])
+	{
+		if (j < size - i - 1)
+		{
+			*dst = srcptr[j];
+			dst++;
+		}
+		j++;
+	}
+	*dst = 0;
+	return (j + i);
 }

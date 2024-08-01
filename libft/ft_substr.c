@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freeing.c                                          :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 14:07:04 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/30 12:07:39 by luis-ffe         ###   ########.fr       */
+/*   Created: 2023/10/05 20:35:25 by luis-ffe          #+#    #+#             */
+/*   Updated: 2023/10/05 22:56:41 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-void	general_free(t_data *cub)
+char	*ft_substr(char const *s, unsigned int start, size_t n)
 {
-	int	k;
+	char	*sub;
+	size_t	size;
 
-	k = 0;
-	while (k < cub->map_h)
-	{
-		free(cub->map[k]);
-		k++;
-	}
-	free(cub->map);
-	// free(cub->south);
-	// free(cub->north);
-	// free(cub->west);
-	// free(cub->east);
-	ft_printf("\n -- GENERAL FREED -- \n");
+	if (!s)
+		return (NULL);
+	size = ft_strlen(s);
+	if (start >= size)
+		return (ft_strdup(""));
+	size = ft_strlen(s + start);
+	if (size < n)
+		n = size;
+	sub = (char *)malloc(sizeof(char) * (n + 1));
+	if (!sub)
+		return (NULL);
+	ft_strlcpy(sub, s + start, (n + 1));
+	return (sub);
 }

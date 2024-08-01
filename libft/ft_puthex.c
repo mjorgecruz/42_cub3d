@@ -1,31 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freeing.c                                          :+:      :+:    :+:   */
+/*   ft_puthex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 14:07:04 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/30 12:07:39 by luis-ffe         ###   ########.fr       */
+/*   Created: 2023/10/12 09:13:39 by luis-ffe          #+#    #+#             */
+/*   Updated: 2023/11/10 18:38:45 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-void	general_free(t_data *cub)
+int	ft_puthex_pf(unsigned int num, int fd, int j)
 {
-	int	k;
+	int				x;
+	unsigned int	n;
 
-	k = 0;
-	while (k < cub->map_h)
+	x = 0;
+	n = num;
+	if (num == 0)
+		return (write (fd, "0", 1));
+	if (num < 16)
 	{
-		free(cub->map[k]);
-		k++;
+		if (j == 1)
+			write (fd, &"0123456789abcdef"[num], 1);
+		else
+			write (fd, &"0123456789ABCDEF"[num], 1);
 	}
-	free(cub->map);
-	// free(cub->south);
-	// free(cub->north);
-	// free(cub->west);
-	// free(cub->east);
-	ft_printf("\n -- GENERAL FREED -- \n");
+	else
+	{
+		ft_puthex_pf(num / 16, fd, j);
+		ft_puthex_pf(num % 16, fd, j);
+	}
+	while (n)
+	{
+		n /= 16;
+		x++;
+	}
+	return (x);
 }

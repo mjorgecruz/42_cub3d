@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freeing.c                                          :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 14:07:04 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/30 12:07:39 by luis-ffe         ###   ########.fr       */
+/*   Created: 2023/10/12 09:35:58 by luis-ffe          #+#    #+#             */
+/*   Updated: 2023/11/10 18:28:05 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-void	general_free(t_data *cub)
+//used in ft_printf()
+
+int	ft_putstr_fd_pf(char *s, int fd)
 {
-	int	k;
+	int	i;
 
-	k = 0;
-	while (k < cub->map_h)
-	{
-		free(cub->map[k]);
-		k++;
-	}
-	free(cub->map);
-	// free(cub->south);
-	// free(cub->north);
-	// free(cub->west);
-	// free(cub->east);
-	ft_printf("\n -- GENERAL FREED -- \n");
+	i = 0;
+	if (!s)
+		return (write (1, "(null)", 6));
+	while (s[i])
+		write (fd, &s[i++], 1);
+	return (i);
 }

@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freeing.c                                          :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 14:07:04 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/30 12:07:39 by luis-ffe         ###   ########.fr       */
+/*   Created: 2023/10/04 22:09:15 by luis-ffe          #+#    #+#             */
+/*   Updated: 2023/10/08 12:18:27 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-void	general_free(t_data *cub)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	int	k;
+	unsigned char	*s1;
+	unsigned char	ci;
 
-	k = 0;
-	while (k < cub->map_h)
+	s1 = (unsigned char *)s;
+	ci = (unsigned char)c;
+	while (n--)
 	{
-		free(cub->map[k]);
-		k++;
+		if (*s1 == ci)
+			return ((void *)s1);
+		s1++;
 	}
-	free(cub->map);
-	// free(cub->south);
-	// free(cub->north);
-	// free(cub->west);
-	// free(cub->east);
-	ft_printf("\n -- GENERAL FREED -- \n");
+	return (NULL);
 }
+//	if (!n)
+//		return (NULL); this was before the while loop

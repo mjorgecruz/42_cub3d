@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freeing.c                                          :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 14:07:04 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/30 12:07:39 by luis-ffe         ###   ########.fr       */
+/*   Created: 2023/10/06 07:34:16 by luis-ffe          #+#    #+#             */
+/*   Updated: 2023/10/08 15:32:38 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-void	general_free(t_data *cub)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int	k;
+	char	*new;
+	int		i;
 
-	k = 0;
-	while (k < cub->map_h)
+	if (!s)
+		return (NULL);
+	new = (char *)malloc(ft_strlen(s) + 1);
+	if (!new)
+		return (NULL);
+	i = 0;
+	while (s[i])
 	{
-		free(cub->map[k]);
-		k++;
+		new[i] = f(i, s[i]);
+		i++;
 	}
-	free(cub->map);
-	// free(cub->south);
-	// free(cub->north);
-	// free(cub->west);
-	// free(cub->east);
-	ft_printf("\n -- GENERAL FREED -- \n");
+	new[i] = 0;
+	return (new);
 }

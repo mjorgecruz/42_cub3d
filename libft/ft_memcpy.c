@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freeing.c                                          :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 14:07:04 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/30 12:07:39 by luis-ffe         ###   ########.fr       */
+/*   Created: 2023/10/03 11:48:48 by luis-ffe          #+#    #+#             */
+/*   Updated: 2023/10/05 20:13:23 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-void	general_free(t_data *cub)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	int	k;
+	unsigned char	*s;
+	unsigned char	*d;
 
-	k = 0;
-	while (k < cub->map_h)
+	s = (unsigned char *)src;
+	d = (unsigned char *)dest;
+	if (!src && !dest)
+		return (dest);
+	while (n--)
 	{
-		free(cub->map[k]);
-		k++;
+		*d++ = *s++;
 	}
-	free(cub->map);
-	// free(cub->south);
-	// free(cub->north);
-	// free(cub->west);
-	// free(cub->east);
-	ft_printf("\n -- GENERAL FREED -- \n");
+	return (dest);
 }

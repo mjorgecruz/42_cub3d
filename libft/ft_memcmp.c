@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freeing.c                                          :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 14:07:04 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/30 12:07:39 by luis-ffe         ###   ########.fr       */
+/*   Created: 2023/10/04 22:10:02 by luis-ffe          #+#    #+#             */
+/*   Updated: 2023/10/05 20:18:37 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-void	general_free(t_data *cub)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	int	k;
+	unsigned char	*st1;
+	unsigned char	*st2;
 
-	k = 0;
-	while (k < cub->map_h)
+	st1 = (unsigned char *)s1;
+	st2 = (unsigned char *)s2;
+	if (!n)
+		return (0);
+	while (n)
 	{
-		free(cub->map[k]);
-		k++;
+		if (*st1 != *st2)
+			return ((*st1 - *st2));
+		st1++;
+		st2++;
+		n--;
 	}
-	free(cub->map);
-	// free(cub->south);
-	// free(cub->north);
-	// free(cub->west);
-	// free(cub->east);
-	ft_printf("\n -- GENERAL FREED -- \n");
+	return (0);
 }

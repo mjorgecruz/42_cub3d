@@ -1,31 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freeing.c                                          :+:      :+:    :+:   */
+/*   ft_itoaprintf.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 14:07:04 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/30 12:07:39 by luis-ffe         ###   ########.fr       */
+/*   Created: 2023/10/12 09:39:11 by luis-ffe          #+#    #+#             */
+/*   Updated: 2023/11/10 17:25:12 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-void	general_free(t_data *cub)
+//used in ft_printf()
+
+char	*ft_itoa_pf(int n)
 {
-	int	k;
+	char			*s;
+	long int		size;
+	unsigned int	aux;
 
-	k = 0;
-	while (k < cub->map_h)
+	size = countnbr_pf(n);
+	s = (char *)malloc(sizeof(char) * (size + 1));
+	if (!s)
+		return (0);
+	s[size--] = '\0';
+	if (n == 0)
+		s[0] = '0';
+	if (n < 0)
 	{
-		free(cub->map[k]);
-		k++;
+		aux = n * -1;
+		s[0] = '-';
 	}
-	free(cub->map);
-	// free(cub->south);
-	// free(cub->north);
-	// free(cub->west);
-	// free(cub->east);
-	ft_printf("\n -- GENERAL FREED -- \n");
+	else
+		aux = n;
+	s = set_nbr_str_pf(aux, s, size);
+	return (s);
 }

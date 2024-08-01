@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/01 11:49:14 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/01 11:58:45 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -14,6 +14,7 @@
 
 int	init_fields(t_data *cub)
 {
+	init_textures_to_null(cub); //check it
 	cub->mlx_ptr = mlx_init();
 	if (cub->mlx_ptr == NULL)
 		return (-1);
@@ -87,4 +88,11 @@ void init_map(cub)
 	int * line;
 
 	
+}
+void init_textures_to_null(t_data *cub)
+{
+	cub->north = NULL;
+	cub->south = NULL;
+	cub->west = NULL;
+	cub->east = NULL;
 }

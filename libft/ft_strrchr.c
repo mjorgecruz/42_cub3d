@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freeing.c                                          :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 14:07:04 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/30 12:07:39 by luis-ffe         ###   ########.fr       */
+/*   Created: 2023/10/04 22:07:20 by luis-ffe          #+#    #+#             */
+/*   Updated: 2023/10/08 15:07:48 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-void	general_free(t_data *cub)
+char	*ft_strrchr(const char *s, int c)
 {
-	int	k;
+	const char	*p;
 
-	k = 0;
-	while (k < cub->map_h)
+	p = 0;
+	while (*s)
 	{
-		free(cub->map[k]);
-		k++;
+		if ((char)c == *s)
+			p = s;
+		s++;
 	}
-	free(cub->map);
-	// free(cub->south);
-	// free(cub->north);
-	// free(cub->west);
-	// free(cub->east);
-	ft_printf("\n -- GENERAL FREED -- \n");
+	if ((char)c == 0 && (char)c == *s)
+		return ((char *)s);
+	return ((char *)p);
 }

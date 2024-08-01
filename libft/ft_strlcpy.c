@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freeing.c                                          :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 14:07:04 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/30 12:07:39 by luis-ffe         ###   ########.fr       */
+/*   Created: 2023/10/03 15:34:29 by luis-ffe          #+#    #+#             */
+/*   Updated: 2023/10/03 15:34:29 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-void	general_free(t_data *cub)
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	int	k;
+	size_t	i;
 
-	k = 0;
-	while (k < cub->map_h)
+	if (!size)
+		return (ft_strlen(src));
+	i = 0;
+	while (src[i] && (i < size - 1))
 	{
-		free(cub->map[k]);
-		k++;
+		dest[i] = src[i];
+		i++;
 	}
-	free(cub->map);
-	// free(cub->south);
-	// free(cub->north);
-	// free(cub->west);
-	// free(cub->east);
-	ft_printf("\n -- GENERAL FREED -- \n");
+	dest[i] = 0;
+	return (ft_strlen(src));
 }

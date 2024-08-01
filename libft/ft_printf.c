@@ -1,31 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freeing.c                                          :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 14:07:04 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/30 12:07:39 by luis-ffe         ###   ########.fr       */
+/*   Created: 2023/10/10 20:04:02 by luis-ffe          #+#    #+#             */
+/*   Updated: 2023/11/10 18:36:00 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-void	general_free(t_data *cub)
+//used in ft_printf()
+
+int	ft_printf(const char *input, ...)
 {
-	int	k;
+	int		i;
+	va_list	list;
 
-	k = 0;
-	while (k < cub->map_h)
+	va_start(list, input);
+	i = 0;
+	while (*input)
 	{
-		free(cub->map[k]);
-		k++;
+		if (*input == '%')
+		{
+			input++;
+			if (*input != '%' && *input)
+			{
+				i += ft_typefinder_pf(*input, list);
+			}
+			else
+				i += ft_putchar_fd_pf(*input, 1);
+		}
+		else
+			i += ft_putchar_fd_pf(*input, 1);
+		input++;
 	}
-	free(cub->map);
-	// free(cub->south);
-	// free(cub->north);
-	// free(cub->west);
-	// free(cub->east);
-	ft_printf("\n -- GENERAL FREED -- \n");
+	va_end(list);
+	return (i);
 }

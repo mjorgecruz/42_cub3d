@@ -11,6 +11,10 @@ NAME = cub3d
 CFLAGS = -Wall -Werror -Wextra -g
 
 LIBMLX_DIR = lib/
+LIBMLX = $(addprefix $(LIBMLX_DIR), libmlx.a)
+
+LIBFT_DIR = libft/
+LIBFT = $(addprefix $(LIBFT_DIR), libft.a)
 
 VGFLAGS = valgrind --leak-check=full --suppressions=sup --track-origins=yes --show-leak-kinds=all --log-file=leaks.log -s
 
@@ -21,11 +25,11 @@ ODIR:=obj
 
 SRC := closing.c freeing.c handlers.c init_window.c \
 		main.c main_utils.c minimaper.c raycaster.c \
-		errors.c render.c
+		errors.c render.c fileread.c fileread_utils.c \
 
 OBJ := $(patsubst %.c, $(ODIR)/%.o,$(SRC))
 
-LIBFLAGS = -I$(LIBMLX_DIR) -L$(LIBMLX_DIR) -lmlx -lX11 -lXext -lm
+LIBFLAGS = $(LIBFT) -I$(LIBMLX_DIR) -L$(LIBMLX_DIR) -lmlx -lX11 -lXext -lm
 
 CC = cc
 
@@ -36,7 +40,7 @@ COMPILED_FILES := $(shell if [ -d "$(ODIR)" ]; then find $(ODIR) -name "*.o" | w
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(LIBFT) $(LIBMLX)
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBFLAGS) -o $(NAME)
 	@printf "$(BOLD_GREEN)...cub3d in the making: $$(echo "$(shell find $(ODIR) -name "*.o" | wc -l) $(TOTAL_FILES)" | awk '{printf "%.2f", $$1/$$2 * 100}')%%$(RES)\r"
 	@printf "\n"
@@ -54,11 +58,21 @@ $(ODIR)/%.o: $(INCDIR)/%.c
 	@printf "$(BOLD_GREEN)...cub3d in the making: $$(echo "$(shell find $(ODIR) -name "*.o" | wc -l) $(TOTAL_FILES)" | awk '{printf "%.2f", $$1/$$2 * 100}')%%$(RES)\r"
 	@$(CC) $(CFLAGS) -c -o $@ $<
 
+$(LIBFT):
+	@make -C $(LIBFT_DIR)
+	@echo "${BOLD_GREEN}LIBFT BUILT${END}"
+
+$(LIBMLX):
+	@make -C $(LIBMLX_DIR)
+	@echo "${GREEN}LIBMLX BUILT${END}"
+
 fclean: clean
 	@$(RM) $(NAME)
+#	@make clean -C $(LIBMLX_DIR)
 
 clean:
 	@$(RM) $(OBJ)
+	@make fclean -C $(LIBFT_DIR)
 	@echo "${RED}cub3d is no more...${END}"
 
 re: fclean all
