@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/cub3d",
-            "args": [],
+            "args": ["pip.cub"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

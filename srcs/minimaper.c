@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:32:31 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/01 11:46:42 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/01 13:58:18 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -28,11 +28,11 @@ void	render_point_player(t_data *img, double pos_x, double pos_y)
     int     color;
 
 	color = 0xFFFFFF;
-	pixel_put(img, pos_x, pos_y, color);
-	pixel_put(img, pos_x + 1, pos_y, color);
-	pixel_put(img, pos_x - 1, pos_y , color);
-	pixel_put(img, pos_x, pos_y + 1, color);
-	pixel_put(img, pos_x, pos_y - 1, color);
+	pixel_put(img, (int) pos_x, (int) pos_y, color);
+	pixel_put(img, (int) pos_x + 1, (int)pos_y, color);
+	pixel_put(img, (int) pos_x - 1, (int) pos_y , color);
+	pixel_put(img, (int) pos_x, (int) pos_y + 1, color);
+	pixel_put(img, (int) pos_x, (int) pos_y - 1, color);
 	
 	
 	
@@ -94,7 +94,7 @@ int minimaper(t_data *cub)
 	cub->map_w = 4;
 	y = 0;
 	x = 0;
-	
+
 	while (y < cub->map_h)
 	{
 		x = 0;
@@ -108,14 +108,15 @@ int minimaper(t_data *cub)
 		}
 		y++;
 	}
-	render_point_player(cub, x * map_scale, y * map_scale);
-	bresenham(cub, cub->player->player_ang);
-	int ang = (cub->player->fov / 2);
-	while (ang <= cub->player->fov / 2)
-	{
-		bresenham(cub, cub->player->player_ang + (ang));
-		ang++;
-	}	
+	printf("AQUI %i, %i", (int) (cub->player->posX * map_scale), (int) (cub->player->posY * map_scale));
+	render_point_player(cub, (int) (x * map_scale), (int) (y * map_scale));
+	//bresenham(cub, cub->player->player_ang);
+	//int ang = (cub->player->fov / 2);
+	// while (ang <= cub->player->fov / 2)
+	// {
+	// 	bresenham(cub, cub->player->player_ang + (ang));
+	// 	ang++;
+	// }	
 	mlx_destroy_image(cub->mlx_ptr, cub->img);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
 	return (1);
@@ -154,7 +155,7 @@ int minimaper_initial(t_data *cub)
 		}
 		y++;
 	}
-	render_point_player(cub, x * map_scale, y * map_scale);
+	render_point_player(cub, cub->player->posX * map_scale, cub->player->posY * map_scale);
 	bresenham(cub, cub->player->player_ang);
 	bresenham(cub, cub->player->player_ang + (cub->player->fov / 2));
 	bresenham(cub, cub->player->player_ang - (cub->player->fov / 2));

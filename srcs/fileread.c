@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   fileread.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:23:03 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/01 11:45:24 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/01 12:06:48 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d.h"
 
@@ -122,7 +122,7 @@ void read_mapfile(t_data *cub, char *filename)
     
     while ((line = get_next_line(fd)) != NULL)
     {
-        get_scenic_id((line + jump_whitepaces(line)), cub); //still have to check path format and to transform color strings into integers
+        //get_scenic_id((line + jump_whitepaces(line)), cub); //still have to check path format and to transform color strings into integers
 
         //NEED TO get tha fukin mappppppp into a matrix
 
