@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:23:03 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/01 11:45:24 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/01 11:51:50 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void get_scenic_id(char *str, t_data *cub)
     if (is_empty_line(str) == true)
         return ;
     else if (ft_strncmp(str, "NO ", 3) == 0)
-        save_path(str + 2, cub, NORTH);
+        save_path(str + 3, cub, NORTH);
     else if (ft_strncmp(str, "SO ", 3) == 0)
         save_path(str + 3, cub, SOUTH);
     else if (ft_strncmp(str, "WE ", 3) == 0)
@@ -122,6 +122,7 @@ void read_mapfile(t_data *cub, char *filename)
     
     while ((line = get_next_line(fd)) != NULL)
     {
+        //verificar quando mapa
         get_scenic_id((line + jump_whitepaces(line)), cub); //still have to check path format and to transform color strings into integers
 
         //NEED TO get tha fukin mappppppp into a matrix

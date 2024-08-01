@@ -35,7 +35,7 @@ typedef struct s_data
     int cub_fd;
     /* header reading and info gathering */
 
-    int count[6]; // order  = NO SO WE EA F C  conter[1] is SO  if it is 0 it stil availble to populate
+    int count[6]; // order  = NO SO WE EA F C  count[1] is SO  if it is 0 it stil availble to populate
     int fl_rgb[3]; //save F color
     int cl_rgb[3]; //save C color
 
