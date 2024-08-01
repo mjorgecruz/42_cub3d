@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:43:00 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/31 11:55:09 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/01 11:49:37 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -89,7 +89,7 @@ void render(t_data *cub)
         	  side = 1;
         	}
         	//Check if ray has hit a wall
-        	if (map[mapX][mapY] > 0)
+        	if (cub->map[mapX][mapY] > 0)
 				hit = 1;
     	}
 		if(side == 0)

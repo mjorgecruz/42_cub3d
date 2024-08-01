@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:32:31 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/31 11:36:12 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/01 11:46:42 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -110,8 +110,12 @@ int minimaper(t_data *cub)
 	}
 	render_point_player(cub, x * map_scale, y * map_scale);
 	bresenham(cub, cub->player->player_ang);
-	bresenham(cub, cub->player->player_ang + (cub->player->fov / 2));
-	bresenham(cub, cub->player->player_ang - (cub->player->fov / 2));
+	int ang = (cub->player->fov / 2);
+	while (ang <= cub->player->fov / 2)
+	{
+		bresenham(cub, cub->player->player_ang + (ang));
+		ang++;
+	}	
 	mlx_destroy_image(cub->mlx_ptr, cub->img);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
 	return (1);

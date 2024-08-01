@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/31 12:07:10 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/01 11:49:14 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -78,4 +78,13 @@ void init_camera(t_data *cub)
 	if (cam == NULL)
 		ft_error(CAMERA, cub);
 	(cub->player->cam) = cam;
+}
+
+void init_map(cub)
+{
+	
+	int ** map;
+	int * line;
+
+	
 }
