@@ -32,14 +32,18 @@ typedef struct s_player
 
 typedef struct s_data
 {
-    int fl_rgb;
-    int cl_rgb;
     int cub_fd;
+    /* header reading and info gathering */
+
+    int count[6]; // order  = NO SO WE EA F C  conter[1] is SO  if it is 0 it stil availble to populate
+    int fl_rgb[3]; //save F color
+    int cl_rgb[3]; //save C color
 
     char *north;
     char *south;
     char *west;
     char *east;
+    /*header done End  */
 
 	int		map_w;
 	int		map_h;
@@ -75,7 +79,9 @@ enum DIRECTION
     NORTH,
     SOUTH,
     WEST,
-    EAST 
+    EAST,
+    FLOOR,
+    CEILING
 };
 
 /* ************************************************************************** */
@@ -148,17 +154,20 @@ int minimaper(t_data *cub);
 /* ************************************************************************** */
 
 /**/
+void check_duplicates(t_data *cub, int id);
+void fill_counter(t_data *cub, int id);
+void save_path(char *line, t_data *cub, int id);
+void save_rgb(char *line, t_data *cub, int id);
+void get_scenic_id(char *str, t_data *cub);
 void read_mapfile(t_data *cub, char *filename);
 
 /* ************************************************************************** */
 /*                            FILEREADER UTILS                                */
 /* ************************************************************************** */
 
-/**/
-int get_texture_id(char *str);
-
-/**/
 void is_fd_invalid(int fd, t_data *cub);
+int ft_iswhitespace(int c);
+int jump_whitepaces(char *line);
 
 /* ************************************************************************** */
 /*                                ERRORS                                      */
