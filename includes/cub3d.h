@@ -19,6 +19,14 @@
 
 # define WIN_W 1920
 # define WIN_H 1080
+# define DG_RAD 0.0174533
+typedef struct s_camera
+{
+    double cameraX;
+    double rayDirX;
+    double rayDirY;
+
+}   t_camera;
 
 typedef struct s_player
 {
@@ -28,6 +36,10 @@ typedef struct s_player
     double dirY;
     double planeX;
     double planeY;
+    t_camera *cam;
+    double fov;
+    double player_ang;
+
 }   t_player;
 
 typedef struct s_data
@@ -71,7 +83,8 @@ enum ERRORS
     MAPNAME,
     CANTOPEN,
     IVALIDMAP,
-    PATHERR  
+    PATHERR,
+    CAMERA
 };
 
 enum DIRECTION
@@ -111,6 +124,8 @@ void init_orientation(t_player *player, char player_init_ori);
 /*Define initial position of player*/
 void init_position(t_player *player,int **map);
 
+void init_camera(t_data *cub);
+
 void init_textures_to_null(t_data *cub);
 
 /* ************************************************************************** */
@@ -119,6 +134,7 @@ void init_textures_to_null(t_data *cub);
 
 /*manages all window updates and updates based on input*/
 void	run_window(t_data *cub);
+void    render(t_data *cub);
 
 
 /* ************************************************************************** */
@@ -127,6 +143,10 @@ void	run_window(t_data *cub);
 
 /*define behaviour for specific key pressed*/
 int	key_detect(int key, t_data *cub);
+
+void control_rot(t_data *cub, int dir);
+
+void control_trans(t_data *cub, int dir);
 
 
 /* ************************************************************************** */
@@ -148,6 +168,24 @@ void	general_free(t_data *cub);
 /* ************************************************************************** */
 
 int minimaper(t_data *cub);
+
+int	bresenham(t_data *img, double ang);
+
+int	bresenham_wall(t_data *img, double x, double x1, double y, double y1);
+
+int	max_finder(double varu, double varv);
+
+/*This function only serves while we do not have a map*/
+int minimaper_initial(t_data *cub);
+
+int	bresenham(t_data *img, double ang);
+
+int	bresenham_wall(t_data *img, double x, double x1, double y, double y1);
+
+int	max_finder(double varu, double varv);
+
+/*This function only serves while we do not have a map*/
+int minimaper_initial(t_data *cub);
 
 /* ************************************************************************** */
 /*                               FILEREADER                                   */
