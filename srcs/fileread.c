@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:23:03 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/05 13:15:25 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/05 15:27:45 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ bool is_empty_line(char *str)
     int i;
 
     i = 0;
+    if (str == NULL || str[0] == '\0')
+        return true;
     i = jump_whitepaces(str);
-    if (str[i -1] == '\n')
+    if (str[i] == '\n' || str[i] == '\0')
         return (true);
     else
         return (false);
@@ -56,18 +58,16 @@ void save_path(char *line, t_data *cub, int id)
 {
     int i;
 
-    ft_printf("PATH SAVED = \n", line);
     i = jump_whitepaces(line);
     fill_counter(cub, id);
     if (id == NORTH)
         cub->north = ft_strdup(line + i);
     else if (id == SOUTH)
-        cub->east = ft_strdup(line + i);
+        cub->south = ft_strdup(line + i);
     else if (id == WEST)
         cub->west = ft_strdup(line + i);
     else if (id == EAST)
         cub->east = ft_strdup(line + i);
-    ft_printf("[SAVEDPATH =]%s[END]\n");
 }
 
 void save_rgb(char *line, t_data *cub, int id)
@@ -96,24 +96,23 @@ void save_rgb(char *line, t_data *cub, int id)
 
 void get_scenic_id(t_data *cub, int i)
 {
-    int w;
-    ft_printf("\nENTERED SCENICS GETTER\n");
+    char *p;
 
-    w = jump_whitepaces(cub->line[i]); 
-    if (is_empty_line(cub->line[i]) == true)
+    p = cub->line[i];
+    if (is_empty_line(p) == true)
         return ;
-    else if (ft_strncmp((cub->line[i] + w), "NO ", 3) == 0)
-        save_path((cub->line[i] + w + 3), cub, NORTH);
-    else if (ft_strncmp((cub->line[i] + w), "SO ", 3) == 0)
-        save_path((cub->line[i] + w + 3), cub, SOUTH);
-    else if (ft_strncmp((cub->line[i] + w), "WE ", 3) == 0)
-        save_path((cub->line[i] + w + 3), cub, WEST);
-    else if (ft_strncmp((cub->line[i] + w), "EA ", 3) == 0)
-        save_path((cub->line[i] + w + 3), cub, EAST);
-    else if (ft_strncmp((cub->line[i] + w), "F ", 2) == 0)
-        save_rgb((cub->line[i]), cub, FLOOR);
-    else if (ft_strncmp((cub->line[i] + w), "C ", 2) == 0)
-        save_rgb((cub->line[i]), cub, CEILING);
+    else if (ft_strncmp((p + jump_whitepaces(p)), "NO ", 3) == 0)
+        save_path(((p + jump_whitepaces(p)) + 3), cub, NORTH);
+    else if (ft_strncmp((p + jump_whitepaces(p)), "SO ", 3) == 0)
+        save_path(((p + jump_whitepaces(p)) + 3), cub, SOUTH);
+    else if (ft_strncmp((p + jump_whitepaces(p)), "WE ", 3) == 0)
+        save_path(((p + jump_whitepaces(p)) + 3), cub, WEST);
+    else if (ft_strncmp((p + jump_whitepaces(p)), "EA ", 3) == 0)
+        save_path(((p + jump_whitepaces(p)) + 3), cub, EAST);
+    else if (ft_strncmp((p + jump_whitepaces(p)), "F ", 2) == 0)
+        save_rgb((p + jump_whitepaces(p)), cub, FLOOR);
+    else if (ft_strncmp((p + jump_whitepaces(p)), "C ", 2) == 0)
+        save_rgb(((p + jump_whitepaces(p))), cub, CEILING);
     else
     {
         ft_printf("ERROR IN THE HEADER\n");
@@ -133,27 +132,23 @@ bool is_valid_element(int c)
 
 bool has_reached_map(char *line, t_data *cub)
 {
-    ft_printf("[F] - HAS_REACHED_MAP\n");
     int i;
 
     i = 0;
-    
-    if (cub->in_map == true)
-        return (true);
-    // else if (is_empty_line(line))
-    //     return (false);
-    while (line[i] && line[i] != '\n')
+
+    if (is_empty_line(line))
+        return false;
+    else if (!line[i] || line[i] == '\n')
+        return (false);
+    else if (cub->in_map == false)
     {
-        while (line[i] != '1' && line[i] != '0' && line[i] != ' ')
-            return (false);
-        i++;
+        while (line[i] == '1' || line[i] == '0' || line[i] == ' ')
+            i++;
+        if (line[i] == '\0' || line[i] == '\n')
+            cub->in_map = true;
+        return (true);
     }
-    // if (line[i] == '\n' && i != 0)
-    // {
-    //     cub->in_map = true;
-    //     return (true);
-    // }
-    return (true);
+    return (false);
 }
 
 // void    build_map(t_data *cub, char *line)
@@ -179,7 +174,6 @@ void get_map_size(t_data *cub)
         }
         else if (cub->in_map == true)
         {
-            ft_printf("[F] - FETCHING SIZES\n");
             size = ft_strlen(cub->line[i]);
             if (cub->map_w < size)
                 cub->map_w = size;
@@ -211,39 +205,35 @@ void read_mapfile(t_data *cub, char *filename)
     while ((temp = get_next_line(fd)))
     {
         cub->lc++;
-        //ft_printf("[%i] %s",cub->lc, temp);
         join = ft_strjoin(join, temp);
-        //ft_printf("%s",join);
         free(temp);
     }
     close (fd);
     cub->line = ft_split(join, '\n');
-    //ft_printf("SPLITED:\n%s", cub->line[0]);
     ft_printf("\nLC = %i\n", cub->lc);
     free(join);
 }
-
 
 void read_lines(t_data *cub)
 {
     int i;
 
     i = 0;
-    // while (cub->line[i])
-    // {
-    //     ft_printf("memememe :    %s", cub->line[i]);
-    //     i++;
-    // }
-    while (cub->line[i])
+    cub->in_map = false;
+    while (cub->line[i] != NULL)
     {
-        if (cub->in_map == false)
-            has_reached_map(cub->line[i], cub);
-        else if (cub->in_map == false) 
-            get_scenic_id(cub, i);
-        // else if (cub->in_map == true)
-        // {
-        //     //build the matrix here( needs to know total map length and total map height)
-        // }
-        i++;
+        if (is_empty_line(cub->line[i]))
+            i++;
+        else
+        {
+            if (cub->in_map == false)
+                has_reached_map(cub->line[i], cub);
+            if (cub->in_map == false)
+            {
+               ft_printf("[%i] FETCHING SCENICS: -> ", i);
+               get_scenic_id(cub, i);
+            }
+            i++;
+        }
     }
 }

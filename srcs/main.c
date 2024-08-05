@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 09:57:38 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/05 13:08:22 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/05 14:38:04 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,9 @@ int	main(int argc, char **argv)
 	read_mapfile(&cub, argv[1]);
 	ft_printf("\n\n----------------------2 ---------------------\n\n");
 	get_map_size(&cub);
+	/* newline a meio do mapa ou um enter empty line valido?*/
 	ft_printf("\n\n----------------------3 ---------------------\n\n");
-	//read_lines(&cub);
+	read_lines(&cub);
 	ft_printf("\n\n----------------------4 ---------------------\n\n");
 	tester_print(&cub);
 	ft_printf("\n\n----------------------5 ---------------------\n\n");
