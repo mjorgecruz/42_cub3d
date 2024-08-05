@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 09:57:38 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/01 15:48:12 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/05 10:58:26 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,19 @@ int	main(int argc, char **argv)
 	cub.count[3] = 0;
 	cub.count[4] = 0;
 	cub.count[5] = 0;
+    cub.lc = 0;
 	cub.in_map = false;                //initialize this as false please
 	
-	//get_map_size(&cub, argv[1]);
+	ft_printf("\n\n----------------------1 ---------------------\n\n");
 	read_mapfile(&cub, argv[1]);
+	ft_printf("\n\n----------------------2 ---------------------\n\n");
+	get_map_size(&cub);
+	ft_printf("\n\n----------------------3 ---------------------\n\n");
+	read_lines(&cub);
+	ft_printf("\n\n----------------------4 ---------------------\n\n");
 	tester_print(&cub);
+	ft_printf("\n\n----------------------5 ---------------------\n\n");
+
 	// init_fields(&cub);
 	// run_window(&cub);
 }

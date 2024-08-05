@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:23:03 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/01 15:47:13 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/05 10:54:22 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ bool is_empty_line(char *str);
 bool is_valid_element(int c);
 bool has_reached_map(char *line, t_data *cub);
 //void    build_map(t_data *cub, char *line);
-void get_map_size(t_data *cub, char *filename);
+void get_map_size(t_data *cub);
 
 void check_duplicates(t_data *cub, int id);
 void fill_counter(t_data *cub, int id);
 void save_path(char *line, t_data *cub, int id);
 void save_rgb(char *line, t_data *cub, int id);
-void get_scenic_id(char *str, t_data *cub);
+void get_scenic_id(t_data *cub, int i);
 void read_mapfile(t_data *cub, char *filename);
 
 bool is_empty_line(char *str)
@@ -94,22 +94,26 @@ void save_rgb(char *line, t_data *cub, int id)
     }
 }
 
-void get_scenic_id(char *str, t_data *cub)
+void get_scenic_id(t_data *cub, int i)
 {
-    if (is_empty_line(str) == true)
+    int w;
+    ft_printf("\nENTERED SCENICS GETTER\n");
+
+    w = jump_whitepaces(cub->line[i]); 
+    if (is_empty_line(cub->line[i]) == true)
         return ;
-    else if (ft_strncmp(str, "NO ", 3) == 0)
-        save_path(str + 3, cub, NORTH);
-    else if (ft_strncmp(str, "SO ", 3) == 0)
-        save_path(str + 3, cub, SOUTH);
-    else if (ft_strncmp(str, "WE ", 3) == 0)
-        save_path(str + 3, cub, WEST);
-    else if (ft_strncmp(str, "EA ", 3) == 0)
-        save_path(str + 3, cub, EAST);
-    else if (ft_strncmp(str, "F ", 2) == 0)
-        save_rgb(str, cub, FLOOR);
-    else if (ft_strncmp(str, "C ", 2) == 0)
-        save_rgb(str, cub, CEILING);
+    else if (ft_strncmp((cub->line[i] + w), "NO ", 3) == 0)
+        save_path((cub->line[i] + w + 3), cub, NORTH);
+    else if (ft_strncmp((cub->line[i] + w), "SO ", 3) == 0)
+        save_path((cub->line[i] + w + 3), cub, SOUTH);
+    else if (ft_strncmp((cub->line[i] + w), "WE ", 3) == 0)
+        save_path((cub->line[i] + w + 3), cub, WEST);
+    else if (ft_strncmp((cub->line[i] + w), "EA ", 3) == 0)
+        save_path((cub->line[i] + w + 3), cub, EAST);
+    else if (ft_strncmp((cub->line[i] + w), "F ", 2) == 0)
+        save_rgb((cub->line[i]), cub, FLOOR);
+    else if (ft_strncmp((cub->line[i] + w), "C ", 2) == 0)
+        save_rgb((cub->line[i]), cub, CEILING);
     else
     {
         ft_printf("ERROR IN THE HEADER\n");
@@ -158,52 +162,74 @@ bool has_reached_map(char *line, t_data *cub)
 //     len = ft_strlen(line);
 // }
 
-void get_map_size(t_data *cub, char *filename)
+void get_map_size(t_data *cub)
 {
-    int fd;
-    char *line;
-    int temp;
-    
-    fd = open(filename, O_RDONLY, 0);
-    is_fd_invalid(fd, cub);
-    while ((line = get_next_line(fd)) != NULL)
+    int i;
+    int size;
+
+    i = 0;
+    while (cub->lc > i)
     {
-        if (!cub->in_map)
-            has_reached_map(line, cub);
+        if (cub->in_map == false)
+            has_reached_map(cub->line[i], cub);
         else if (cub->in_map == true)
         {
-            temp = ft_strlen(line);
-            if (cub->map_w < temp)
-                cub->map_w = temp;
+            size = ft_strlen(cub->line[i]);
+            if (cub->map_w < size)
+                cub->map_w = size;
             cub->map_h++;
         }
-        free(line);
+        i++;
     }
-    close (fd);
-    cub->in_map = false;
 }
 
+/*
+reads entire file to one string line
+splits it by newlines
+possible problems:
+
+STRJOIN: possible leaks
+SPLIT: possible leaks
+*/
 void read_mapfile(t_data *cub, char *filename)
 {
     int fd;
-    char *line;
+    char *temp;
+    char *content;
     
     fd = open(filename, O_RDONLY, 0);
     is_fd_invalid(fd, cub);
-    ft_printf("[IN F(READMAP)] \n");
-    
-    while ((line = get_next_line(fd)) != NULL)
+    while ((temp = get_next_line(fd)))
+    {
+        cub->lc++;
+        content = ft_strjoin(content, temp);
+        free(temp);
+    }
+    close (fd);
+    cub->line = ft_split(content, '\n');
+    ft_printf("READMAP %s", content);
+    ft_printf("\nLC = %i\n", cub->lc);
+
+    free(content);
+}
+
+
+void read_lines(t_data *cub)
+{
+    int i;
+
+    i = 0;
+    ft_printf("memememe :    %s", cub->line[i]);
+    while (cub->line[i])
     {
         if (cub->in_map == false)
-            has_reached_map(line, cub);
+            has_reached_map(cub->line[i], cub);
         else if (cub->in_map == false) 
-            get_scenic_id((line + jump_whitepaces(line)), cub);
+            get_scenic_id(cub, i);
         // else if (cub->in_map == true)
         // {
         //     //build the matrix here( needs to know total map length and total map height)
         // }
-        free(line);
+        i++;
     }
-    close (fd);
-    ft_printf("[OUT F(READMAP)]\n");
 }

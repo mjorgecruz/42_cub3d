@@ -50,12 +50,15 @@ typedef struct s_data
     int count[6]; // order  = NO SO WE EA F C  count[1] is SO  if it is 0 it stil availble to populate
     int fl_rgb[3]; //save F color
     int cl_rgb[3]; //save C color
+    int lc;
 
     char *north;
     char *south;
     char *west;
     char *east;
     bool in_map;
+
+    char **line;
 
     /*header done End  */
 
@@ -198,14 +201,15 @@ bool is_empty_line(char *str);
 bool is_valid_element(int c);
 bool has_reached_map(char *line, t_data *cub);
 //void    build_map(t_data *cub, char *line);
-void get_map_size(t_data *cub, char *filename);
+void get_map_size(t_data *cub);
 
 void check_duplicates(t_data *cub, int id);
 void fill_counter(t_data *cub, int id);
 void save_path(char *line, t_data *cub, int id);
 void save_rgb(char *line, t_data *cub, int id);
-void get_scenic_id(char *str, t_data *cub);
+void get_scenic_id(t_data *cub, int i);
 void read_mapfile(t_data *cub, char *filename);
+void read_lines(t_data *cub);
 
 
 /* ************************************************************************** */
