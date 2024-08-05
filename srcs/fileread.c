@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:23:03 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/05 10:54:22 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/05 13:15:25 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,25 +133,26 @@ bool is_valid_element(int c)
 
 bool has_reached_map(char *line, t_data *cub)
 {
+    ft_printf("[F] - HAS_REACHED_MAP\n");
     int i;
 
     i = 0;
+    
     if (cub->in_map == true)
         return (true);
-    else if (is_empty_line(line))
-        return (false);
-
+    // else if (is_empty_line(line))
+    //     return (false);
     while (line[i] && line[i] != '\n')
     {
-        if (!is_valid_element(line[i]))
+        while (line[i] != '1' && line[i] != '0' && line[i] != ' ')
             return (false);
         i++;
     }
-    if (line[i] == '\n' && i != 0)
-    {
-        cub->in_map = true;
-        return (true);
-    }
+    // if (line[i] == '\n' && i != 0)
+    // {
+    //     cub->in_map = true;
+    //     return (true);
+    // }
     return (true);
 }
 
@@ -164,16 +165,21 @@ bool has_reached_map(char *line, t_data *cub)
 
 void get_map_size(t_data *cub)
 {
+    ft_printf("[F] - MAP_SIZE\n");
+
     int i;
     int size;
 
     i = 0;
-    while (cub->lc > i)
+    while (cub->line[i])
     {
         if (cub->in_map == false)
+        {
             has_reached_map(cub->line[i], cub);
+        }
         else if (cub->in_map == true)
         {
+            ft_printf("[F] - FETCHING SIZES\n");
             size = ft_strlen(cub->line[i]);
             if (cub->map_w < size)
                 cub->map_w = size;
@@ -193,24 +199,28 @@ SPLIT: possible leaks
 */
 void read_mapfile(t_data *cub, char *filename)
 {
+    ft_printf("[F] - READ_MAPFILE\n");
+
     int fd;
     char *temp;
-    char *content;
-    
+    char *join;
+
     fd = open(filename, O_RDONLY, 0);
     is_fd_invalid(fd, cub);
+    join = ft_strdup("");
     while ((temp = get_next_line(fd)))
     {
         cub->lc++;
-        content = ft_strjoin(content, temp);
+        //ft_printf("[%i] %s",cub->lc, temp);
+        join = ft_strjoin(join, temp);
+        //ft_printf("%s",join);
         free(temp);
     }
     close (fd);
-    cub->line = ft_split(content, '\n');
-    ft_printf("READMAP %s", content);
+    cub->line = ft_split(join, '\n');
+    //ft_printf("SPLITED:\n%s", cub->line[0]);
     ft_printf("\nLC = %i\n", cub->lc);
-
-    free(content);
+    free(join);
 }
 
 
@@ -219,7 +229,11 @@ void read_lines(t_data *cub)
     int i;
 
     i = 0;
-    ft_printf("memememe :    %s", cub->line[i]);
+    // while (cub->line[i])
+    // {
+    //     ft_printf("memememe :    %s", cub->line[i]);
+    //     i++;
+    // }
     while (cub->line[i])
     {
         if (cub->in_map == false)
