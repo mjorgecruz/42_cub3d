@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   fileread.c                                         :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:23:03 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/01 12:06:48 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/06 22:12:44 by masoares         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
@@ -65,9 +65,9 @@ void save_path(char *line, t_data *cub, int id)
 
 void save_rgb(char *line, t_data *cub, int id)
 {
-    int i;
+    // int i;
 
-    i = jump_whitepaces(line);
+    // i = jump_whitepaces(line);
     fill_counter(cub, id);
     
     //pegar nos valores e separar por espacos e virgulas

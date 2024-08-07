@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   init_window.c                                      :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/01 12:31:25 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/06 23:07:01 by masoares         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
@@ -43,7 +43,7 @@ t_player *init_player(t_data *cub)
 	t_player *player = (t_player *) malloc(sizeof(t_player) * 1);
 	if (player == NULL)
 		ft_error(PLAYER, cub);
-	//init_map(cub);
+	init_map(cub);
 	init_orientation(player, cub->player_init_ori);
 	init_position(player, cub->map);
 	//init_camera(cub);
@@ -81,14 +81,31 @@ void init_camera(t_data *cub)
 	(cub->player->cam) = cam;
 }
 
-// void init_map(cub)
-// {
-	
-// 	int ** map;
-// 	int * line;
+void init_map(t_data *cub)
+{
+	int 	**map;
+	int		i;
+	int		j;
+	int 	c_map[4][4] = {{1, 1, 1, 1},{1, 0, 0, 1}, {1, 0, 'N', 1}, {1, 1, 1, 1}};
 
+	i = 0;	
+	map = ft_calloc(4, sizeof(int *));
+	while (i < 4)
+	{
+		map[i] = ft_calloc(4, sizeof(int));
+		j = 0;
+		while (j < 4)
+		{
+			map[i][j] = c_map[i][j];
+			j++;
+		}
+		i++;
+	}
+	cub->map = map;
+	cub->map_h = 4;
+	cub->map_w = 4;
 	
-// }
+}
 void init_textures_to_null(t_data *cub)
 {
 	cub->north = NULL;

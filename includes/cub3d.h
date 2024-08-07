@@ -130,6 +130,8 @@ void init_camera(t_data *cub);
 
 void init_textures_to_null(t_data *cub);
 
+void init_map(t_data *cub);
+
 /* ************************************************************************** */
 /*                                 RENDER                                     */
 /* ************************************************************************** */
@@ -179,6 +181,8 @@ int	max_finder(double varu, double varv);
 
 /*This function only serves while we do not have a map*/
 int minimaper_initial(t_data *cub);
+
+void render_direction(t_data *cub);
 
 /* ************************************************************************** */
 /*                               FILEREADER                                   */

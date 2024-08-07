@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minimaper.c                                        :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:32:31 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/01 17:31:37 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/07 01:55:55 by masoares         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
@@ -109,90 +109,19 @@ int minimaper(t_data *cub)
 		}
 		y++;
 	}
-	render_point_player(cub, (int) (cub->player->posX * map_scale), (int) (cub->player->posY * map_scale));	
-	double ang = (-cub->player->fov / 2);
-	while (ang <= cub->player->fov / 2)
-	{
-		double sideDistX; //distance to the next edge in x
-    	double sideDistY; //distance to the next edge in y
-		double deltaDistX; //distance to progress one unit in x
-    	double deltaDistY; //distance to progress one unit in y
-
-		double rayDirX = cos(cub->player->player_ang + ang);
-    	double rayDirY = sin(cub->player->player_ang + ang);
-
-		if (rayDirX != 0)
-			deltaDistX = 1 / rayDirX; 
-		else
-			deltaDistX = 1e30;
-		if (rayDirY != 0)
-			deltaDistY = 1 / rayDirY;
-		else
-			deltaDistY = 1e30;
-		int stepX;
-    	int stepY;
-		int mapX = (int) cub->player->posX;
-		int mapY = (int) cub->player->posY;
-
-		int hit = 0;
-		if (rayDirX < 0)
-    	{
-    	    stepX = -1;
-    	    sideDistX = (mapX - cub->player->posX) * deltaDistX;
-    	}
-    	else
-    	{
-    	    stepX = 1;
-    	    sideDistX = (mapX + 1.0 - cub->player->posX) * deltaDistX;
-    	}
-    	if (rayDirY < 0)
-    	{
-    	    stepY = -1;
-    	    sideDistY = (mapY - cub->player->posY) * deltaDistY;
-    	}
-    	else
-    	{
-    	    stepY = 1;
-    	    sideDistY = (mapY + 1.0 - cub->player->posY) * deltaDistY;
-		}
-		int side = 0;
-		while (hit == 0)
-		{
-        	if (sideDistX < sideDistY)
-        	{
-        	  sideDistX += deltaDistX;
-        	  mapX += stepX;
-			  side = 0;
-        	}
-        	else
-        	{
-        	  sideDistY += deltaDistY;
-        	  mapY += stepY;
-			  side = 1;
-        	}
-        	if (map[mapX][mapY] > 0)
-				hit = 1;
-    	}
-		if (side == 1)
-			bresenham(cub, (mapY-cub->player->posY)/tan(cub->player->player_ang + ang)  * 20, mapY * 20);
-		else
-			bresenham(cub, mapX * 20, (mapX-cub->player->posX)/tan(cub->player->player_ang + ang)  * 20);
-		ang+=0.05;
-	}	
-	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
+	render_point_player(cub, (int) (cub->player->posX * map_scale), (int) (cub->player->posY * map_scale));
+	render_direction(cub);
 	return (1);
+
 }
 
 int minimaper_initial(t_data *cub)
 {
 	double		x;
 	double		y;
-	int 	map[4][4] = {{1, 1, 1, 1},{1, 0, 0, 1}, {1, 0, 'N', 1}, {1, 1, 1, 1}};
 	int		map_scale;
 
 	map_scale = 20;
-	cub->map_h = 4;
-	cub->map_w = 4;
 	y = 0;
 	x = 0;
 	
@@ -201,14 +130,13 @@ int minimaper_initial(t_data *cub)
 		x = 0;
 		while (x < 4)
 		{
-			if (map[(int) x][(int) y] == 1)
+			if (cub->map[(int) x][(int) y] == 1)
 				render_rect_wall(cub, x, y, map_scale);
-			else if (map[(int) x][(int) y] == 0)
+			else if (cub->map[(int) x][(int) y] == 0)
 				render_rect_ground(cub, x, y, map_scale);
 			else
 			{
 				render_rect_ground(cub, x, y, map_scale);
-				render_point_player(cub, x, y);
 				cub->player->posX = x + 0.5;
 				cub->player->posY = y + 0.5;
 			}
@@ -217,11 +145,11 @@ int minimaper_initial(t_data *cub)
 		y++;
 	}
 	render_point_player(cub, cub->player->posX * map_scale, cub->player->posY * map_scale);
-	bresenham(cub, cos(cub->player->player_ang), sin(cub->player->player_ang));
+	bresenham(cub, cub->player->posX + cos(cub->player->player_ang), cub->player->posY + sin(cub->player->player_ang));
 	double ang = (-cub->player->fov / 2);
 	while (ang <= cub->player->fov / 2)
 	{
-		bresenham(cub,cos(cub->player->player_ang + ang), sin(cub->player->player_ang + ang));
+		bresenham(cub,cub->player->posX + cos(cub->player->player_ang + ang), cub->player->posY + sin(cub->player->player_ang + ang));
 		ang+=0.05;
 	}	
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
@@ -237,10 +165,11 @@ int	bresenham(t_data *img, double u1, double v1)
 	
 	double u;
 	double v;
-	
 	u = img->player->posX * map_scale;
 	v = img->player->posY * map_scale;
-	varu = u1 - u;
+	u1 = u1 * map_scale;
+	v1 = v1 * map_scale;
+	varu =  u1 - u;
 	varv = v1 - v;
 	max = max_finder(varu, varv);
 	varu /= max;
@@ -288,4 +217,84 @@ int	max_finder(double varu, double varv)
 		return (varv);
 	else
 		return (varu);
+}
+
+void render_direction(t_data *cub)
+{
+	// double ang = (cub->player->player_ang-cub->player->fov / 2);
+	// while (ang <= cub->player->fov / 2)
+	// {
+		double sideDistX; //distance to the next edge in x
+    	double sideDistY; //distance to the next edge in y
+		double deltaDistX; //distance to progress one unit in x
+    	double deltaDistY; //distance to progress one unit in y
+
+		double rayDirX = cos(cub->player->player_ang);
+    	double rayDirY = sin(cub->player->player_ang);
+		if (rayDirX < 0.00001 && rayDirX > -0.00001)
+			rayDirX = 0;
+		if (rayDirY < 0.00001 && rayDirY > -0.00001)
+			rayDirY = 0;		
+
+		int stepX;
+    	int stepY;
+		int mapX = cub->player->posX;
+		int mapY = cub->player->posY;
+		int hit = 0;
+		int side = 0;
+
+		while (hit == 0)
+		{
+			if (rayDirX != 0)
+				deltaDistX = rayDirY / rayDirX; 
+			else
+				deltaDistX = 1e30;
+			if (rayDirY != 0)
+				deltaDistY = rayDirX / rayDirY;
+			else
+				deltaDistY = 1e30;
+	
+			if (rayDirX < 0)
+    		{
+    		    stepX = -1;
+    		    sideDistX = (int)mapX + 1 + deltaDistX - mapX;
+    		}
+    		else
+    		{
+    		    stepX = 1;
+    		    sideDistX = (int)mapX + deltaDistX -mapX;
+    		}
+			printf("sideDistX %f\n", sideDistX);
+    		if (rayDirY < 0)
+    		{
+    	    	stepY = 1;
+    	    	sideDistY = -mapY+ (int)mapY + deltaDistY;
+    		}
+    		else
+    		{
+    		    stepY = -1;
+    		    sideDistY = (int)mapY - mapY + 1 + deltaDistY;
+			}
+			printf("sideDistY %f\n", sideDistY);
+	
+			if (fabs(sideDistX) > fabs(sideDistY))
+			{
+				mapX += (sideDistX * rayDirX);
+				mapY += stepY;
+				side = 0;
+			}
+			else
+			{
+				mapX += stepX;
+				mapY += sideDistY * rayDirY;
+				side = 1;
+			}
+			if (cub->map[(int)mapX][(int)mapY] > 0)
+				hit = 1;
+    	}
+		printf("%i\n", side);
+		bresenham(cub, mapX + 0.5 , mapY + 0.5);
+		// ang+=0.05;
+	// }	
+	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
 }
