@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:32:31 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/07 01:55:55 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/07 02:09:06 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,7 @@ int	max_finder(double varu, double varv)
 
 void render_direction(t_data *cub)
 {
-	// double ang = (cub->player->player_ang-cub->player->fov / 2);
+	// double ang = (-cub->player->fov / 2);
 	// while (ang <= cub->player->fov / 2)
 	// {
 		double sideDistX; //distance to the next edge in x
@@ -238,10 +238,9 @@ void render_direction(t_data *cub)
 
 		int stepX;
     	int stepY;
-		int mapX = cub->player->posX;
-		int mapY = cub->player->posY;
+		double mapX = cub->player->posX;
+		double mapY = cub->player->posY;
 		int hit = 0;
-		int side = 0;
 
 		while (hit == 0)
 		{
@@ -264,37 +263,32 @@ void render_direction(t_data *cub)
     		    stepX = 1;
     		    sideDistX = (int)mapX + deltaDistX -mapX;
     		}
-			printf("sideDistX %f\n", sideDistX);
     		if (rayDirY < 0)
     		{
-    	    	stepY = 1;
-    	    	sideDistY = -mapY+ (int)mapY + deltaDistY;
+    	    	stepY = -1;
+    	    	sideDistY = 1 - mapY+ (int)mapY + deltaDistY;
     		}
     		else
     		{
-    		    stepY = -1;
-    		    sideDistY = (int)mapY - mapY + 1 + deltaDistY;
+    		    stepY = 1;
+    		    sideDistY = (int)mapY - mapY + deltaDistY;
 			}
-			printf("sideDistY %f\n", sideDistY);
-	
 			if (fabs(sideDistX) > fabs(sideDistY))
 			{
 				mapX += (sideDistX * rayDirX);
 				mapY += stepY;
-				side = 0;
 			}
 			else
 			{
 				mapX += stepX;
 				mapY += sideDistY * rayDirY;
-				side = 1;
 			}
 			if (cub->map[(int)mapX][(int)mapY] > 0)
 				hit = 1;
     	}
-		printf("%i\n", side);
-		bresenham(cub, mapX + 0.5 , mapY + 0.5);
-		// ang+=0.05;
-	// }	
+		printf("mapX %f mapy %f\n", mapX, mapY);
+		bresenham(cub, mapX, mapY);
+	// 	ang+=0.05;
+	// }
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
 }
