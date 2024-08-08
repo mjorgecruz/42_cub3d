@@ -1,0 +1,49 @@
+
+
+----------------------1 ---------------------
+
+[F] - READ_MAPFILE
+
+
+----------------------2 ---------------------
+
+[F] - MAP_SIZE
+MAP H: [5]
+MAP W: [12]
+
+
+----------------------3 ---------------------
+
+[0] FETCHING SCENICS: -> [1] FETCHING SCENICS: -> [2] FETCHING SCENICS: -> [3] FETCHING SCENICS: -> [5] FETCHING SCENICS: -> COR CARALHO: 164COR CARALHO: 169COR CARALHO: 20
+[6] FETCHING SCENICS: -> COR CARALHO: 153COR CARALHO: 204COR CARALHO: 255
+
+
+----------------------4 ---------------------
+
+MAP H: [5]
+MAP W: [12]
+MAP SCENICS: [1] [1] [1] [1] [1] [1]
+PATH NO: [./textures/north_oversize.xpm
+]
+PATH SO: [./textures/south.xpm
+]
+PATH WE: [./textures/west_undersize.xpm
+]
+PATH EA: [./textures/east.xpm
+]
+F: [164][169][20]
+C: [153][204][255]
+
+
+----------------------5 ---------------------
+
+[MAPA LGBTQ+:]
+[37mS[0m[37mS[0m[37mS[0m[37mS[0m[1;32m1[0m[1;32m1[0m[31mX[0m[35mE[0m[35mE[0m[35mE[0m[35mE[0m[35mE[0m
+[37mS[0m[37mS[0m[37mS[0m[1;32m1[0m[33m0[0m[33m0[0m[1;32m1[0m[31mX[0m[35mE[0m[35mE[0m[35mE[0m[35mE[0m
+[37mS[0m[37mS[0m[1;32m1[0m[33m0[0m[33m0[0m[33m0[0m[33m0[0m[1;32m1[0m[31mX[0m[35mE[0m[35mE[0m[35mE[0m
+[37mS[0m[1;32m1[0m[33m0[0m[33m0[0m[33m0[0m[1;31mN[0m[33m0[0m[33m0[0m[1;32m1[0m[31mX[0m[35mE[0m[35mE[0m
+[1;32m1[0m[1;32m1[0m[1;32m1[0m[1;32m1[0m[1;32m1[0m[1;32m1[0m[1;32m1[0m[1;32m1[0m[1;32m1[0m[1;32m1[0m[31mX[0m[35mE[0m
+POPOTA SEXY CANIONA
+Nx = 5
+Ny = 3
+[1;32m!MAPA OK![0m

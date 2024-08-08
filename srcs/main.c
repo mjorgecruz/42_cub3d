@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 09:57:38 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/08 16:16:12 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/08 16:31:46 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,38 +105,39 @@ int	main(int argc, char **argv)
 	cub.line = NULL;
 	cub.in_map = false;
 
-	read_mapfile(&cub, argv[1]);
-	get_map_size(&cub);
-	read_lines(&cub);
-	build_map(&cub);
-	parser_first(&cub);
+	// read_mapfile(&cub, argv[1]);
+	// get_map_size(&cub);
+	// read_lines(&cub);
+	// build_map(&cub);
+	// parser_first(&cub);
 
 	/* Reads entire file ito a single string and splits it by newlines*/
-	// ft_printf("\n\n----------------------1 ---------------------\n\n");
-	// read_mapfile(&cub, argv[1]);
+	ft_printf("\n\n----------------------1 ---------------------\n\n");
+	read_mapfile(&cub, argv[1]);
 	
-	// ft_printf("\n\n----------------------2 ---------------------\n\n");
-	// get_map_size(&cub);
-	// /* newline a meio do mapa ou um enter empty line valido?*/
+	ft_printf("\n\n----------------------2 ---------------------\n\n");
+	get_map_size(&cub);
+	/* newline a meio do mapa ou um enter empty line valido?*/
 	
-	// ft_printf("\n\n----------------------3 ---------------------\n\n");
-	// read_lines(&cub);
+	ft_printf("\n\n----------------------3 ---------------------\n\n");
+	read_lines(&cub);
 	
-	// ft_printf("\n\n----------------------4 ---------------------\n\n");
-	// build_map(&cub);
-	// tester_print(&cub);
+	ft_printf("\n\n----------------------4 ---------------------\n\n");
+	build_map(&cub);
+	tester_print(&cub);
 
 
-	// ft_printf("\n\n----------------------5 ---------------------\n\n");
-	// COLOR_MAP(&cub);
+	ft_printf("\n\n----------------------5 ---------------------\n\n");
+	COLOR_MAP(&cub);
 	
-	// parser_first(&cub);
+	parser_first(&cub);
 	
-	// COLOR_MAP(&cub);
+	COLOR_MAP(&cub);
 
-	// tester_print(&cub);
-	// init_fields(&cub);
-	// run_window(&cub);
+	tester_print(&cub);
+	return (0);
+	//init_fields(&cub);
+	//run_window(&cub);
 }
 
 	// read_mapfile(&cub, argv[1]);

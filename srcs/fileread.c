@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:23:03 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/08 16:14:30 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/08 16:41:17 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,7 +281,10 @@ void get_map_size(t_data *cub)
         }
         i++;
     }
+    cub->map_w++;
     cub->map_h++; //for some reason it is not correct size
+    	ft_printf("MAP H: [%i]\n", cub->map_h);
+	ft_printf("MAP W: [%i]\n", cub->map_w);
 }
 
 void read_mapfile(t_data *cub, char *filename)
