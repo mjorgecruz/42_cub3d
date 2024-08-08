@@ -6,12 +6,15 @@
 
 
 
-     SO                        textures/simonkraft/SO sponge.xpm
+     SO                      textures/simonkraft/SO sponge.xpm
+
+
+
 WE textures/simonkraft/WE_sponge.xpm
 EA textures/simonkraft/EA_sponge.xpm
 
 F 164,169,20
-C 153,204,255
+C     153,       204,    256
 
 
  1111111111111111111
@@ -22,5 +25,4 @@ C 153,204,255
 10000000000000100111111111111
 10000000000000100000000000001           
 11111111111111111111111111111 
-
 1111111111111111111111111111

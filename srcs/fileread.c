@@ -6,14 +6,18 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:23:03 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/08 14:11:12 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/08 16:14:30 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
 int floodfill(t_data *cub, int x, int y, int targ, int new);
+void map_space(t_data *cub);
 
+
+void check_color_range(t_data *cub);
+void get_rgb_fr_str(char *line, t_data *cub, int id);
 
 bool is_empty_line(char *str);
 bool is_valid_element(int c);
@@ -76,28 +80,100 @@ void save_path(char *line, t_data *cub, int id)
         cub->east = ft_strdup(line + i);
 }
 
+/*if there are other things than numbers or whitspaces gives error 1
+numbers separated by spaces error aswell
+*/
+
+int ft_confirm_line_rgb(char *color)
+{
+    int i;
+    ft_printf("COR CARALHO: %s", color);
+    
+    if (!color)
+        return 0;
+    i = jump_whitepaces(color);
+    while (color[i] && (color[i] >= '0' && color[i] <= '9'))
+        i++;
+    while (color[i])
+    {
+        if (!ft_iswhitespace(color[i]))
+            return (0);
+        i++;
+    }
+    return (1);
+}
+
+void validate_rgb(char **color)
+{
+    int i;
+
+    i = 0;
+    if(!color || !color[i])
+    {
+        ft_printf("\nRGB ERROR 1\n");
+        exit(EXIT_FAILURE); 
+        return ;
+    }
+    while (color[i] && ft_confirm_line_rgb(color[i]) == 1)
+    {
+        if (i >= 3)
+        {
+            ft_printf("\nRGB ERROR 2\n");
+            exit(EXIT_FAILURE);
+            return ;
+        }
+        i++;
+    }
+    if (i != 3)
+    {
+        ft_printf("\nRGB ERROR 2\n");
+        exit(EXIT_FAILURE);
+        return ;
+    }
+}
+void get_rgb_fr_str(char *line, t_data *cub, int id)
+{
+    char **color;
+    int i;
+
+    color = ft_split(line, ',');
+    i = 0;
+    validate_rgb(color);
+    while (color[i])
+    {
+        if (id == CEILING)
+            cub->cl_rgb[i] = ft_atoi(color[i]);
+        if (id == FLOOR)
+            cub->fl_rgb[i] = ft_atoi(color[i]);
+        i++;
+    }
+    //free splited
+}
+
+void check_color_range(t_data *cub)
+{
+    int i;
+
+    i = 0;
+    while (i < 3)
+    {
+        if (cub->fl_rgb[i] < 0 || cub->fl_rgb[i] < 0)
+        {
+            ft_printf("RGB OUT OF RANGE\n");
+            exit(EXIT_FAILURE);
+        }
+        if (cub->fl_rgb[i] > 255 || cub->fl_rgb[i] > 255)
+        {
+            ft_printf("RGB OUT OF RANGE\n");
+            exit(EXIT_FAILURE);
+        }
+        i++;
+    }
+}
 void save_rgb(char *line, t_data *cub, int id)
 {
-    //int i;
-
-    //i = jump_whitepaces(line);
     fill_counter(cub, id);
-    (void) line;
-    //pegar nos valores e separar por espacos e virgulas
-    //guardars os na estrutura
-    
-    if (id == CEILING)
-    {   
-        cub->cl_rgb[0] = 100;
-        cub->cl_rgb[1] = 120;
-        cub->cl_rgb[2] = 160;
-    }
-    else if (id == FLOOR)
-    {   
-        cub->cl_rgb[0] = 111;
-        cub->cl_rgb[1] = 222;
-        cub->cl_rgb[2] = 033;
-    }
+    get_rgb_fr_str(line, cub, id);
 }
 
 void get_scenic_id(t_data *cub, int i)
@@ -116,9 +192,9 @@ void get_scenic_id(t_data *cub, int i)
     else if (ft_strncmp((p + jump_whitepaces(p)), "EA ", 3) == 0)
         save_path(((p + jump_whitepaces(p)) + 3), cub, EAST);
     else if (ft_strncmp((p + jump_whitepaces(p)), "F ", 2) == 0)
-        save_rgb((p + jump_whitepaces(p)), cub, FLOOR);
+        save_rgb((p + jump_whitepaces(p) + 2), cub, FLOOR);
     else if (ft_strncmp((p + jump_whitepaces(p)), "C ", 2) == 0)
-        save_rgb(((p + jump_whitepaces(p))), cub, CEILING);
+        save_rgb(((p + jump_whitepaces(p)) + 2), cub, CEILING);
     else
     {
         ft_printf("ERROR IN THE HEADER\n");
@@ -157,21 +233,6 @@ bool has_reached_map(char *line, t_data *cub)
     return (false);
 }
 
-// void get_map_start(t_data *cub)
-// {
-//     int i;
-
-//     i = 0;
-//     while (!has_reached_map(cub->line[i], cub))
-//         i++;
-//     cub->l_start = i;
-// }
-
-// void fill_maplines(int *arr,char *line)
-// {
-//     while  
-// }
-
 void    build_map(t_data *cub)
 {
     int i;
@@ -190,6 +251,7 @@ void    build_map(t_data *cub)
         while (cub->line[(cub->l_start + i)][++j] != '\0')
            cub->map[i][j] = cub->line[(cub->l_start + i)][j];
     }
+    map_space(cub);
 }
 
 void get_map_size(t_data *cub)
@@ -209,6 +271,9 @@ void get_map_size(t_data *cub)
         }
         else if (cub->in_map == true)
         {
+            //ft_printf("LINHAS %s\n", cub->line[i]);
+            //if (is_empty_line(cub->line[i]));
+  
             size = ft_strlen(cub->line[i]);
             if (cub->map_w < size)
                 cub->map_w = size;
@@ -219,14 +284,6 @@ void get_map_size(t_data *cub)
     cub->map_h++; //for some reason it is not correct size
 }
 
-/*
-reads entire file to one string line
-splits it by newlines
-possible problems:
-
-STRJOIN: possible leaks
-SPLIT: possible leaks
-*/
 void read_mapfile(t_data *cub, char *filename)
 {
     ft_printf("[F] - READ_MAPFILE\n");
@@ -241,15 +298,12 @@ void read_mapfile(t_data *cub, char *filename)
     while ((temp = get_next_line(fd)))
     {
         cub->lc++;
-        if (temp[0] == '\n')
-            join = ft_strjoin(join, " \n");
-        else
-            join = ft_strjoin(join, temp);
+        join = ft_strjoin(join, "*");
+        join = ft_strjoin(join, temp);
         free(temp);
     }
     close (fd);
-    cub->line = ft_split(join, '\n');
-    ft_printf("\nLC = %i\n", cub->lc);
+    cub->line = ft_split(join, '*');
     free(join);
 }
 
@@ -275,6 +329,8 @@ void read_lines(t_data *cub)
             i++;
         }
     }
+    //check other scenics here like if the xpm are correct
+    check_color_range(cub);
 }
 
 void get_player_pos(t_data *cub)
@@ -297,6 +353,23 @@ void get_player_pos(t_data *cub)
 		}
 		i++;
 	}
+    exit(EXIT_FAILURE);
+}
+
+void    map_space(t_data *cub)
+{
+    int i;
+
+    i = 1;
+    while (i < cub->map_h - 1)
+    {
+        if (cub->map[i][0] == '\n')
+        {
+            ft_printf("Invalid map\n");
+            exit(EXIT_FAILURE);
+        }
+        i++;
+    }
 }
 
 void parser_first(t_data *cub)
@@ -305,12 +378,15 @@ void parser_first(t_data *cub)
     ft_printf("Nx = %i\n", cub->init_x);
     ft_printf("Ny = %i\n", cub->init_y);
     
+      
     if (floodfill(cub, cub->init_x, cub->init_y, 48, 49) == 0)
     {
-        ft_printf("\033[1;31mMAPA DEU MERDA\033[0m\n");   
+        ft_printf("\033[1;31mMAPA DEU MERDA\033[0m\n");
+        exit(EXIT_FAILURE);
         return ;
     }
-    ft_printf("\033[1;32m!MAPA OK!\033[0m\n");    
+    ft_printf("\033[1;32m!MAPA OK!\033[0m\n");
+    exit(EXIT_SUCCESS);
 }
 
 int floodfill(t_data *cub, int x, int y, int targ, int new)

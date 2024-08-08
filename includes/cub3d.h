@@ -199,6 +199,9 @@ int minimaper_initial(t_data *cub);
 /**/
 int floodfill(t_data *cub, int x, int y, int targ, int new);
 
+void get_rgb_fr_str(char *line, t_data *cub, int id);
+void check_color_range(t_data *cub);
+
 
 bool is_empty_line(char *str);
 bool is_valid_element(int c);
