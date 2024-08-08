@@ -6,17 +6,22 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:23:03 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/05 15:27:45 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:11:12 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+int floodfill(t_data *cub, int x, int y, int targ, int new);
+
+
 bool is_empty_line(char *str);
 bool is_valid_element(int c);
 bool has_reached_map(char *line, t_data *cub);
-//void    build_map(t_data *cub, char *line);
+void    build_map(t_data *cub);
+void get_map_start(t_data *cub);
 void get_map_size(t_data *cub);
+void get_player_pos(t_data *cub);
 
 void check_duplicates(t_data *cub, int id);
 void fill_counter(t_data *cub, int id);
@@ -24,6 +29,7 @@ void save_path(char *line, t_data *cub, int id);
 void save_rgb(char *line, t_data *cub, int id);
 void get_scenic_id(t_data *cub, int i);
 void read_mapfile(t_data *cub, char *filename);
+void parser_first(t_data *cub);
 
 bool is_empty_line(char *str)
 {
@@ -151,12 +157,40 @@ bool has_reached_map(char *line, t_data *cub)
     return (false);
 }
 
-// void    build_map(t_data *cub, char *line)
+// void get_map_start(t_data *cub)
 // {
-//     int len;
-    
-//     len = ft_strlen(line);
+//     int i;
+
+//     i = 0;
+//     while (!has_reached_map(cub->line[i], cub))
+//         i++;
+//     cub->l_start = i;
 // }
+
+// void fill_maplines(int *arr,char *line)
+// {
+//     while  
+// }
+
+void    build_map(t_data *cub)
+{
+    int i;
+    int j;
+    
+    cub->map = (int **)calloc(cub->map_h, sizeof(int *));
+    if (!cub->map)
+        exit(EXIT_FAILURE); //dar frees e erro de memoria  ft_error    
+    i = -1;
+    while (++i < cub->map_h)
+    {
+        cub->map[i] = (int *)calloc(cub->map_w, sizeof(int));
+        if (!cub->map)
+            exit(EXIT_FAILURE); //dar frees e erro de memoria ft_error
+        j = -1;
+        while (cub->line[(cub->l_start + i)][++j] != '\0')
+           cub->map[i][j] = cub->line[(cub->l_start + i)][j];
+    }
+}
 
 void get_map_size(t_data *cub)
 {
@@ -171,6 +205,7 @@ void get_map_size(t_data *cub)
         if (cub->in_map == false)
         {
             has_reached_map(cub->line[i], cub);
+            cub->l_start = i;
         }
         else if (cub->in_map == true)
         {
@@ -181,6 +216,7 @@ void get_map_size(t_data *cub)
         }
         i++;
     }
+    cub->map_h++; //for some reason it is not correct size
 }
 
 /*
@@ -205,7 +241,10 @@ void read_mapfile(t_data *cub, char *filename)
     while ((temp = get_next_line(fd)))
     {
         cub->lc++;
-        join = ft_strjoin(join, temp);
+        if (temp[0] == '\n')
+            join = ft_strjoin(join, " \n");
+        else
+            join = ft_strjoin(join, temp);
         free(temp);
     }
     close (fd);
@@ -236,4 +275,67 @@ void read_lines(t_data *cub)
             i++;
         }
     }
+}
+
+void get_player_pos(t_data *cub)
+{
+	int i = 0;
+	int j;
+    
+	while (i < cub->map_h)
+	{
+		j = 0;
+		while (j < cub->map_w)
+		{
+			if (cub->map[i][j] == 78)
+            {
+                cub->init_x = j;
+                cub->init_y = i;
+                return ;
+            }
+			j++;
+		}
+		i++;
+	}
+}
+
+void parser_first(t_data *cub)
+{
+    get_player_pos(cub);
+    ft_printf("Nx = %i\n", cub->init_x);
+    ft_printf("Ny = %i\n", cub->init_y);
+    
+    if (floodfill(cub, cub->init_x, cub->init_y, 48, 49) == 0)
+    {
+        ft_printf("\033[1;31mMAPA DEU MERDA\033[0m\n");   
+        return ;
+    }
+    ft_printf("\033[1;32m!MAPA OK!\033[0m\n");    
+}
+
+int floodfill(t_data *cub, int x, int y, int targ, int new)
+{
+    int current;
+    int ret;
+
+    ret = 0;
+
+    if (x < 0 || x >= cub->map_w || y < 0 || y >= cub->map_h) 
+        return 0;
+    current = cub->map[y][x];
+    if (current == 49)
+        return 1;
+    if (current != targ && current != 78)
+        return 0;
+
+    cub->map[y][x] = new;
+
+    ret += floodfill(cub, x - 1, y, targ, new);
+    ret += floodfill(cub, x + 1, y, targ, new);
+    ret += floodfill(cub, x, y - 1, targ, new);
+    ret += floodfill(cub, x, y + 1, targ, new);
+
+    if (ret == 4)
+        return 1;
+    return 0;
 }

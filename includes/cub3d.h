@@ -59,7 +59,7 @@ typedef struct s_data
     bool in_map;
 
     char **line;
-
+    int l_start;
     /*header done End  */
 
 	int		map_w;
@@ -75,8 +75,8 @@ typedef struct s_data
 	int		line_length;
 	int		bits_per_pixel;
     char    player_init_ori;
-    double  init_x;
-    double  init_y;
+    int  init_x;
+    int  init_y;
     t_player    *player;
 }		t_data;
 
@@ -197,10 +197,13 @@ int minimaper_initial(t_data *cub);
 /* ************************************************************************** */
 
 /**/
+int floodfill(t_data *cub, int x, int y, int targ, int new);
+
+
 bool is_empty_line(char *str);
 bool is_valid_element(int c);
 bool has_reached_map(char *line, t_data *cub);
-//void    build_map(t_data *cub, char *line);
+void get_map_start(t_data *cub);
 void get_map_size(t_data *cub);
 
 void check_duplicates(t_data *cub, int id);
@@ -210,7 +213,9 @@ void save_rgb(char *line, t_data *cub, int id);
 void get_scenic_id(t_data *cub, int i);
 void read_mapfile(t_data *cub, char *filename);
 void read_lines(t_data *cub);
-
+void    build_map(t_data *cub);
+void get_player_pos(t_data *cub);
+void parser_first(t_data *cub);
 
 /* ************************************************************************** */
 /*                            FILEREADER UTILS                                */
