@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/06 23:07:01 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/09 22:55:54 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	init_fields(t_data *cub)
 		free(cub->win_ptr);
 		return (-2);
 	}
-	cub->img_w = 1920;
-	cub->img_h = 1080;
+	cub->img_w = 800;
+	cub->img_h = 600;
 	cub->img = mlx_new_image(cub->mlx_ptr, cub->img_w, cub->img_h);
 	cub->addr = mlx_get_data_addr(cub->img, &cub->bits_per_pixel,
 			&cub->line_length, &cub->endian);

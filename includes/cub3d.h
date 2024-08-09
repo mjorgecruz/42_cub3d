@@ -17,8 +17,8 @@
 # include "../lib/mlx.h"
 # include "../libft/libft.h"
 
-# define WIN_W 1920
-# define WIN_H 1080
+# define WIN_W 800
+# define WIN_H 600
 # define DG_RAD 0.0174533
 typedef struct s_camera
 {
