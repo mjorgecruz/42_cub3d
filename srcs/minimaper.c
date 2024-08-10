@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:32:31 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/10 02:53:59 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/10 09:23:36 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int minimaper(t_data *cub)
 	map_scale = 20;
 	cub->map_h = 4;
 	cub->map_w = 4;
-	mlx_destroy_image(cub->mlx_ptr, cub->img);
-	cub->img = mlx_new_image(cub->mlx_ptr, cub->img_w, cub->img_h);
 	map_drawing(cub, map_scale);
 	render_point_player(cub, (int) (cub->player->posX * map_scale), (int) (cub->player->posY * map_scale));
 	render_direction(cub);
@@ -76,7 +74,6 @@ void render_direction(t_data *cub)
 		bresenham(cub, cub->player->pov->hitX, cub->player->pov->hitY);
 		ang+=0.05;
 	}
-	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
 }
 
 void hit_point_vertical(t_data *cub)

@@ -53,12 +53,14 @@ typedef struct s_camera
 	double planeX;
 	double planeY;
 
-	double deltaX; //distance to progress one unit in x
-	double deltaY; 
-	double sideDistX; //distance to the next edge in x
-	double sideDistY; //distance to the next edge in y
-	int stepX;
-	int stepY;
+	double r_deltaX; //distance to progress one unit in x
+	double r_deltaY; 
+	int r_mapX;
+	int r_mapY;
+	double r_sideDistX; //distance to the next edge in x
+	double r_sideDistY; //distance to the next edge in y
+	int r_stepX;
+	int r_stepY;
 
 }   t_camera;
 
@@ -210,6 +212,7 @@ int	close_win_free(t_data *cub);
 /**/
 void	general_free(t_data *cub);
 
+
 /* ************************************************************************** */
 /*                               MINIMAPER                                    */
 /* ************************************************************************** */
@@ -246,6 +249,19 @@ void	step_calc(t_data *cub);
 
 int		side_calc(t_data *cub);
 
+/* ************************************************************************** */
+/*                                RAYCASTER                                   */
+/* ************************************************************************** */
+
+void 	display(t_data *cub);
+
+void	delta_calc_ray(t_data *cub);
+
+void	step_calc_ray(t_data *cub);
+
+int		side_calc_ray(t_data *cub);
+
+int		line_display(t_data *cub, int x, double wallDist, int side);
 
 /* ************************************************************************** */
 /*                               FILEREADER                                   */

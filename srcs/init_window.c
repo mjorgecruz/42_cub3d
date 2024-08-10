@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/10 03:09:07 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/10 11:07:48 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	init_fields(t_data *cub)
 		free(cub->win_ptr);
 		return (-2);
 	}
-	cub->img_w = 800;
-	cub->img_h = 600;
+	cub->img_w = WIN_W;
+	cub->img_h = WIN_H;
 	cub->img = mlx_new_image(cub->mlx_ptr, cub->img_w, cub->img_h);
 	cub->addr = mlx_get_data_addr(cub->img, &cub->bits_per_pixel,
 			&cub->line_length, &cub->endian);
@@ -82,8 +82,8 @@ void init_camera(t_player *player, t_data *cub)
 	player->cam = (t_camera *) malloc(sizeof(t_camera) * 1);
 	if (player->cam == NULL)
 		ft_error(CAMERA, cub);
-	player->cam->planeX =  -player->pov->dirY * tan(player->fov / 2);
-	player->cam->planeY =  player->pov->dirX * tan(player->fov / 2);
+	player->cam->planeX =  player->pov->dirY * tan(player->fov / 2);
+	player->cam->planeY =  -player->pov->dirX * tan(player->fov / 2);
 }
 
 void init_map(t_data *cub)
@@ -91,7 +91,7 @@ void init_map(t_data *cub)
 	int 	**map;
 	int		i;
 	int		j;
-	int 	c_map[4][4] = {{1, 1, 1, 1},{1, 0, 0, 1}, {1, 0, 'E', 1}, {1, 1, 1, 1}};
+	int 	c_map[4][4] = {{1, 1, 1, 1},{1, 1, 0, 1}, {1, 0, 'E', 1}, {1, 1, 1, 1}};
 
 	i = 0;	
 	map = ft_calloc(4, sizeof(int *));
