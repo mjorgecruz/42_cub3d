@@ -76,6 +76,17 @@ typedef struct s_player
 
 }   t_player;
 
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		endian;
+	int		line_length;
+	int		bits_per_pixel;
+	int		width;
+	int		height;
+}	t_img;
+
 typedef struct s_data
 {
 	int cub_fd;
