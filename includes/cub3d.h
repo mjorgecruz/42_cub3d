@@ -17,7 +17,7 @@
 # include "../lib/mlx.h"
 # include "../libft/libft.h"
 
-# define WIN_W 1920
+# define WIN_W 1080
 # define WIN_H 1080
 # define DG_RAD 0.0174533
 # define FOV 2 * atan(0.66 / 1)

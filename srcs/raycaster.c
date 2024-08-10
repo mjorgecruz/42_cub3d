@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:30:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/10 14:56:51 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/10 15:24:30 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,13 @@ void display(t_data *cub)
 		step_calc_ray(cub);
 		side = side_calc_ray(cub);
 		if(side == 1) 
-			wallDist = fabs(cub->player->cam->r_sideDistX  - cub->player->cam->r_deltaX);
+			wallDist = fabs((cub->player->cam->r_sideDistX  - cub->player->cam->r_deltaX));
 		else
-			wallDist = fabs(cub->player->cam->r_sideDistY - cub->player->cam->r_deltaY);
-		
-		printf("planeX %f planeY %f wallDist %f\n", cub->player->cam->planeX, cub->player->cam->planeY, wallDist);
-		printf("r_sideDistX %f r_sideDistY %f r_deltaX %f r_deltaY %f \n", cub->player->cam->r_sideDistX, cub->player->cam->r_sideDistY, cub->player->cam->r_deltaX, cub->player->cam->r_deltaY);
+			wallDist = fabs((cub->player->cam->r_sideDistY - cub->player->cam->r_deltaY));
+
 		line_display(cub, x, wallDist, side);
 		x++;
 	}
-	printf("\n");
 }
 
 void delta_calc_ray(t_data *cub)

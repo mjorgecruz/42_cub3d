@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/10 14:56:18 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/10 15:49:59 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ void init_camera(t_player *player, t_data *cub)
 	player->cam = (t_camera *) malloc(sizeof(t_camera) * 1);
 	if (player->cam == NULL)
 		ft_error(CAMERA, cub);
-	player->cam->planeX =  player->pov->dirY * tan(player->fov / 2);
-	player->cam->planeY =  -player->pov->dirX * tan(player->fov / 2);
+	player->cam->planeX =  -player->pov->dirY * tan(player->fov / 2);
+	player->cam->planeY =  player->pov->dirX * tan(player->fov / 2);
 }
 
 void init_map(t_data *cub)
