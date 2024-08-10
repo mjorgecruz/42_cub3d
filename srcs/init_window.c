@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/09 23:42:18 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/10 03:09:07 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ t_player *init_player(t_data *cub)
 	if (player == NULL)
 		ft_error(PLAYER, cub);
 	init_map(cub);
+	player->pov = (t_pov *) malloc(sizeof(t_pov) * 1);
 	init_orientation(player, cub->player_init_ori);
 	init_position(player, cub->map);
-	//init_camera(cub);
-	player->pov = (t_pov *) malloc(sizeof(t_pov) * 1);
+	init_camera(player, cub);
 	
 
 	return (player);
@@ -57,17 +57,17 @@ t_player *init_player(t_data *cub)
 
 void init_orientation(t_player *player, char player_init_ori)
 {
-	player->fov = 2 * atan(0.66 / 1);
+	player->fov = FOV;
 	if (player_init_ori == 'N')
-		player->p_ang = 90 * DG_RAD;
+		player->p_ang = -90 * DG_RAD;
 	else if (player_init_ori == 'E')
 		player->p_ang = 0 * DG_RAD;
 	else if (player_init_ori == 'O')
 		player->p_ang = 180 * DG_RAD;
 	else
-		player->p_ang = -90 * DG_RAD;
-
-	
+		player->p_ang = 90 * DG_RAD;
+	player->pov->dirX = cos(player->p_ang);
+	player->pov->dirY = sin(player->p_ang);
 }
 
 void init_position(t_player *player,int **map)
@@ -77,12 +77,13 @@ void init_position(t_player *player,int **map)
 	return ;
 }
 
-void init_camera(t_data *cub)
+void init_camera(t_player *player, t_data *cub)
 {
-	t_camera *cam = (t_camera *) malloc(sizeof(t_camera) * 1);
-	if (cam == NULL)
+	player->cam = (t_camera *) malloc(sizeof(t_camera) * 1);
+	if (player->cam == NULL)
 		ft_error(CAMERA, cub);
-	(cub->player->cam) = cam;
+	player->cam->planeX =  -player->pov->dirY * tan(player->fov / 2);
+	player->cam->planeY =  player->pov->dirX * tan(player->fov / 2);
 }
 
 void init_map(t_data *cub)
@@ -90,7 +91,7 @@ void init_map(t_data *cub)
 	int 	**map;
 	int		i;
 	int		j;
-	int 	c_map[4][4] = {{1, 1, 1, 1},{1, 0, 0, 1}, {1, 0, 'N', 1}, {1, 1, 1, 1}};
+	int 	c_map[4][4] = {{1, 1, 1, 1},{1, 0, 0, 1}, {1, 0, 'E', 1}, {1, 1, 1, 1}};
 
 	i = 0;	
 	map = ft_calloc(4, sizeof(int *));
@@ -108,6 +109,7 @@ void init_map(t_data *cub)
 	cub->map = map;
 	cub->map_h = 4;
 	cub->map_w = 4;
+	cub->player_init_ori = 'E';
 	
 }
 void init_textures_to_null(t_data *cub)

@@ -20,6 +20,7 @@
 # define WIN_W 800
 # define WIN_H 600
 # define DG_RAD 0.0174533
+# define FOV 2 * atan(0.66 / 1)
 
 
 typedef struct s_pov
@@ -49,6 +50,15 @@ typedef struct s_camera
 	double cameraX;
 	double rayDirX;
 	double rayDirY;
+	double planeX;
+	double planeY;
+
+	double deltaX; //distance to progress one unit in x
+	double deltaY; 
+	double sideDistX; //distance to the next edge in x
+	double sideDistY; //distance to the next edge in y
+	int stepX;
+	int stepY;
 
 }   t_camera;
 
@@ -56,11 +66,7 @@ typedef struct s_player
 {
 	double posX;
 	double posY;
-	double dirX;
-	double dirY;
 
-	double planeX;
-	double planeY;
 	t_camera *cam;
 	double fov;
 	double p_ang;
@@ -152,7 +158,7 @@ void init_orientation(t_player *player, char player_init_ori);
 /*Define initial position of player*/
 void init_position(t_player *player,int **map);
 
-void init_camera(t_data *cub);
+void init_camera(t_player *player, t_data *cub);
 
 void init_textures_to_null(t_data *cub);
 
