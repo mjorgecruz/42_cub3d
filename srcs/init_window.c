@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/10 11:07:48 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/10 14:56:18 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	init_fields(t_data *cub)
 	
 	cub->map = NULL;
 	cub->player = init_player(cub);
+	init_position(cub);
 	return (0);
 }
 
@@ -48,7 +49,6 @@ t_player *init_player(t_data *cub)
 	init_map(cub);
 	player->pov = (t_pov *) malloc(sizeof(t_pov) * 1);
 	init_orientation(player, cub->player_init_ori);
-	init_position(player, cub->map);
 	init_camera(player, cub);
 	
 
@@ -70,10 +70,29 @@ void init_orientation(t_player *player, char player_init_ori)
 	player->pov->dirY = sin(player->p_ang);
 }
 
-void init_position(t_player *player,int **map)
+void init_position(t_data *cub)
 {
-	(void) player;
-	(void) map;
+	double		x;
+	double		y;
+	
+	y = 0;
+	x = 0;
+	while (y < cub->map_h)
+	{
+		x = 0;
+		while (x < cub->map_w)
+		{
+			if (cub->map[(int) x][(int) y] > 1)
+			{
+				cub->player->posX = x + 0.5;
+				cub->player->posY = y + 0.5;
+				cub->map[(int) x][(int) y] = 0;
+				break;
+			}
+			x++;
+		}
+		y++;
+	}
 	return ;
 }
 

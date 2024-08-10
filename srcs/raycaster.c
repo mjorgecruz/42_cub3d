@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:30:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/10 11:04:57 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/10 14:56:51 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,21 @@ void display(t_data *cub)
 	x = 1;
 	side = 0;
 	direction_calc(cub, 0);
-	while(x < WIN_W)
+	while(x <  WIN_W)
 	{
-		cub->player->cam->cameraX = (2 * x / WIN_W) - 1;
+		cub->player->cam->cameraX = (2 * x / (double) WIN_W) - 1;
 		cub->player->cam->rayDirX = cub->player->pov->dirX + cub->player->cam->planeX * cub->player->cam->cameraX;
 		cub->player->cam->rayDirY = cub->player->pov->dirY + cub->player->cam->planeY * cub->player->cam->cameraX;
 		delta_calc_ray(cub);
 		step_calc_ray(cub);
 		side = side_calc_ray(cub);
-		if(side == 0) 
+		if(side == 1) 
 			wallDist = fabs(cub->player->cam->r_sideDistX  - cub->player->cam->r_deltaX);
 		else
 			wallDist = fabs(cub->player->cam->r_sideDistY - cub->player->cam->r_deltaY);
 		
 		printf("planeX %f planeY %f wallDist %f\n", cub->player->cam->planeX, cub->player->cam->planeY, wallDist);
+		printf("r_sideDistX %f r_sideDistY %f r_deltaX %f r_deltaY %f \n", cub->player->cam->r_sideDistX, cub->player->cam->r_sideDistY, cub->player->cam->r_deltaX, cub->player->cam->r_deltaY);
 		line_display(cub, x, wallDist, side);
 		x++;
 	}
@@ -50,7 +51,7 @@ void delta_calc_ray(t_data *cub)
 	else
 		cub->player->cam->r_deltaX = 1e30;
 	if (cub->player->cam->rayDirY != 0)
-		cub->player->cam->r_deltaY = fabs(1 / cub->player->cam->rayDirX);
+		cub->player->cam->r_deltaY = fabs(1 / cub->player->cam->rayDirY);
 	else
 		cub->player->cam->r_deltaY = 1e30;
 }

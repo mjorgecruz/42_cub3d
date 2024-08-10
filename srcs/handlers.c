@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:53:30 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/10 10:32:13 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/10 14:18:30 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,15 @@ void control_rot(t_data *cub, int dir)
 		cub->player->p_ang += DG_RAD*5;
 	else
 		(cub->player->p_ang) -= DG_RAD*5;
-	cub->player->cam->planeX = -cub->player->pov->dirY * tan(cub->player->fov / 2);
-	cub->player->cam->planeY =  cub->player->pov->dirX * tan(cub->player->fov / 2);
+		
+	cub->player->pov->dirX = cos(cub->player->p_ang);
+	cub->player->pov->dirY = sin(cub->player->p_ang);
+	if (cub->player->pov->dirX < 0.00001 && cub->player->pov->dirX > -0.00001)
+		cub->player->pov->dirX = 0;
+	if (cub->player->pov->dirY < 0.00001 && cub->player->pov->dirY > -0.00001)
+		cub->player->pov->dirY = 0;	
+	cub->player->cam->planeX = cub->player->pov->dirY * tan(cub->player->fov / 2);
+	cub->player->cam->planeY = cub->player->pov->dirX * tan(cub->player->fov / 2);
 }
 
 void control_trans(t_data *cub, int dir)

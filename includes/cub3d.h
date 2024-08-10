@@ -17,8 +17,8 @@
 # include "../lib/mlx.h"
 # include "../libft/libft.h"
 
-# define WIN_W 800
-# define WIN_H 600
+# define WIN_W 1920
+# define WIN_H 1080
 # define DG_RAD 0.0174533
 # define FOV 2 * atan(0.66 / 1)
 
@@ -158,7 +158,7 @@ t_player *init_player(t_data *cub);
 void init_orientation(t_player *player, char player_init_ori);
 
 /*Define initial position of player*/
-void init_position(t_player *player,int **map);
+void init_position(t_data *cub);
 
 void init_camera(t_player *player, t_data *cub);
 

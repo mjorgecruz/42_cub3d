@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:32:31 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/10 09:23:36 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/10 14:50:37 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,6 @@ void 	map_drawing(t_data *cub, int map_scale)
 			else
 			{
 				render_rect_ground(cub, x, y, map_scale);
-				cub->player->posX = x + 0.5;
-				cub->player->posY = y + 0.5;
-				cub->map[(int) x][(int) y] = 0;
 			}
 			x++;
 		}
