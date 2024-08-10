@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/09 22:55:54 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/09 23:42:18 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,17 @@ int	init_fields(t_data *cub)
 
 t_player *init_player(t_data *cub)
 {
-	t_player *player = (t_player *) malloc(sizeof(t_player) * 1);
+	t_player *player;
+	
+	player = (t_player *) malloc(sizeof(t_player) * 1);
 	if (player == NULL)
 		ft_error(PLAYER, cub);
 	init_map(cub);
 	init_orientation(player, cub->player_init_ori);
 	init_position(player, cub->map);
 	//init_camera(cub);
+	player->pov = (t_pov *) malloc(sizeof(t_pov) * 1);
+	
 
 	return (player);
 }
@@ -55,13 +59,13 @@ void init_orientation(t_player *player, char player_init_ori)
 {
 	player->fov = 2 * atan(0.66 / 1);
 	if (player_init_ori == 'N')
-		player->player_ang = 90 * DG_RAD;
+		player->p_ang = 90 * DG_RAD;
 	else if (player_init_ori == 'E')
-		player->player_ang = 0 * DG_RAD;
+		player->p_ang = 0 * DG_RAD;
 	else if (player_init_ori == 'O')
-		player->player_ang = 180 * DG_RAD;
+		player->p_ang = 180 * DG_RAD;
 	else
-		player->player_ang = -90 * DG_RAD;
+		player->p_ang = -90 * DG_RAD;
 
 	
 }

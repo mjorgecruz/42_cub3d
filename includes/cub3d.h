@@ -20,42 +20,68 @@
 # define WIN_W 800
 # define WIN_H 600
 # define DG_RAD 0.0174533
+
+
+typedef struct s_pov
+{
+	double deltaX; //distance to progress one unit in x
+	double deltaY; //distance to progress one unit in x
+	
+	double dirX;
+	double dirY;
+
+	int mapX;
+	int mapY;
+
+	double sideDistX; //distance to the next edge in x
+	double sideDistY; //distance to the next edge in y
+	int stepX;
+	int stepY;
+
+	double hitX;
+	double hitY;
+
+}   t_pov;
+
+
 typedef struct s_camera
 {
-    double cameraX;
-    double rayDirX;
-    double rayDirY;
+	double cameraX;
+	double rayDirX;
+	double rayDirY;
 
 }   t_camera;
 
 typedef struct s_player
 {
-    double posX;
-    double posY;
-    double dirX;
-    double dirY;
-    double planeX;
-    double planeY;
-    t_camera *cam;
-    double fov;
-    double player_ang;
+	double posX;
+	double posY;
+	double dirX;
+	double dirY;
+
+	double planeX;
+	double planeY;
+	t_camera *cam;
+	double fov;
+	double p_ang;
+	t_pov   *pov;
 
 }   t_player;
 
 typedef struct s_data
 {
-    int cub_fd;
-    /* header reading and info gathering */
+	int cub_fd;
+	/* header reading and info gathering */
 
-    int count[6]; // order  = NO SO WE EA F C  conter[1] is SO  if it is 0 it stil availble to populate
-    int fl_rgb[3]; //save F color
-    int cl_rgb[3]; //save C color
+	int count[6]; // order  = NO SO WE EA F C  conter[1] is SO  if it is 0 it stil availble to populate
+	int fl_rgb[3]; //save F color
+	int cl_rgb[3]; //save C color
 
-    char *north;
-    char *south;
-    char *west;
-    char *east;
-    /*header done End  */
+	char *north;
+	char *south;
+	char *west;
+	char *east;
+	/*header done End  */
 
 	int		map_w;
 	int		map_h;
@@ -69,32 +95,32 @@ typedef struct s_data
 	int		endian;
 	int		line_length;
 	int		bits_per_pixel;
-    char    player_init_ori;
-    double  init_x;
-    double  init_y;
-    t_player    *player;
+	char    player_init_ori;
+	double  init_x;
+	double  init_y;
+	t_player    *player;
 }		t_data;
 
 enum ERRORS
 {
-    DATA,
-    PLAYER,
-    INPUTERR,
-    MAPNAME,
-    CANTOPEN,
-    IVALIDMAP,
-    PATHERR,
-    CAMERA
+	DATA,
+	PLAYER,
+	INPUTERR,
+	MAPNAME,
+	CANTOPEN,
+	IVALIDMAP,
+	PATHERR,
+	CAMERA
 };
 
 enum DIRECTION
 {
-    NORTH,
-    SOUTH,
-    WEST,
-    EAST,
-    FLOOR,
-    CEILING
+	NORTH,
+	SOUTH,
+	WEST,
+	EAST,
+	FLOOR,
+	CEILING
 };
 
 /* ************************************************************************** */
@@ -138,7 +164,18 @@ void init_map(t_data *cub);
 
 /*manages all window updates and updates based on input*/
 void	run_window(t_data *cub);
+
 void    render(t_data *cub);
+
+/* ************************************************************************** */
+/*                              RENDER_UTILS                                  */
+/* ************************************************************************** */
+
+void	pixel_put(t_data *data, int x, int y, int color);
+
+int	    bresenham(t_data *img, double u1, double v1);
+
+int	    max_finder(double varu, double varv);
 
 
 /* ************************************************************************** */
@@ -171,18 +208,38 @@ void	general_free(t_data *cub);
 /*                               MINIMAPER                                    */
 /* ************************************************************************** */
 
-int minimaper(t_data *cub);
+int     minimaper(t_data *cub);
 
-int	bresenham(t_data *img, double u1, double v1);
+void 	map_drawing(t_data *cub, int map_scale);
 
-int	bresenham_wall(t_data *img, double x, double x1, double y, double y1);
+void    render_direction(t_data *cub);
 
-int	max_finder(double varu, double varv);
+void	hit_point_vertical(t_data *cub);
 
-/*This function only serves while we do not have a map*/
-int minimaper_initial(t_data *cub);
+void	hit_point_horizontal(t_data *cub);
 
-void render_direction(t_data *cub);
+/* ************************************************************************** */
+/*                           MINIMAPER_RENDERS                                */
+/* ************************************************************************** */
+
+void	render_point_player(t_data *img, double pos_x, double pos_y);
+
+void	render_rect_wall(t_data *img, int pos_x, int pos_y, int scale);
+
+void	render_rect_ground(t_data *img, int pos_x, int pos_y, int scale);
+
+/* ************************************************************************** */
+/*                             MINIMAPER_UTILS                                */
+/* ************************************************************************** */
+
+void	direction_calc(t_data *cub, double ang);
+
+void	delta_calc(t_data *cub);
+
+void	step_calc(t_data *cub);
+
+int		side_calc(t_data *cub);
+
 
 /* ************************************************************************** */
 /*                               FILEREADER                                   */
