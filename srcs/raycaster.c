@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:30:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/10 22:23:55 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/12 11:44:20 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d.h"
 
@@ -120,7 +120,9 @@ int		line_display(t_data *cub, int x, double wallDist, int side)
 	int color;
 	int pos;
 	double wall_pos;
+	int wallX;
 	
+	(void) x;
 	pos = 0;
 	line_height = WIN_H / wallDist;
 	yStart = (int)(-line_height / 2 + WIN_H / 2);
@@ -129,28 +131,24 @@ int		line_display(t_data *cub, int x, double wallDist, int side)
     yEnd = (int)(line_height / 2 + WIN_H / 2);
     if(yEnd >= WIN_H)
 		yEnd = WIN_H - 1;
-	
-			
+		
 	if(side == 1)
 		wall_pos = cub->player->posX + (cub->player->cam->r_sideDistX  - cub->player->cam->r_deltaX) * cub->player->cam->rayDirX - (int)cub->player->posX;
 	else
 		wall_pos = cub->player->posY + (cub->player->cam->r_sideDistY  - cub->player->cam->r_deltaY) * cub->player->cam->rayDirY - (int)cub->player->posY;
-	int texX = (int)(wall_pos * (double)texWidth);
-    if(side == 1 && cub->player->cam->rayDirX > 0)
-		texX = texWidth - texX - 1;
-    if(side == 0 && cub->player->cam->rayDirY < 0) 
-		texX = texWidth - texX - 1;
-
-	//falta contar na vertical
+	wallX = (int)((double)cub->texNorth.bits_per_pixel * wall_pos);
+    //if(side == 1 && cub->player->cam->rayDirX > 0)
+	// 	texX = texWidth - texX - 1;
+    // if(side == 0 && cub->player->cam->rayDirY < 0) 
+	// 	texX = texWidth - texX - 1;
 	
-	// color = 0xFF0000;
-	// if (side == 1)
-	// 	color = color / 2;
-	// pos = yStart;
-	// while (pos <= yEnd)
-	// {
-	// 	pixel_put(cub, x, pos, color);
-	// 	pos++;
-	// }
+	//falta contar na vertical
+	pos = yStart;
+	while (pos <= yEnd)
+	{
+		color = ft_atoi(cub->north + wallX + (int)((pos - yStart)/(yEnd-yStart)*cub->texNorth.height));
+		pixel_put(cub, x, pos, color);
+		pos++;
+	}
 	return(1);
 }

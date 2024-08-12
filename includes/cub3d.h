@@ -80,6 +80,7 @@ typedef struct s_img
 {
 	void	*img;
 	char	*addr;
+	char	*data;
 	int		endian;
 	int		line_length;
 	int		bits_per_pixel;
@@ -118,6 +119,10 @@ typedef struct s_data
 	double  init_x;
 	double  init_y;
 	t_player    *player;
+	t_img		texNorth;
+	t_img		texSouth;
+	t_img		texEast;
+	t_img		texWest;
 }		t_data;
 
 enum ERRORS
@@ -176,6 +181,8 @@ void init_camera(t_player *player, t_data *cub);
 void init_textures_to_null(t_data *cub);
 
 void init_map(t_data *cub);
+
+void textures_definer(t_data *cub);
 
 /* ************************************************************************** */
 /*                                 RENDER                                     */
