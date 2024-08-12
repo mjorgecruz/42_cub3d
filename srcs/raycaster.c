@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:30:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/12 11:44:20 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:47:20 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -146,7 +146,7 @@ int		line_display(t_data *cub, int x, double wallDist, int side)
 	pos = yStart;
 	while (pos <= yEnd)
 	{
-		color = ft_atoi(cub->north + wallX + (int)((pos - yStart)/(yEnd-yStart)*cub->texNorth.height));
+		color = cub->north + wallX + (int)((pos - yStart)/(yEnd-yStart)*cub->texNorth.height));
 		pixel_put(cub, x, pos, color);
 		pos++;
 	}
