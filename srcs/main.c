@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 09:57:38 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/12 11:28:54 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/13 10:38:28 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -23,7 +23,6 @@ int	main(int argc, char **argv)
 	t_data	cub;
 	(void) argc;
 	(void) argv;
-
 	// check_user_input(argc, argv[1], &cub);
 	// /*testing GNL */
 	
@@ -33,6 +32,6 @@ int	main(int argc, char **argv)
 	
 	/*coment this up here if you need */	
 	init_fields(&cub);
-	printf("%c",cub.north[2]);
+	//printf("%c",cub.north[2]);
 	run_window(&cub);
 }

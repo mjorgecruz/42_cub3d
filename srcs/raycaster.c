@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:30:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/12 16:47:20 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/13 14:56:24 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -122,6 +122,7 @@ int		line_display(t_data *cub, int x, double wallDist, int side)
 	double wall_pos;
 	int wallX;
 	
+	(void) side;
 	(void) x;
 	pos = 0;
 	line_height = WIN_H / wallDist;
@@ -132,21 +133,16 @@ int		line_display(t_data *cub, int x, double wallDist, int side)
     if(yEnd >= WIN_H)
 		yEnd = WIN_H - 1;
 		
-	if(side == 1)
-		wall_pos = cub->player->posX + (cub->player->cam->r_sideDistX  - cub->player->cam->r_deltaX) * cub->player->cam->rayDirX - (int)cub->player->posX;
+	if(side == 0)
+		wall_pos = (cub->player->posX + (wallDist) * cub->player->cam->rayDirX);
 	else
-		wall_pos = cub->player->posY + (cub->player->cam->r_sideDistY  - cub->player->cam->r_deltaY) * cub->player->cam->rayDirY - (int)cub->player->posY;
-	wallX = (int)((double)cub->texNorth.bits_per_pixel * wall_pos);
-    //if(side == 1 && cub->player->cam->rayDirX > 0)
-	// 	texX = texWidth - texX - 1;
-    // if(side == 0 && cub->player->cam->rayDirY < 0) 
-	// 	texX = texWidth - texX - 1;
-	
-	//falta contar na vertical
+		wall_pos = cub->player->posY + (wallDist) * cub->player->cam->rayDirY;
+	wallX = (int)(wall_pos * (double)(cub->texNorth.line_length /8));
+	printf("%i ", wallX );
 	pos = yStart;
 	while (pos <= yEnd)
 	{
-		color = cub->north + wallX + (int)((pos - yStart)/(yEnd-yStart)*cub->texNorth.height));
+		color =*((int *)(cub->north + (int)(((double)wallX  + (int)((double)(pos - yStart)/(yEnd - yStart) * cub->texNorth.height * cub->texNorth.line_length)/8))));
 		pixel_put(cub, x, pos, color);
 		pos++;
 	}

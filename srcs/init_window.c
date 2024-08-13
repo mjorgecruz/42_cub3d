@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/12 11:29:58 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/13 13:23:03 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -34,6 +34,7 @@ int	init_fields(t_data *cub)
 	cub->map_w = 0;
 	
 	cub->map = NULL;
+
 	cub->player = init_player(cub);
 	init_position(cub);
 	textures_definer(cub);
@@ -143,25 +144,25 @@ void init_textures_to_null(t_data *cub)
 void textures_definer(t_data *cub)
 {
 	cub->texNorth.img = mlx_xpm_file_to_image(cub->mlx_ptr,
-			"../refs/bluestone.xpm", &cub->texNorth.width,
+			"./refs/wall.xpm", &cub->texNorth.width,
 			&cub->texNorth.height);
-	cub->north = mlx_get_data_addr(cub->texNorth.img, 
+	cub->north = mlx_get_data_addr(cub->texNorth.img,
 			&cub->texNorth.bits_per_pixel, &cub->texNorth.line_length, 
 			&cub->texNorth.endian);
 	cub->texSouth.img = mlx_xpm_file_to_image(cub->mlx_ptr,
-			"../refs/eagle.xpm", &cub->texSouth.width,
+			"./refs/wall.xpm", &cub->texSouth.width,
 			&cub->texSouth.height);
 	cub->south = mlx_get_data_addr(cub->texSouth.img, 
 			&cub->texSouth.bits_per_pixel, &cub->texSouth.line_length, 
 			&cub->texSouth.endian);
 	cub->texEast.img = mlx_xpm_file_to_image(cub->mlx_ptr,
-			"../refs/greystone.xpm", &cub->texEast.width,
+			"./refs/wall.xpm", &cub->texEast.width,
 			&cub->texEast.height);
 	cub->east = mlx_get_data_addr(cub->texEast.img, 
 			&cub->texEast.bits_per_pixel, &cub->texEast.line_length, 
 			&cub->texEast.endian);
 	cub->texWest.img = mlx_xpm_file_to_image(cub->mlx_ptr,
-			"../refs/redbrick.xpm", &cub->texWest.width,
+			"./refs/wall.xpm", &cub->texWest.width,
 			&cub->texWest.height);
 	cub->west = mlx_get_data_addr(cub->texWest.img, 
 			&cub->texWest.bits_per_pixel, &cub->texWest.line_length, 
