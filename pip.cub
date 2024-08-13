@@ -2,21 +2,22 @@
   
 
 
-  NO         textures/simonkraft/NO_sponge.xpm
+  NO         textures/simonkraft/north_sponge.xpm
 
 
 
-     SO                       textures/simonkraft/SO sponge.xpm
-WE textures/simonkraft/WE_sponge.xpm
-EA textures/simonkraft/EA_sponge.xpm
+     SO                       textures/simonkraft/south_sponge.xpm
+WE textures/simonkraft/west_sponge.xpm
+EA textures/simonkraft/east_sponge.xpmm     
 
-F 164,169,20
+F  164, 169, 20
 C 153,204,255
 
      
 1111111111111
 1000000000001
-10000N0000001
+10000S0000001
 1000000000001
 1111111111111
+
 

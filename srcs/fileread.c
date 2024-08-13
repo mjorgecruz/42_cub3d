@@ -6,47 +6,130 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:23:03 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/08 16:41:17 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/13 15:02:05 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int floodfill(t_data *cub, int x, int y, int targ, int new);
-void map_space(t_data *cub);
-
-
-void check_color_range(t_data *cub);
-void get_rgb_fr_str(char *line, t_data *cub, int id);
-
-bool is_empty_line(char *str);
-bool is_valid_element(int c);
-bool has_reached_map(char *line, t_data *cub);
-void    build_map(t_data *cub);
-void get_map_start(t_data *cub);
-void get_map_size(t_data *cub);
-void get_player_pos(t_data *cub);
-
+void check_scenics_count(t_data *cub);
+void check_scenics(t_data *cub);
 void check_duplicates(t_data *cub, int id);
 void fill_counter(t_data *cub, int id);
 void save_path(char *line, t_data *cub, int id);
-void save_rgb(char *line, t_data *cub, int id);
 void get_scenic_id(t_data *cub, int i);
+bool has_reached_map(char *line, t_data *cub);
 void read_mapfile(t_data *cub, char *filename);
-void parser_first(t_data *cub);
+void read_lines(t_data *cub);
 
-bool is_empty_line(char *str)
+
+void check_scenics_count(t_data *cub)
+{
+    int i;
+
+    i = -1;
+    while (++i <= 5)
+    {
+        if (cub->count[i] == 0)
+        {
+            ft_printf("\n MISSING SCENICS \n");
+            exit(EXIT_FAILURE);
+        }
+    }
+}
+
+bool is_xpm_file(char *xpm)
 {
     int i;
 
     i = 0;
-    if (str == NULL || str[0] == '\0')
-        return true;
-    i = jump_whitepaces(str);
-    if (str[i] == '\n' || str[i] == '\0')
-        return (true);
-    else
+    while(xpm[i])
+    {
+        if (xpm[i] == '.')
+            if (!ft_strncmp(&xpm[i], ".xpm", 4))
+            {
+                if (is_empty_line(&xpm[i] + 4))
+                    return (true);
+            }
+        i++;
+    }
+    return (false);
+}
+
+bool compare_id_xpm(char *xpm)
+{
+    if (!xpm)
         return (false);
+    else if (!ft_strncmp(xpm, "south", 5))
+        return (true);
+    else if (!ft_strncmp(xpm, "north", 5))
+        return (true); 
+    else if (!ft_strncmp(xpm, "east", 4))
+        return (true);
+    else if (!ft_strncmp(xpm, "west", 4))
+        return (true);
+    return (false);
+}
+
+bool    check_texture_match(char *xpm)
+{
+    int i;
+    int marker;
+    
+    marker = 0;
+    i = -1;
+    while (xpm[++i])
+    {
+        if (xpm[i] == '/')
+            marker = i + 1;
+    }
+    if (!compare_id_xpm(xpm + marker))
+        return (false);
+    else if (!is_xpm_file(xpm + marker))
+        return (false);
+    return (true);
+}
+
+bool check_texture_str(char *xpm)
+{
+    int i;
+    
+    if (is_empty_line(xpm) || !xpm)
+        return (false);
+    i = 0;
+    while (xpm[++i])
+    {
+        if(ft_iswhitespace(xpm[i]))
+        {
+            while (xpm[++i])
+            {
+                if(!ft_iswhitespace(xpm[i]))
+                    return (false);   
+            }
+        }
+    }
+    if (!check_texture_match(xpm))
+        return (false);
+    return (true);
+}
+
+void check_xpm_format(t_data *cub)
+{
+    
+    if (!check_texture_str(cub->north))
+        exit(EXIT_FAILURE);
+    else if (!check_texture_str(cub->east))
+        exit(EXIT_FAILURE);
+    else if (!check_texture_str(cub->south))
+        exit(EXIT_FAILURE);
+    else if (!check_texture_str(cub->west))
+        exit(EXIT_FAILURE);    
+}
+
+void check_scenics(t_data *cub)
+{
+    check_scenics_count(cub);
+    check_xpm_format(cub);
 }
 
 void check_duplicates(t_data *cub, int id)
@@ -80,102 +163,6 @@ void save_path(char *line, t_data *cub, int id)
         cub->east = ft_strdup(line + i);
 }
 
-/*if there are other things than numbers or whitspaces gives error 1
-numbers separated by spaces error aswell
-*/
-
-int ft_confirm_line_rgb(char *color)
-{
-    int i;
-    ft_printf("COR CARALHO: %s", color);
-    
-    if (!color)
-        return 0;
-    i = jump_whitepaces(color);
-    while (color[i] && (color[i] >= '0' && color[i] <= '9'))
-        i++;
-    while (color[i])
-    {
-        if (!ft_iswhitespace(color[i]))
-            return (0);
-        i++;
-    }
-    return (1);
-}
-
-void validate_rgb(char **color)
-{
-    int i;
-
-    i = 0;
-    if(!color || !color[i])
-    {
-        ft_printf("\nRGB ERROR 1\n");
-        exit(EXIT_FAILURE); 
-        return ;
-    }
-    while (color[i] && ft_confirm_line_rgb(color[i]) == 1)
-    {
-        if (i >= 3)
-        {
-            ft_printf("\nRGB ERROR 2\n");
-            exit(EXIT_FAILURE);
-            return ;
-        }
-        i++;
-    }
-    if (i != 3)
-    {
-        ft_printf("\nRGB ERROR 2\n");
-        exit(EXIT_FAILURE);
-        return ;
-    }
-}
-void get_rgb_fr_str(char *line, t_data *cub, int id)
-{
-    char **color;
-    int i;
-
-    color = ft_split(line, ',');
-    i = 0;
-    validate_rgb(color);
-    while (color[i])
-    {
-        if (id == CEILING)
-            cub->cl_rgb[i] = ft_atoi(color[i]);
-        if (id == FLOOR)
-            cub->fl_rgb[i] = ft_atoi(color[i]);
-        i++;
-    }
-    //free splited
-}
-
-void check_color_range(t_data *cub)
-{
-    int i;
-
-    i = 0;
-    while (i < 3)
-    {
-        if (cub->fl_rgb[i] < 0 || cub->fl_rgb[i] < 0)
-        {
-            ft_printf("RGB OUT OF RANGE\n");
-            exit(EXIT_FAILURE);
-        }
-        if (cub->fl_rgb[i] > 255 || cub->fl_rgb[i] > 255)
-        {
-            ft_printf("RGB OUT OF RANGE\n");
-            exit(EXIT_FAILURE);
-        }
-        i++;
-    }
-}
-void save_rgb(char *line, t_data *cub, int id)
-{
-    fill_counter(cub, id);
-    get_rgb_fr_str(line, cub, id);
-}
-
 void get_scenic_id(t_data *cub, int i)
 {
     char *p;
@@ -202,16 +189,6 @@ void get_scenic_id(t_data *cub, int i)
     }
 }
 
-bool is_valid_element(int c)
-{
-    if  (!ft_iswhitespace(c))
-    {
-        if (c != '1' && c != '0' && c!= 'N')
-            return (false);
-    }
-    return (true);
-}
-
 bool has_reached_map(char *line, t_data *cub)
 {
     int i;
@@ -233,64 +210,8 @@ bool has_reached_map(char *line, t_data *cub)
     return (false);
 }
 
-void    build_map(t_data *cub)
-{
-    int i;
-    int j;
-    
-    cub->map = (int **)calloc(cub->map_h, sizeof(int *));
-    if (!cub->map)
-        exit(EXIT_FAILURE); //dar frees e erro de memoria  ft_error    
-    i = -1;
-    while (++i < cub->map_h)
-    {
-        cub->map[i] = (int *)calloc(cub->map_w, sizeof(int));
-        if (!cub->map)
-            exit(EXIT_FAILURE); //dar frees e erro de memoria ft_error
-        j = -1;
-        while (cub->line[(cub->l_start + i)][++j] != '\0')
-           cub->map[i][j] = cub->line[(cub->l_start + i)][j];
-    }
-    map_space(cub);
-}
-
-void get_map_size(t_data *cub)
-{
-    ft_printf("[F] - MAP_SIZE\n");
-
-    int i;
-    int size;
-
-    i = 0;
-    while (cub->line[i])
-    {
-        if (cub->in_map == false)
-        {
-            has_reached_map(cub->line[i], cub);
-            cub->l_start = i;
-        }
-        else if (cub->in_map == true)
-        {
-            //ft_printf("LINHAS %s\n", cub->line[i]);
-            //if (is_empty_line(cub->line[i]));
-  
-            size = ft_strlen(cub->line[i]);
-            if (cub->map_w < size)
-                cub->map_w = size;
-            cub->map_h++;
-        }
-        i++;
-    }
-    cub->map_w++;
-    cub->map_h++; //for some reason it is not correct size
-    	ft_printf("MAP H: [%i]\n", cub->map_h);
-	ft_printf("MAP W: [%i]\n", cub->map_w);
-}
-
 void read_mapfile(t_data *cub, char *filename)
 {
-    ft_printf("[F] - READ_MAPFILE\n");
-
     int fd;
     char *temp;
     char *join;
@@ -325,96 +246,12 @@ void read_lines(t_data *cub)
             if (cub->in_map == false)
                 has_reached_map(cub->line[i], cub);
             if (cub->in_map == false)
-            {
-               ft_printf("[%i] FETCHING SCENICS: -> ", i);
-               get_scenic_id(cub, i);
-            }
+                get_scenic_id(cub, i);
             i++;
         }
     }
     //check other scenics here like if the xpm are correct
+    //confirmar todos os elementos scenics
+    check_scenics(cub);
     check_color_range(cub);
-}
-
-void get_player_pos(t_data *cub)
-{
-	int i = 0;
-	int j;
-    
-	while (i < cub->map_h)
-	{
-		j = 0;
-		while (j < cub->map_w)
-		{
-			if (cub->map[i][j] == 78)
-            {
-                cub->init_x = j;
-                cub->init_y = i;
-                return ;
-            }
-			j++;
-		}
-		i++;
-	}
-    exit(EXIT_FAILURE);
-}
-
-void    map_space(t_data *cub)
-{
-    int i;
-
-    i = 1;
-    while (i < cub->map_h - 1)
-    {
-        if (cub->map[i][0] == '\n')
-        {
-            ft_printf("Invalid map\n");
-            exit(EXIT_FAILURE);
-        }
-        i++;
-    }
-}
-
-void parser_first(t_data *cub)
-{
-    get_player_pos(cub);
-    ft_printf("Nx = %i\n", cub->init_x);
-    ft_printf("Ny = %i\n", cub->init_y);
-    
-      
-    if (floodfill(cub, cub->init_x, cub->init_y, 48, 49) == 0)
-    {
-        ft_printf("\033[1;31mMAPA DEU MERDA\033[0m\n");
-        exit(EXIT_FAILURE);
-        return ;
-    }
-    ft_printf("\033[1;32m!MAPA OK!\033[0m\n");
-    exit(EXIT_SUCCESS);
-}
-
-int floodfill(t_data *cub, int x, int y, int targ, int new)
-{
-    int current;
-    int ret;
-
-    ret = 0;
-
-    if (x < 0 || x >= cub->map_w || y < 0 || y >= cub->map_h) 
-        return 0;
-    current = cub->map[y][x];
-    if (current == 49)
-        return 1;
-    if (current != targ && current != 78)
-        return 0;
-
-    cub->map[y][x] = new;
-
-    ret += floodfill(cub, x - 1, y, targ, new);
-    ret += floodfill(cub, x + 1, y, targ, new);
-    ret += floodfill(cub, x, y - 1, targ, new);
-    ret += floodfill(cub, x, y + 1, targ, new);
-
-    if (ret == 4)
-        return 1;
-    return 0;
 }

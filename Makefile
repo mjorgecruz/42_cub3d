@@ -26,6 +26,7 @@ ODIR:=obj
 SRC := closing.c freeing.c handlers.c init_window.c \
 		main.c main_utils.c minimaper.c raycaster.c \
 		errors.c render.c fileread.c fileread_utils.c \
+		rgb.c parser_cub.c map_build.c tests.c
 
 OBJ := $(patsubst %.c, $(ODIR)/%.o,$(SRC))
 
