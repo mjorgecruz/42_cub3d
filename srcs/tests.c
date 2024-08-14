@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   tests.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 11:09:53 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/13 11:26:55 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:39:47 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d.h"
 
@@ -35,18 +35,18 @@ void print_scenics(t_data *cub)
 
 void color_select(int i)
 {
-    if (i == ' ')
-        ft_printf("\033[37mS\033[0m"); // White
-    else if (i == '1')
-        ft_printf("\033[1;32m1\033[0m"); // Bold Green
-    else if (i == 'N' || i == 'W' || i == 'E' || i == 'S')
-        ft_printf("\033[1;31mN\033[0m"); // Bold Red
-    else if (i == '0')
-        ft_printf("\033[33m0\033[0m"); // Yellow
-    else if (i == 0)
-        ft_printf("\033[35mE\033[0m"); // Magenta (other color)
-    else
-        ft_printf("\033[31mX\033[0m"); // Red
+    // if (i == ' ')
+    //     ft_printf("\033[37mS\033[0m"); // White
+    // else if (i == '1')
+    //     ft_printf("\033[1;32m1\033[0m"); // Bold Green
+    // else if (i == 'N' || i == 'W' || i == 'E' || i == 'S')
+    //     ft_printf("\033[1;31mN\033[0m"); // Bold Red
+    // else if (i == '0')
+    //     ft_printf("\033[33m0\033[0m"); // Yellow
+    // else if (i == 0)
+    //     ft_printf("\033[35mE\033[0m"); // Magenta (other color)
+    // else
+        ft_printf("\033[31mX %i \033[0m", i); // Red
 }
 
 void PRINT_COLOR_MAP(t_data *cub)

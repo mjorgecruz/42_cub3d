@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:30:36 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/14 12:21:34 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:49:57 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -34,6 +34,7 @@ void get_player_pos(t_data *cub)
             {
                 cub->init_x = j;
                 cub->init_y = i;
+                cub->map[i][j] = '0';
                 dup++;
             }
 		}
@@ -92,8 +93,8 @@ void parser_first(t_data *cub)
 {
     get_map_size(cub);
     build_map(cub);
-    get_player_pos(cub);
     make_map_copy(cub); // error and free case it cant
+    get_player_pos(cub);
     
     ft_printf("Nx = %i\n", cub->init_x);
     ft_printf("Ny = %i\n", cub->init_y);

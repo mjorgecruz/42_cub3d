@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:30:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/14 11:24:18 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:47:55 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -99,8 +99,11 @@ int side_calc_ray(t_data *cub)
 			cub->player->cam->r_mapY += cub->player->cam->r_stepY;
 			side = 0;
 		}
-		if (cub->map[cub->player->cam->r_mapX][cub->player->cam->r_mapY] > 0)
-			hit = 1;
+		if(cub->player->cam->r_mapX >= 0 && cub->player->cam->r_mapY >= 0)
+		{
+			if (cub->map[cub->player->cam->r_mapY][cub->player->cam->r_mapX] > 0)
+				hit = 1;
+		}
 	}
 	return (side);
 }

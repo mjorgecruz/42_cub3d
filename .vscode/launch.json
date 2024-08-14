@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/cub3d",
-            "args": ["pip.cub"],
+            "args": ["maps/valid/triangle.cub"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
