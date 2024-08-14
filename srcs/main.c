@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 09:57:38 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/14 11:35:53 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:24:24 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
@@ -21,10 +21,8 @@ void	window_updater(t_data *cub)
 int	main(int argc, char **argv)
 {
 	t_data	cub;
-
 	(void) argc;
 	(void) argv;
-
 	check_user_input(argc, argv[1], &cub);
 	
 	cub.map_h = 0;
@@ -41,10 +39,15 @@ int	main(int argc, char **argv)
     cub.lc = 0;
 	cub.line = NULL;
 	cub.in_map = false;
+	cub.north = NULL;
+	cub.south = NULL;
+	cub.east = NULL;
+	cub.west = NULL;
 
 	read_mapfile(&cub, argv[1]);
 	read_lines(&cub);
 	parser_first(&cub);	
-	init_fields(&cub);
-	run_window(&cub);
+	general_free(&cub);
+	//init_fields(&cub);
+	//run_window(&cub);
 }

@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 10:40:15 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/13 14:42:47 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:26:30 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void validate_rgb(char **color)
 
     count = 0;
     i = -1;
-    if(!color || !color[i])
+    if(!color || !color[i + 1])
     {
         ft_printf("\nRGB ERROR 1\n");
         exit(EXIT_FAILURE); 
@@ -73,31 +73,22 @@ void get_rgb_fr_str(char *line, t_data *cub, int id)
     int count;
     
     color = ft_split(line, ',');
-    i = 0;
+    i = -1;
     count = 0;
     validate_rgb(color);
-    while (color[i])
+    while (color[++i])
     {
         if (!is_empty_line(color[i]))
         {   
             if (id == CEILING)
-            {
-                cub->cl_rgb[count] = ft_atoi(color[i]);
-                count++;
-            }
+                cub->cl_rgb[count++] = ft_atoi(color[i]);
             else if (id == FLOOR)
-            {
-                cub->fl_rgb[count] = ft_atoi(color[i]);
-                count++;
-            }
+                cub->fl_rgb[count++] = ft_atoi(color[i]);
         }
-        i++;
     }
-    ft_printf("F: [%i][%i][%i]\n", cub->fl_rgb[0], cub->fl_rgb[1], cub->fl_rgb[2]);
-	ft_printf("C: [%i][%i][%i]\n", cub->cl_rgb[0], cub->cl_rgb[1], cub->cl_rgb[2]);
+    ft_free_split(color);
     if (count > 3)
          exit(EXIT_FAILURE);
-    //free splited
 }
 
 void check_color_range(t_data *cub)

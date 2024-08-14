@@ -245,6 +245,7 @@ int	close_win_free(t_data *cub);
 
 /**/
 void	general_free(t_data *cub);
+void    ft_free_split(char **array);
 
 
 /* ************************************************************************** */
