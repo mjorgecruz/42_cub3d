@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:30:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/13 14:56:24 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/14 01:00:41 by masoares         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
@@ -17,7 +17,7 @@ void display(t_data *cub)
 	double x;
 	int side;
 	double wallDist;
-	double wall_pos;
+	//double wall_pos;
 	
 	x = 1;
 	side = 0;
@@ -33,12 +33,12 @@ void display(t_data *cub)
 		if(side == 1)
 		{
 			wallDist = fabs((cub->player->cam->r_sideDistX  - cub->player->cam->r_deltaX));
-			wall_pos = cub->player->posX + (cub->player->cam->r_sideDistX  - cub->player->cam->r_deltaX) * cub->player->cam->rayDirX - (int)cub->player->posX;
+			//wall_pos = cub->player->posX + (cub->player->cam->r_sideDistX  - cub->player->cam->r_deltaX) * cub->player->cam->rayDirX - (int)cub->player->posX;
 		}
 		else
 		{
 			wallDist = fabs((cub->player->cam->r_sideDistY - cub->player->cam->r_deltaY));
-			wall_pos = cub->player->posY + (cub->player->cam->r_sideDistY  - cub->player->cam->r_deltaY) * cub->player->cam->rayDirY - (int)cub->player->posY;
+			//wall_pos = cub->player->posY + (cub->player->cam->r_sideDistY  - cub->player->cam->r_deltaY) * cub->player->cam->rayDirY - (int)cub->player->posY;
 		}
 		line_display(cub, x, wallDist, side);
 		x++;
@@ -121,6 +121,7 @@ int		line_display(t_data *cub, int x, double wallDist, int side)
 	int pos;
 	double wall_pos;
 	int wallX;
+	int texY;
 	
 	(void) side;
 	(void) x;
@@ -137,12 +138,21 @@ int		line_display(t_data *cub, int x, double wallDist, int side)
 		wall_pos = (cub->player->posX + (wallDist) * cub->player->cam->rayDirX);
 	else
 		wall_pos = cub->player->posY + (wallDist) * cub->player->cam->rayDirY;
-	wallX = (int)(wall_pos * (double)(cub->texNorth.line_length /8));
-	printf("%i ", wallX );
+	wall_pos-=(double)((int) wall_pos);
+	wallX = (int)(wall_pos * (double)(cub->texNorth.width));
+	
+	double step = 1.0 * cub->texNorth.height / line_height;
+	double texPos = (yStart - WIN_H / 2 + line_height / 2) * step;
+	
 	pos = yStart;
 	while (pos <= yEnd)
 	{
-		color =*((int *)(cub->north + (int)(((double)wallX  + (int)((double)(pos - yStart)/(yEnd - yStart) * cub->texNorth.height * cub->texNorth.line_length)/8))));
+		texY = (int)texPos & (cub->texNorth.height - 1);
+		texPos += step;
+		//texY =(double) ((pos * 2 - WIN_H + line_height) * cub->texNorth.height) / line_height / 2;
+		//*((int *)(&(  )));
+		color = *((int *)(cub->north + (texY * cub->texNorth.line_length + wallX * (cub->texNorth.bits_per_pixel / 8))));
+		//color = cub->north[texY * 256 + wallX];
 		pixel_put(cub, x, pos, color);
 		pos++;
 	}
