@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/14 11:13:41 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/14 13:56:28 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -14,16 +14,15 @@
 
 int	init_fields(t_data *cub)
 {
-	init_textures_to_null(cub); //check it
 	cub->mlx_ptr = mlx_init();
 	if (cub->mlx_ptr == NULL)
-		return (-1);
+		return (ft_error(-2, cub), -1);
 	cub->win_ptr = mlx_new_window(cub->mlx_ptr, WIN_W, WIN_H, "CUB3D");
 	if (cub->win_ptr == NULL)
 	{
 		free(cub->mlx_ptr);
 		free(cub->win_ptr);
-		return (-2);
+		return (ft_error(-2, cub), -2);
 	}
 	cub->img_w = WIN_W;
 	cub->img_h = WIN_H;
@@ -32,9 +31,7 @@ int	init_fields(t_data *cub)
 			&cub->line_length, &cub->endian);
 	cub->map_h = 0;
 	cub->map_w = 0;
-	
 	cub->map = NULL;
-
 	cub->player = init_player(cub);
 	init_position(cub);
 	textures_definer(cub);
