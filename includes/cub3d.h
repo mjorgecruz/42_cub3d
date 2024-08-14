@@ -335,7 +335,7 @@ void    make_map_copy(t_data *cub);
 /* ************************************************************************** */
 
 int     ft_confirm_line_rgb(char *color);
-void    validate_rgb(char **color);
+void    validate_rgb(char **color, t_data *cube);
 void    get_rgb_fr_str(char *line, t_data *cub, int id);
 void    check_color_range(t_data *cub);
 void    save_rgb(char *line, t_data *cub, int id);

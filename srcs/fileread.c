@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   fileread.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:23:03 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/14 16:06:19 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/14 17:24:25 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
@@ -31,10 +31,7 @@ void check_scenics_count(t_data *cub)
     while (++i <= 5)
     {
         if (cub->count[i] == 0)
-        {
-            ft_printf("\n MISSING SCENICS \n");
-            exit(EXIT_FAILURE);
-        }
+            ft_error(11, cub);
     }
 }
 
@@ -139,8 +136,7 @@ void check_duplicates(t_data *cub, int id)
 {
     if (cub->count[id] == 1)
     {
-        ft_printf("(NEDDS TO BE CORRECTED) Duplicate FOUND CODE = %i \n");
-        exit(EXIT_FAILURE);
+        ft_error(10, cub);
     }
 }
 
@@ -153,7 +149,7 @@ void fill_counter(t_data *cub, int id)
 void save_path(char *line, t_data *cub, int id)
 {
     int i;
-    //char *temp;
+
     if  (!line)
         return ;
     i = jump_whitepaces(line);
@@ -188,10 +184,7 @@ void get_scenic_id(t_data *cub, int i)
     else if (ft_strncmp((p + jump_whitepaces(p)), "C ", 2) == 0)
         save_rgb(((p + jump_whitepaces(p)) + 2), cub, CEILING);
     else
-    {
-        ft_printf("ERROR IN THE HEADER\n");
-        exit(EXIT_FAILURE);
-    }
+        ft_error( 10, cub);
 }
 
 bool has_reached_map(char *line, t_data *cub)
@@ -259,12 +252,6 @@ void read_lines(t_data *cub)
             i++;
         }
     }
-    //check other scenics here like if the xpm are correct
-    //confirmar todos os elementos scenics
-    ft_printf("TEXTURES %s.", cub->north);
-    ft_printf("TEXTURES %s.", cub->west);
-    ft_printf("TEXTURES %s.", cub->east);
-    ft_printf("TEXTURES %s.", cub->south); 
     check_scenics(cub);
     check_color_range(cub);
 }

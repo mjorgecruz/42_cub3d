@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parser_cub.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:30:36 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/14 15:49:57 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/14 17:31:16 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
@@ -40,7 +40,8 @@ void get_player_pos(t_data *cub)
 		}
 	}
     if (dup != 1)
-        exit(EXIT_FAILURE);
+        ft_error(11, cub);
+
 }
 
 void    map_space(t_data *cub) //final do mapa com newlines
@@ -55,11 +56,8 @@ void    map_space(t_data *cub) //final do mapa com newlines
             while(cub->map[i][0] == '\n' && i < cub->map_h - 1)
                 i++;
             if (i < cub->map_h - 1 && cub->map[i][0] != '\n')
-            {   
-                ft_printf("Invalid map\n");
-                exit(EXIT_FAILURE);
-            }
-            return;
+                ft_error(12, cub);
+            return ;
         }
         i++;
     }
@@ -103,12 +101,11 @@ void parser_first(t_data *cub)
     {
         ft_printf("\033[1;31mFLOODFILL RESULT: \033[0m\n");///////////////////////////////////////////////
         PRINT_COLOR_MAPCPY(cub);//////////////////////////////////////////////////////////////////////////
-        ft_printf("\033[1;31mMAPA DEU MERDA\033[0m\n");
-        exit(EXIT_FAILURE);
+        ft_error(11, cub);
         return ;
     }
     ft_printf("\n\033[1;32mFLOODFILL RESULT: \033[0m\n");/////////////////////////////////////////////////
     PRINT_COLOR_MAPCPY(cub);//////////////////////////////////////////////////////////////////////////////
     ft_printf("\n\033[1;32m!MAPA OK!\033[0m\n");
-    return; //passes returns 0
+    return ; //passes returns 0
 }

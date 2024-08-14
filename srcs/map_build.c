@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 10:54:20 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/13 11:32:14 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/14 17:28:24 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ void    build_map(t_data *cub)
     
     cub->map = (int **)ft_calloc(cub->map_h, sizeof(int *));
     if (!cub->map)
-        exit(EXIT_FAILURE); //dar frees e erro de memoria  ft_error    
+        ft_error(11, cub); //dar frees e erro de memoria  ft_error    
     i = -1;
     while (++i < cub->map_h)
     {
         cub->map[i] = (int *)ft_calloc(cub->map_w, sizeof(int));
         if (!cub->map)
-            exit(EXIT_FAILURE); //dar frees e erro de memoria ft_error
+            ft_error(11, cub);
         j = -1;
         while (cub->line[(cub->l_start + i)][++j] != '\0')
            cub->map[i][j] = cub->line[(cub->l_start + i)][j];
@@ -71,13 +71,13 @@ void make_map_copy(t_data *cub)
     
     cub->map_cpy = (int **)ft_calloc(cub->map_h, sizeof(int *));
     if (!cub->map_cpy)
-        exit(EXIT_FAILURE); //dar frees e erro de memoria  ft_error    
+        ft_error(11, cub);
     i = -1;
     while (++i < cub->map_h)
     {
         cub->map_cpy[i] = (int *)ft_calloc(cub->map_w, sizeof(int));
         if (!cub->map_cpy)
-            exit(EXIT_FAILURE); //dar frees e erro de memoria ft_error
+            ft_error(11, cub);
         j = -1;
         while (++j < cub->map_w)
            cub->map_cpy[i][j] = cub->map[i][j];

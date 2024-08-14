@@ -6,23 +6,22 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 10:40:15 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/14 15:26:30 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/14 17:35:26 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
 int     ft_confirm_line_rgb(char *color);
-void    validate_rgb(char **color);
 void    get_rgb_fr_str(char *line, t_data *cub, int id);
 void    check_color_range(t_data *cub);
 void    save_rgb(char *line, t_data *cub, int id);
+void    validate_rgb(char **color, t_data *cub);
 
 int ft_confirm_line_rgb(char *color)
 {
     int i;
-    ft_printf("COlor: %s\n", color);
-    
+
     if (!color)
         return 0;
     i = jump_whitepaces(color);
@@ -37,7 +36,7 @@ int ft_confirm_line_rgb(char *color)
     return (1);
 }
 
-void validate_rgb(char **color)
+void validate_rgb(char **color, t_data *cub)
 {
     int i;
     int count;
@@ -45,11 +44,7 @@ void validate_rgb(char **color)
     count = 0;
     i = -1;
     if(!color || !color[i + 1])
-    {
-        ft_printf("\nRGB ERROR 1\n");
-        exit(EXIT_FAILURE); 
-        return ;
-    }
+        ft_error(11, cub);
     while (color[++i])
     {
         if (!is_empty_line(color[i]))
@@ -59,11 +54,7 @@ void validate_rgb(char **color)
         }
     }
     if (count != 3)
-    {
-        ft_printf("\nRGB ERROR INVALID N ARGS\n");
-        exit(EXIT_FAILURE);
-        return ;
-    }
+        ft_error(11, cub);
 }
 
 void get_rgb_fr_str(char *line, t_data *cub, int id)
@@ -75,7 +66,7 @@ void get_rgb_fr_str(char *line, t_data *cub, int id)
     color = ft_split(line, ',');
     i = -1;
     count = 0;
-    validate_rgb(color);
+    validate_rgb(color, cub);
     while (color[++i])
     {
         if (!is_empty_line(color[i]))
@@ -88,7 +79,7 @@ void get_rgb_fr_str(char *line, t_data *cub, int id)
     }
     ft_free_split(color);
     if (count > 3)
-         exit(EXIT_FAILURE);
+        ft_error(22, cub);
 }
 
 void check_color_range(t_data *cub)
@@ -99,15 +90,9 @@ void check_color_range(t_data *cub)
     while (i < 3)
     {
         if (cub->fl_rgb[i] < 0 || cub->fl_rgb[i] > 255)
-        {
-            ft_printf("RGB OUT OF RANGE\n");
-            exit(EXIT_FAILURE);
-        }
+            ft_error(22, cub);
         else if (cub->cl_rgb[i] > 255 || cub->cl_rgb[i] < 0)
-        {
-            ft_printf("RGB OUT OF RANGE\n");
-            exit(EXIT_FAILURE);
-        }
+            ft_error(22, cub);
         i++;
     }
 }
