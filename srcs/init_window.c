@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   init_window.c                                      :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/14 00:46:25 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/14 10:03:04 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d.h"
 
@@ -132,13 +132,15 @@ void init_map(t_data *cub)
 	cub->map_w = 4;
 	cub->player_init_ori = 'E';
 	
-}
+// }
+
 void init_textures_to_null(t_data *cub)
 {
 	cub->north = NULL;
 	cub->south = NULL;
 	cub->west = NULL;
 	cub->east = NULL;
+	cub->in_map = false;
 }
 
 void textures_definer(t_data *cub)

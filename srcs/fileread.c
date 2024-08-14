@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   fileread.c                                         :+:      :+:    :+:   */
@@ -6,30 +6,130 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:23:03 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/06 22:12:44 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/14 10:01:49 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d.h"
 
-
+void check_scenics_count(t_data *cub);
+void check_scenics(t_data *cub);
 void check_duplicates(t_data *cub, int id);
 void fill_counter(t_data *cub, int id);
 void save_path(char *line, t_data *cub, int id);
-void save_rgb(char *line, t_data *cub, int id);
-void get_scenic_id(char *str, t_data *cub);
+void get_scenic_id(t_data *cub, int i);
+bool has_reached_map(char *line, t_data *cub);
 void read_mapfile(t_data *cub, char *filename);
+void read_lines(t_data *cub);
 
-bool is_empty_line(char *str)
+
+void check_scenics_count(t_data *cub)
+{
+    int i;
+
+    i = -1;
+    while (++i <= 5)
+    {
+        if (cub->count[i] == 0)
+        {
+            ft_printf("\n MISSING SCENICS \n");
+            exit(EXIT_FAILURE);
+        }
+    }
+}
+
+bool is_xpm_file(char *xpm)
 {
     int i;
 
     i = 0;
-    i = jump_whitepaces(str);
-    if (str[i -1] == '\n')
-        return (true);
-    else
+    while(xpm[i])
+    {
+        if (xpm[i] == '.')
+            if (!ft_strncmp(&xpm[i], ".xpm", 4))
+            {
+                if (is_empty_line(&xpm[i] + 4))
+                    return (true);
+            }
+        i++;
+    }
+    return (false);
+}
+
+bool compare_id_xpm(char *xpm)
+{
+    if (!xpm)
         return (false);
+    else if (!ft_strncmp(xpm, "south", 5))
+        return (true);
+    else if (!ft_strncmp(xpm, "north", 5))
+        return (true); 
+    else if (!ft_strncmp(xpm, "east", 4))
+        return (true);
+    else if (!ft_strncmp(xpm, "west", 4))
+        return (true);
+    return (false);
+}
+
+bool    check_texture_match(char *xpm)
+{
+    int i;
+    int marker;
+    
+    marker = 0;
+    i = -1;
+    while (xpm[++i])
+    {
+        if (xpm[i] == '/')
+            marker = i + 1;
+    }
+    if (!compare_id_xpm(xpm + marker))
+        return (false);
+    else if (!is_xpm_file(xpm + marker))
+        return (false);
+    return (true);
+}
+
+bool check_texture_str(char *xpm)
+{
+    int i;
+    
+    if (is_empty_line(xpm) || !xpm)
+        return (false);
+    i = 0;
+    while (xpm[++i])
+    {
+        if(ft_iswhitespace(xpm[i]))
+        {
+            while (xpm[++i])
+            {
+                if(!ft_iswhitespace(xpm[i]))
+                    return (false);   
+            }
+        }
+    }
+    if (!check_texture_match(xpm))
+        return (false);
+    return (true);
+}
+
+void check_xpm_format(t_data *cub)
+{
+    
+    if (!check_texture_str(cub->north))
+        exit(EXIT_FAILURE);
+    else if (!check_texture_str(cub->east))
+        exit(EXIT_FAILURE);
+    else if (!check_texture_str(cub->south))
+        exit(EXIT_FAILURE);
+    else if (!check_texture_str(cub->west))
+        exit(EXIT_FAILURE);    
+}
+
+void check_scenics(t_data *cub)
+{
+    check_scenics_count(cub);
+    check_xpm_format(cub);
 }
 
 void check_duplicates(t_data *cub, int id)
@@ -50,59 +150,38 @@ void fill_counter(t_data *cub, int id)
 void save_path(char *line, t_data *cub, int id)
 {
     int i;
+
     i = jump_whitepaces(line);
     fill_counter(cub, id);
     if (id == NORTH)
         cub->north = ft_strdup(line + i);
     else if (id == SOUTH)
-        cub->east = ft_strdup(line + i);
+        cub->south = ft_strdup(line + i);
     else if (id == WEST)
         cub->west = ft_strdup(line + i);
     else if (id == EAST)
         cub->east = ft_strdup(line + i);
-    ft_printf("[SAVEDPATH =]%s[END]\n");
 }
 
-void save_rgb(char *line, t_data *cub, int id)
+void get_scenic_id(t_data *cub, int i)
 {
-    // int i;
+    char *p;
 
-    // i = jump_whitepaces(line);
-    fill_counter(cub, id);
-    
-    //pegar nos valores e separar por espacos e virgulas
-    //guardars os na estrutura
-    
-    if (id == CEILING)
-    {   
-        cub->cl_rgb[0] = 100;
-        cub->cl_rgb[1] = 120;
-        cub->cl_rgb[2] = 160;
-    }
-    else if (id == FLOOR)
-    {   
-        cub->cl_rgb[0] = 111;
-        cub->cl_rgb[1] = 222;
-        cub->cl_rgb[2] = 033;
-    }
-}
-
-void get_scenic_id(char *str, t_data *cub)
-{
-    if (is_empty_line(str) == true)
+    p = cub->line[i];
+    if (is_empty_line(p) == true)
         return ;
-    else if (ft_strncmp(str, "NO ", 3) == 0)
-        save_path(str + 2, cub, NORTH);
-    else if (ft_strncmp(str, "SO ", 3) == 0)
-        save_path(str + 3, cub, SOUTH);
-    else if (ft_strncmp(str, "WE ", 3) == 0)
-        save_path(str + 3, cub, WEST);
-    else if (ft_strncmp(str, "EA ", 3) == 0)
-        save_path(str + 3, cub, EAST);
-    else if (ft_strncmp(str, "F ", 2) == 0)
-        save_rgb(str, cub, FLOOR);
-    else if (ft_strncmp(str, "C ", 2) == 0)
-        save_rgb(str, cub, CEILING);
+    else if (ft_strncmp((p + jump_whitepaces(p)), "NO ", 3) == 0)
+        save_path(((p + jump_whitepaces(p)) + 3), cub, NORTH);
+    else if (ft_strncmp((p + jump_whitepaces(p)), "SO ", 3) == 0)
+        save_path(((p + jump_whitepaces(p)) + 3), cub, SOUTH);
+    else if (ft_strncmp((p + jump_whitepaces(p)), "WE ", 3) == 0)
+        save_path(((p + jump_whitepaces(p)) + 3), cub, WEST);
+    else if (ft_strncmp((p + jump_whitepaces(p)), "EA ", 3) == 0)
+        save_path(((p + jump_whitepaces(p)) + 3), cub, EAST);
+    else if (ft_strncmp((p + jump_whitepaces(p)), "F ", 2) == 0)
+        save_rgb((p + jump_whitepaces(p) + 2), cub, FLOOR);
+    else if (ft_strncmp((p + jump_whitepaces(p)), "C ", 2) == 0)
+        save_rgb(((p + jump_whitepaces(p)) + 2), cub, CEILING);
     else
     {
         ft_printf("ERROR IN THE HEADER\n");
@@ -110,24 +189,69 @@ void get_scenic_id(char *str, t_data *cub)
     }
 }
 
+bool has_reached_map(char *line, t_data *cub)
+{
+    int i;
+
+    i = 0;
+
+    if (is_empty_line(line))
+        return false;
+    else if (!line[i] || line[i] == '\n')
+        return (false);
+    else if (cub->in_map == false)
+    {
+        while (line[i] == '1' || line[i] == '0' || line[i] == ' ')
+            i++;
+        if (line[i] == '\0' || line[i] == '\n')
+            cub->in_map = true;
+        return (true);
+    }
+    return (false);
+}
+
 void read_mapfile(t_data *cub, char *filename)
 {
     int fd;
-    char *line;
-    
+    char *temp;
+    char *join;
+
     fd = open(filename, O_RDONLY, 0);
     is_fd_invalid(fd, cub);
-    ft_printf("[IN F(READMAP)] \n");
-    
-    
-    while ((line = get_next_line(fd)) != NULL)
+    join = ft_strdup("");
+    while ((temp = get_next_line(fd)))
     {
-        //get_scenic_id((line + jump_whitepaces(line)), cub); //still have to check path format and to transform color strings into integers
-
-        //NEED TO get tha fukin mappppppp into a matrix
-
-        free(line);
+        cub->lc++;
+        join = ft_strjoin(join, "*");
+        join = ft_strjoin(join, temp);
+        free(temp);
     }
     close (fd);
-    ft_printf("[OUT F(READMAP)]\n");
+    cub->line = ft_split(join, '*');
+    free(join);
+}
+
+void read_lines(t_data *cub)
+{
+    int i;
+
+    i = 0;
+    cub->in_map = false;
+    while (cub->line[i] != NULL)
+    {
+        if (is_empty_line(cub->line[i]))
+            i++;
+        else
+        {
+            if (cub->in_map == false)
+                has_reached_map(cub->line[i], cub);
+            if (cub->in_map == false)
+                get_scenic_id(cub, i);
+            i++;
+        }
+    }
+    //check other scenics here like if the xpm are correct
+    //confirmar todos os elementos scenics
+    check_scenics(cub);
+    check_color_range(cub);
 }

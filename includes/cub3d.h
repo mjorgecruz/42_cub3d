@@ -93,19 +93,25 @@ typedef struct s_data
 	int cub_fd;
 	/* header reading and info gathering */
 
-	int count[6]; // order  = NO SO WE EA F C  conter[1] is SO  if it is 0 it stil availble to populate
-	int fl_rgb[3]; //save F color
-	int cl_rgb[3]; //save C color
+    int count[6]; // order  = NO SO WE EA F C  count[1] is SO  if it is 0 it stil availble to populate
+    int fl_rgb[3]; //save F color
+    int cl_rgb[3]; //save C color
+    int lc;
 
-	char *north;
-	char *south;
-	char *west;
-	char *east;
-	/*header done End  */
+    char *north;
+    char *south;
+    char *west;
+    char *east;
+    bool in_map;
+
+    char **line;
+    int l_start;
+    /*header done End  */
 
 	int		map_w;
 	int		map_h;
 	int		**map;
+    int		**map_cpy;
 	void	*mlx_ptr;
 	void	*win_ptr;
 	int		img_w;
@@ -299,27 +305,71 @@ int		line_maker(t_data *cub, t_castInfo line_prop);
 /*                               FILEREADER                                   */
 /* ************************************************************************** */
 
-/**/
+void check_scenics_count(t_data *cub);
+void check_scenics(t_data *cub);
+
 void check_duplicates(t_data *cub, int id);
 void fill_counter(t_data *cub, int id);
 void save_path(char *line, t_data *cub, int id);
-void save_rgb(char *line, t_data *cub, int id);
-void get_scenic_id(char *str, t_data *cub);
+void get_scenic_id(t_data *cub, int i);
+bool has_reached_map(char *line, t_data *cub);
 void read_mapfile(t_data *cub, char *filename);
+void read_lines(t_data *cub);
+
+/* ************************************************************************** */
+/*                                MAP_BUILD                                   */
+/* ************************************************************************** */
+
+void    get_map_size(t_data *cub);
+void    build_map(t_data *cub);
+void    make_map_copy(t_data *cub);
+
+/* ************************************************************************** */
+/*                                    RGB                                     */
+/* ************************************************************************** */
+
+int     ft_confirm_line_rgb(char *color);
+void    validate_rgb(char **color);
+void    get_rgb_fr_str(char *line, t_data *cub, int id);
+void    check_color_range(t_data *cub);
+void    save_rgb(char *line, t_data *cub, int id);
 
 /* ************************************************************************** */
 /*                            FILEREADER UTILS                                */
 /* ************************************************************************** */
 
+bool is_valid_orient(int c);
+bool is_empty_line(char *str);
 void is_fd_invalid(int fd, t_data *cub);
 int ft_iswhitespace(int c);
 int jump_whitepaces(char *line);
 
+
 /* ************************************************************************** */
-/*                                ERRORS                                      */
+/*                               PARSER_CUB                                   */
+/* ************************************************************************** */
+
+void    get_player_pos(t_data *cub);
+void    map_space(t_data *cub);
+int     floodfill(t_data *cub, int x, int y, int targ, int new);
+void    parser_first(t_data *cub);
+
+/* ************************************************************************** */
+/*                                  ERRORS                                    */
 /* ************************************************************************** */
 
 /*has a free and exit inside to terminate everything when displaying the error*/
 void ft_error(int n, t_data *cub);
+
+
+
+/* ************************************************************************** */
+/*                                  TESTS                                     */
+/* ************************************************************************** */
+
+void PRINT_COLOR_MAPCPY(t_data *cub);
+void PRINT_COLOR_MAP(t_data *cub);
+void color_select(int i);
+void print_scenics(t_data *cub);
 
 #endif
