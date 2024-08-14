@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:30:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/14 09:53:24 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/14 11:01:48 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -119,7 +119,7 @@ int		line_display(t_data *cub, int x, double wallDist, int side)
     if(line_prop.yEnd >= WIN_H)
 		line_prop.yEnd = WIN_H - 1;
 	line_prop.wallX = wallX_calculator(cub, wallDist, side);
-	line_maker(cub, line_prop);
+	line_maker(cub, line_prop, side);
 	return(1);
 }
 
@@ -137,15 +137,36 @@ int wallX_calculator(t_data *cub, double wallDist, int side)
 	return(wallX);
 }
 
-int	line_maker(t_data *cub, t_castInfo line_prop)
+int	line_maker(t_data *cub, t_castInfo line_prop, int side)
 {
-	int texY;
+	
+	if (side == 1)
+	{
+		if (cub->player->cam->rayDirX > 0)
+			liner(cub, line_prop, cub->texEast);
+		else
+			liner(cub, line_prop, cub->texWest);
+	}
+	else
+	{
+		if (cub->player->cam->rayDirY < 0)
+			liner(cub, line_prop, cub->texNorth);
+		else
+			liner(cub, line_prop, cub->texSouth);	
+	}
+	return(1);
+}
+
+void	liner(t_data *cub, t_castInfo line_prop, t_img tex)
+{
 	int color;
-	int pos;
 	double step = 1.0 * cub->texNorth.height / line_prop.line_height;
-	double texPos = (line_prop.yStart - WIN_H / 2 + line_prop.line_height / 2) * step;
+	int texY;
+	int pos;
+	double texPos;
 	
 	pos = line_prop.yStart;
+	texPos = (line_prop.yStart - WIN_H / 2 + line_prop.line_height / 2) * step;
 	while (pos <= line_prop.yEnd)
 	{
 		texY = (int)texPos & (cub->texNorth.height - 1);
@@ -156,6 +177,4 @@ int	line_maker(t_data *cub, t_castInfo line_prop)
 		//color = cub->north[texY * 256 + wallX];
 		pixel_put(cub, line_prop.x, pos, color);
 		pos++;
-	}
-	return(1);
 }
