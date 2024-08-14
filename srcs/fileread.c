@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:23:03 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/14 12:03:40 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/14 13:39:27 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -83,9 +83,9 @@ bool    check_texture_match(char *xpm)
         if (xpm[i] == '/')
             marker = i + 1;
     }
-    // if (!compare_id_xpm(xpm + marker))
-    //     return (false);
-    //else
+    if (!compare_id_xpm(xpm + marker))
+        return (false);
+    else
     if (!is_xpm_file(xpm + marker))
         return (false);
     return (true);
