@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:23:03 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/14 13:39:27 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:06:19 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -95,19 +95,21 @@ bool check_texture_str(char *xpm)
 {
     int i;
     
-    if (is_empty_line(xpm) || !xpm)
+    if (!xpm || is_empty_line(xpm))
         return (false);
     i = 0;
-    while (xpm[++i])
+    while (xpm[i])
     {
-        if(ft_iswhitespace(xpm[i]))
+        if (ft_iswhitespace(xpm[i]))
         {
             while (xpm[++i])
             {
                 if(!ft_iswhitespace(xpm[i]))
                     return (false);   
-            }
+            }       
         }
+        if(xpm[i])
+            i++;
     }
     if (!check_texture_match(xpm))
         return (false);
@@ -151,23 +153,25 @@ void fill_counter(t_data *cub, int id)
 void save_path(char *line, t_data *cub, int id)
 {
     int i;
-
+    //char *temp;
+    if  (!line)
+        return ;
     i = jump_whitepaces(line);
     fill_counter(cub, id);
     if (id == NORTH)
-        cub->north = ft_strdup(line + i);
+        cub->north = ft_strdup(&line[i]);
     else if (id == SOUTH)
-        cub->south = ft_strdup(line + i);
+        cub->south = ft_strdup(&line[i]);
     else if (id == WEST)
-        cub->west = ft_strdup(line + i);
+        cub->west = ft_strdup(&line[i]);
     else if (id == EAST)
-        cub->east = ft_strdup(line + i);
+        cub->east = ft_strdup(&line[i]);
 }
 
 void get_scenic_id(t_data *cub, int i)
 {
     char *p;
-
+    
     p = cub->line[i];
     if (is_empty_line(p) == true)
         return ;
@@ -215,17 +219,21 @@ void read_mapfile(t_data *cub, char *filename)
 {
     int fd;
     char *temp;
+    char *temp2;
     char *join;
 
     fd = open(filename, O_RDONLY, 0);
     is_fd_invalid(fd, cub);
     join = ft_strdup("");
+    
     while ((temp = get_next_line(fd)))
     {
         cub->lc++;
-        join = ft_strjoin(join, "*");
-        join = ft_strjoin(join, temp);
+        temp2 = ft_strjoin(join, "*");
+        free(join);
+        join = ft_strjoin(temp2, temp);
         free(temp);
+        free(temp2);
     }
     close (fd);
     cub->line = ft_split(join, '*');
@@ -253,6 +261,10 @@ void read_lines(t_data *cub)
     }
     //check other scenics here like if the xpm are correct
     //confirmar todos os elementos scenics
+    ft_printf("TEXTURES %s.", cub->north);
+    ft_printf("TEXTURES %s.", cub->west);
+    ft_printf("TEXTURES %s.", cub->east);
+    ft_printf("TEXTURES %s.", cub->south); 
     check_scenics(cub);
     check_color_range(cub);
 }
