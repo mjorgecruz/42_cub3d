@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:30:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/14 01:00:41 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/14 09:53:24 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d.h"
 
@@ -31,15 +31,9 @@ void display(t_data *cub)
 		step_calc_ray(cub);
 		side = side_calc_ray(cub);
 		if(side == 1)
-		{
 			wallDist = fabs((cub->player->cam->r_sideDistX  - cub->player->cam->r_deltaX));
-			//wall_pos = cub->player->posX + (cub->player->cam->r_sideDistX  - cub->player->cam->r_deltaX) * cub->player->cam->rayDirX - (int)cub->player->posX;
-		}
 		else
-		{
 			wallDist = fabs((cub->player->cam->r_sideDistY - cub->player->cam->r_deltaY));
-			//wall_pos = cub->player->posY + (cub->player->cam->r_sideDistY  - cub->player->cam->r_deltaY) * cub->player->cam->rayDirY - (int)cub->player->posY;
-		}
 		line_display(cub, x, wallDist, side);
 		x++;
 	}
@@ -114,46 +108,53 @@ int side_calc_ray(t_data *cub)
 int		line_display(t_data *cub, int x, double wallDist, int side)
 {
 	//max_height = WIN_H when wallDist = 1
-	int line_height;
-	int yStart;
-	int yEnd;
-	int color;
-	int pos;
+	t_castInfo line_prop;
+	
+	line_prop.x = x;
+	line_prop.line_height = WIN_H / wallDist;
+	line_prop.yStart = (int)(-line_prop.line_height / 2 + WIN_H / 2);
+    if(line_prop.yStart < 0)
+		line_prop.yStart = 0;
+    line_prop.yEnd = (int)(line_prop.line_height / 2 + WIN_H / 2);
+    if(line_prop.yEnd >= WIN_H)
+		line_prop.yEnd = WIN_H - 1;
+	line_prop.wallX = wallX_calculator(cub, wallDist, side);
+	line_maker(cub, line_prop);
+	return(1);
+}
+
+int wallX_calculator(t_data *cub, double wallDist, int side)
+{
 	double wall_pos;
 	int wallX;
-	int texY;
-	
-	(void) side;
-	(void) x;
-	pos = 0;
-	line_height = WIN_H / wallDist;
-	yStart = (int)(-line_height / 2 + WIN_H / 2);
-    if(yStart < 0)
-		yStart = 0;
-    yEnd = (int)(line_height / 2 + WIN_H / 2);
-    if(yEnd >= WIN_H)
-		yEnd = WIN_H - 1;
-		
+
 	if(side == 0)
 		wall_pos = (cub->player->posX + (wallDist) * cub->player->cam->rayDirX);
 	else
 		wall_pos = cub->player->posY + (wallDist) * cub->player->cam->rayDirY;
 	wall_pos-=(double)((int) wall_pos);
 	wallX = (int)(wall_pos * (double)(cub->texNorth.width));
+	return(wallX);
+}
+
+int	line_maker(t_data *cub, t_castInfo line_prop)
+{
+	int texY;
+	int color;
+	int pos;
+	double step = 1.0 * cub->texNorth.height / line_prop.line_height;
+	double texPos = (line_prop.yStart - WIN_H / 2 + line_prop.line_height / 2) * step;
 	
-	double step = 1.0 * cub->texNorth.height / line_height;
-	double texPos = (yStart - WIN_H / 2 + line_height / 2) * step;
-	
-	pos = yStart;
-	while (pos <= yEnd)
+	pos = line_prop.yStart;
+	while (pos <= line_prop.yEnd)
 	{
 		texY = (int)texPos & (cub->texNorth.height - 1);
 		texPos += step;
 		//texY =(double) ((pos * 2 - WIN_H + line_height) * cub->texNorth.height) / line_height / 2;
 		//*((int *)(&(  )));
-		color = *((int *)(cub->north + (texY * cub->texNorth.line_length + wallX * (cub->texNorth.bits_per_pixel / 8))));
+		color = *((int *)(cub->north + (texY * cub->texNorth.line_length + line_prop.wallX * (cub->texNorth.bits_per_pixel / 8))));
 		//color = cub->north[texY * 256 + wallX];
-		pixel_put(cub, x, pos, color);
+		pixel_put(cub, line_prop.x, pos, color);
 		pos++;
 	}
 	return(1);

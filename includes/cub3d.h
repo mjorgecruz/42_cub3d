@@ -125,6 +125,16 @@ typedef struct s_data
 	t_img		texWest;
 }		t_data;
 
+typedef struct s_castInfo
+{
+	int		yStart;
+	int		yEnd;
+	int		x;
+	int		line_height;
+	int		wallX;
+}	t_castInfo;
+
+
 enum ERRORS
 {
 	DATA,
@@ -280,6 +290,10 @@ void	step_calc_ray(t_data *cub);
 int		side_calc_ray(t_data *cub);
 
 int		line_display(t_data *cub, int x, double wallDist, int side);
+
+int 	wallX_calculator(t_data *cub, double wallDist, int side);
+
+int		line_maker(t_data *cub, t_castInfo line_prop);
 
 /* ************************************************************************** */
 /*                               FILEREADER                                   */
