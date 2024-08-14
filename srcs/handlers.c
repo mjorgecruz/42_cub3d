@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   handlers.c                                         :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:53:30 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/10 15:50:24 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/14 11:31:59 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d.h"
 
@@ -48,9 +48,12 @@ void control_rot(t_data *cub, int dir)
 
 void control_trans(t_data *cub, int dir)
 {
+	
+	//adjust how translation works to allow slide on wall
+	
 	int finalX;
 	int finalY;
-
+	
 	if (dir > 0 )
 	{
 		finalX = (int)(cub->player->posX + cos(cub->player->p_ang)/10);

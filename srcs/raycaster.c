@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:30:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/14 11:01:48 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/14 11:24:18 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -160,21 +160,20 @@ int	line_maker(t_data *cub, t_castInfo line_prop, int side)
 void	liner(t_data *cub, t_castInfo line_prop, t_img tex)
 {
 	int color;
-	double step = 1.0 * cub->texNorth.height / line_prop.line_height;
+	double step;
 	int texY;
 	int pos;
 	double texPos;
 	
+	step = 1.0 * tex.height / line_prop.line_height;
 	pos = line_prop.yStart;
 	texPos = (line_prop.yStart - WIN_H / 2 + line_prop.line_height / 2) * step;
 	while (pos <= line_prop.yEnd)
 	{
-		texY = (int)texPos & (cub->texNorth.height - 1);
+		texY = (int)texPos & (tex.height - 1);
 		texPos += step;
-		//texY =(double) ((pos * 2 - WIN_H + line_height) * cub->texNorth.height) / line_height / 2;
-		//*((int *)(&(  )));
-		color = *((int *)(cub->north + (texY * cub->texNorth.line_length + line_prop.wallX * (cub->texNorth.bits_per_pixel / 8))));
-		//color = cub->north[texY * 256 + wallX];
+		color = *((int *)(tex.data + (texY * tex.line_length + line_prop.wallX * (cub->texNorth.bits_per_pixel / 8))));
 		pixel_put(cub, line_prop.x, pos, color);
 		pos++;
+	}
 }

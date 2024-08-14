@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/14 10:11:01 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/14 11:13:41 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -148,25 +148,25 @@ void textures_definer(t_data *cub)
 	cub->texNorth.img = mlx_xpm_file_to_image(cub->mlx_ptr,
 			"./refs/redbrick.xpm", &cub->texNorth.width,
 			&cub->texNorth.height);
-	cub->north = mlx_get_data_addr(cub->texNorth.img,
+	cub->texNorth.data = mlx_get_data_addr(cub->texNorth.img,
 			&cub->texNorth.bits_per_pixel, &cub->texNorth.line_length, 
 			&cub->texNorth.endian);
 	cub->texSouth.img = mlx_xpm_file_to_image(cub->mlx_ptr,
-			"./refs/wall.xpm", &cub->texSouth.width,
+			"./refs/mossy.xpm", &cub->texSouth.width,
 			&cub->texSouth.height);
-	cub->south = mlx_get_data_addr(cub->texSouth.img, 
+	cub->texSouth.data = mlx_get_data_addr(cub->texSouth.img, 
 			&cub->texSouth.bits_per_pixel, &cub->texSouth.line_length, 
 			&cub->texSouth.endian);
 	cub->texEast.img = mlx_xpm_file_to_image(cub->mlx_ptr,
-			"./refs/wall.xpm", &cub->texEast.width,
+			"./refs/greystone.xpm", &cub->texEast.width,
 			&cub->texEast.height);
-	cub->east = mlx_get_data_addr(cub->texEast.img, 
+	cub->texEast.data = mlx_get_data_addr(cub->texEast.img, 
 			&cub->texEast.bits_per_pixel, &cub->texEast.line_length, 
 			&cub->texEast.endian);
 	cub->texWest.img = mlx_xpm_file_to_image(cub->mlx_ptr,
-			"./refs/wall.xpm", &cub->texWest.width,
+			"./refs/colorstone.xpm", &cub->texWest.width,
 			&cub->texWest.height);
-	cub->west = mlx_get_data_addr(cub->texWest.img, 
+	cub->texWest.data = mlx_get_data_addr(cub->texWest.img, 
 			&cub->texWest.bits_per_pixel, &cub->texWest.line_length, 
 			&cub->texWest.endian);
 }

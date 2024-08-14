@@ -299,7 +299,9 @@ int		line_display(t_data *cub, int x, double wallDist, int side);
 
 int 	wallX_calculator(t_data *cub, double wallDist, int side);
 
-int		line_maker(t_data *cub, t_castInfo line_prop);
+int		line_maker(t_data *cub, t_castInfo line_prop, int side);
+
+void	liner(t_data *cub, t_castInfo line_prop, t_img tex);
 
 /* ************************************************************************** */
 /*                               FILEREADER                                   */
