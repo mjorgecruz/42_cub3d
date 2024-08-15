@@ -7,6 +7,7 @@ BOLD_YELLOW = \033[1;33m
 END = \033[0m
 
 NAME = cub3d
+NAME_BONUS = cub3d_bonus
 
 CFLAGS = -Wall -Werror -Wextra -g
 
@@ -22,6 +23,8 @@ TESTFLAGS = -fsanitize=address
 
 INCDIR:=srcs
 ODIR:=obj
+INCDIR_BONUS:=bonus
+ODIR_BONUS:=obj_bonus
 
 SRC := closing.c freeing.c handlers.c init_window.c \
 		main.c main_utils.c minimaper.c raycaster.c \
@@ -29,7 +32,11 @@ SRC := closing.c freeing.c handlers.c init_window.c \
 		minimaper_renders.c fileread.c fileread_utils.c\
 		rgb.c parser_cub.c map_build.c tests.c
 
+BONUS_SRC = 
+
 OBJ := $(patsubst %.c, $(ODIR)/%.o,$(SRC))
+
+OBJ_BONUS = $(patsubst %.c, $(ODIR_BONUS)/%.o,$(BONUS_SRC))
 
 LIBFLAGS = $(LIBFT) -I$(LIBMLX_DIR) -L$(LIBMLX_DIR) -lmlx -lX11 -lXext -lm
 
@@ -42,11 +49,19 @@ COMPILED_FILES := $(shell if [ -d "$(ODIR)" ]; then find $(ODIR) -name "*.o" | w
 
 all: $(NAME)
 
+bonus: $(NAME_BONUS)
+
 $(NAME): $(OBJ) $(LIBFT) $(LIBMLX)
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBFLAGS) -o $(NAME)
 	@printf "$(BOLD_GREEN)...cub3d in the making: $$(echo "$(shell find $(ODIR) -name "*.o" | wc -l) $(TOTAL_FILES)" | awk '{printf "%.2f", $$1/$$2 * 100}')%%$(RES)\r"
 	@printf "\n"
 	@echo "${BOLD_GREEN}cub3d is reborn...${END}"
+
+$(NAME_BONUS): $(OBJS_BONUS) $(LIBFT) $(LIBMLX)
+	@$(CC) $(CFLAGS) $(OBJ_BONUS) $(LIBFLAGS) -o $(NAME)
+	@printf "$(BOLD_GREEN)... bonus cub3d in the making: $$(echo "$(shell find $(ODIR_BONUS) -name "*.o" | wc -l) $(TOTAL_FILES)" | awk '{printf "%.2f", $$1/$$2 * 100}')%%$(RES)\r"
+	@printf "\n"
+	@echo "${BOLD_GREEN}bonus cub3d is reborn...${END}"
 
 test: $(OBJ)
 	@$(CC) $(CFLAGS) $(TESTFLAGS) $(OBJ) $(LIBFLAGS) -o $(NAME)
@@ -70,10 +85,12 @@ $(LIBMLX):
 
 fclean: clean
 	@$(RM) $(NAME)
+	@$(RM) $(NAME_BONUS)
 #	@make clean -C $(LIBMLX_DIR)
 
 clean:
 	@$(RM) $(OBJ)
+	@$(RM) $(OBJ_BONUS)
 	@make fclean -C $(LIBFT_DIR)
 	@echo "${RED}cub3d is no more...${END}"
 

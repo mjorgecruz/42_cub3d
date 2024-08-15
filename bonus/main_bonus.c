@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
@@ -6,24 +6,17 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 09:57:38 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/15 13:53:27 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 19:28:42 by masoares         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
-
-void	window_updater(t_data *cub)
-{
-	mlx_destroy_image(cub->mlx_ptr, cub->img);
-	cub->img = mlx_new_image(cub->mlx_ptr, cub->img_w, cub->img_h);
-}
 
 int	main(int argc, char **argv)
 {
 	t_data	cub;
 
 	tex_preparer(&cub);
-	check_user_input(argc, argv[1], &cub);
 	cub.map_h = 0;
 	cub.map_w = 0;
 	cub.count[0] = 0;
@@ -38,10 +31,11 @@ int	main(int argc, char **argv)
     cub.lc = 0;
 	cub.line = NULL;
 	cub.in_map = false;
+	check_user_input(argc, argv[1], &cub);
 	read_mapfile(&cub, argv[1]);
 	read_lines(&cub);
 	parser_first(&cub);	
-	init_fields(&cub);
+	init_fields_bonus(&cub);
 	run_window(&cub);
 	general_free(&cub);
 	return (0);
@@ -57,6 +51,8 @@ void tex_preparer(t_data *cub)
 	cub->texNorth.img = NULL;
 	cub->texSouth.img = NULL;
 	cub->texWest.img = NULL;
+	cub->door.data = NULL;
+	cub->door.img = NULL;
 	cub->north = NULL;
 	cub->south = NULL;
 	cub->east = NULL;
@@ -64,5 +60,5 @@ void tex_preparer(t_data *cub)
 	cub->map = NULL;
 	cub->map_cpy = NULL;
 	cub->player = NULL;
-	
+	cub->doors = NULL;
 }

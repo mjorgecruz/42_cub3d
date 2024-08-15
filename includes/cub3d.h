@@ -88,6 +88,15 @@ typedef struct s_img
 	int		height;
 }	t_img;
 
+typedef struct s_door
+{
+	double	pos_x;
+	double	pos_y;
+	int		orientation;
+	bool	open;
+
+}	t_door;
+
 typedef struct s_data
 {
 	int cub_fd;
@@ -125,6 +134,7 @@ typedef struct s_data
 	double  init_x;
 	double  init_y;
 	t_player    *player;
+	t_door		*doors;
 	t_img		texNorth;
 	t_img		texSouth;
 	t_img		texEast;
@@ -180,8 +190,6 @@ void	check_user_input(int ac, char *av, t_data *cub);
 
 int		ft_strcmp(char *s1, char *s2);
 
-void	window_updater(t_data *cub);
-
 void	tex_preparer(t_data *cub);
 
 /* ************************************************************************** */
@@ -200,10 +208,6 @@ void init_orientation(t_player *player, char player_init_ori);
 void init_position(t_data *cub);
 
 void init_camera(t_player *player, t_data *cub);
-
-void init_textures_to_null(t_data *cub);
-
-void init_map(t_data *cub);
 
 void textures_definer(t_data *cub);
 

@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/15 18:29:04 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 19:22:57 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,6 @@ void init_camera(t_player *player, t_data *cub)
 		ft_error(CAMERA, cub);
 	player->cam->planeX = -player->pov->dirY * tan(player->fov / 2);
 	player->cam->planeY = player->pov->dirX * tan(player->fov / 2);
-}
-
-void init_textures_to_null(t_data *cub)
-{
-	cub->north = NULL;
-	cub->south = NULL;
-	cub->west = NULL;
-	cub->east = NULL;
-	cub->in_map = false;
 }
 
 void textures_definer(t_data *cub)

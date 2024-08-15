@@ -44,6 +44,7 @@ typedef struct s_pov
 
 }   t_pov;
 
+
 typedef struct s_camera
 {
 	double cameraX;
@@ -87,6 +88,15 @@ typedef struct s_img
 	int		height;
 }	t_img;
 
+typedef struct s_door
+{
+	double	pos_x;
+	double	pos_y;
+	int		orientation;
+	bool	open;
+
+}	t_door;
+
 typedef struct s_data
 {
 	int cub_fd;
@@ -105,7 +115,6 @@ typedef struct s_data
 
     char **line;
     int l_start;
-    /*header done End  */
 
 	int		map_w;
 	int		map_h;
@@ -124,6 +133,7 @@ typedef struct s_data
 	double  init_x;
 	double  init_y;
 	t_player    *player;
+	t_door		*doors;
 	t_img		texNorth;
 	t_img		texSouth;
 	t_img		texEast;
@@ -149,6 +159,7 @@ enum ERRORS
 	MAPNAME,
 	CANTOPEN,
 	IVALIDMAP,
+	MISSTEXT,
 	PATHERR,
 	MLX,
 	WINDOW,
@@ -178,15 +189,13 @@ void	check_user_input(int ac, char *av, t_data *cub);
 
 int		ft_strcmp(char *s1, char *s2);
 
-void	window_updater(t_data *cub);
-
 void	tex_preparer(t_data *cub);
 
 /* ************************************************************************** */
 /*                             INIT_WINDOWS                                   */
 /* ************************************************************************** */
 /*Initialize values for struct cub, create window and first image*/
-int	init_fields(t_data *cub);
+int	init_fields_bonus(t_data *cub);
 
 /*Initialize all player infos*/
 t_player *init_player(t_data *cub);
@@ -199,11 +208,7 @@ void init_position(t_data *cub);
 
 void init_camera(t_player *player, t_data *cub);
 
-void init_textures_to_null(t_data *cub);
-
-void init_map(t_data *cub);
-
-void textures_definer(t_data *cub);
+void textures_definer_bonus(t_data *cub);
 
 /* ************************************************************************** */
 /*                                 RENDER                                     */
@@ -325,6 +330,8 @@ void get_scenic_id(t_data *cub, int i);
 bool has_reached_map(char *line, t_data *cub);
 void read_mapfile(t_data *cub, char *filename);
 void read_lines(t_data *cub);
+
+void    check_xpm_exist(t_data *cub);
 
 /* ************************************************************************** */
 /*                                MAP_BUILD                                   */
