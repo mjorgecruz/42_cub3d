@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:30:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/15 10:02:03 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 10:38:19 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -33,6 +33,8 @@ void display(t_data *cub)
 			wallDist = fabs((cub->player->cam->r_sideDistX  - cub->player->cam->r_deltaX));
 		else
 			wallDist = fabs((cub->player->cam->r_sideDistY - cub->player->cam->r_deltaY));
+		if (wallDist < 0.0001)
+			wallDist = 0.0001;
 		line_display(cub, x, wallDist, side);
 		x++;
 	}

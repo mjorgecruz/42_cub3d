@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:53:30 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/15 09:59:34 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 10:28:11 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -48,9 +48,6 @@ void control_rot(t_data *cub, int dir)
 
 void control_trans(t_data *cub, int dir)
 {
-	
-	//adjust how translation works to allow slide on wall
-	
 	int finalX;
 	int finalY;
 	
@@ -58,20 +55,18 @@ void control_trans(t_data *cub, int dir)
 	{
 		finalX = (int)(cub->player->posX + cos(cub->player->p_ang)/10);
 		finalY = (int)(cub->player->posY + sin(cub->player->p_ang)/10);
-		if (cub->map[finalY][finalX] == '0')
-		{
-			cub->player->posX = cub->player->posX + cos(cub->player->p_ang)/10;	
+		if (cub->map[finalY][(int)(cub->player->posX)] == '0')
 			cub->player->posY = cub->player->posY + sin(cub->player->p_ang)/10;
-		}
+		if (cub->map[(int)(cub->player->posY)][finalX] == '0')
+			cub->player->posX = cub->player->posX + cos(cub->player->p_ang)/10;	
 	}	
 	else
 	{
 		finalX = (int)(cub->player->posX - cos(cub->player->p_ang)/10);
 		finalY = (int)(cub->player->posY - sin(cub->player->p_ang)/10);
-		if (cub->map[finalY][finalX] == '0')
-		{
+		if (cub->map[(int)(cub->player->posY)][finalX] == '0')
 			cub->player->posX -= (cos(cub->player->p_ang)/10);
+		if (cub->map[finalY][(int)(cub->player->posX)] == '0')	
 			cub->player->posY -= (sin(cub->player->p_ang)/10);
-		}
 	}
 }
