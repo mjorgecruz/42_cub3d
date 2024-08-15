@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_build.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 10:54:20 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/14 17:28:24 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/15 18:18:31 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void get_map_size(t_data *cub)
             has_reached_map(cub->line[i], cub);
             cub->l_start = i;
         }
-        else if (cub->in_map == true)
+        if (cub->in_map == true)
         {
             size = ft_strlen(cub->line[i]);
             if (cub->map_w < size)
@@ -39,7 +39,6 @@ void get_map_size(t_data *cub)
         }
     }
     cub->map_w++;
-    cub->map_h++;
 }
 
 void    build_map(t_data *cub)

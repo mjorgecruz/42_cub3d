@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   fileread.c                                         :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:23:03 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/15 11:38:27 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 17:48:02 by masoares         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
@@ -130,6 +130,7 @@ void check_scenics(t_data *cub)
 {
     check_scenics_count(cub);
     check_xpm_format(cub);
+    check_xpm_exist(cub);
 }
 
 void check_duplicates(t_data *cub, int id)
@@ -225,8 +226,7 @@ void read_mapfile(t_data *cub, char *filename)
 
     fd = open(filename, O_RDONLY, 0);
     is_fd_invalid(fd, cub);
-    join = ft_strdup("");
-    
+    join = ft_strdup("");    
     while ((temp = get_next_line(fd)))
     {
         cub->lc++;
@@ -244,11 +244,16 @@ void read_mapfile(t_data *cub, char *filename)
 void read_lines(t_data *cub)
 {
     int i;
-
+    int length;
+    
     i = 0;
+    length = 0;
     cub->in_map = false;
     while (cub->line[i] != NULL)
     {
+        length = ft_strlen(cub->line[i]);
+        if (cub->line[i][length -1] == '\n')
+            cub->line[i][length -1] = 0;
         if (is_empty_line(cub->line[i]))
             i++;
         else
@@ -262,4 +267,27 @@ void read_lines(t_data *cub)
     }
     check_scenics(cub);
     check_color_range(cub);
+    
+}
+
+void    check_xpm_exist(t_data *cub)
+{
+    int fd;
+    
+    fd = open(cub->north, O_RDONLY, 0);
+    if (fd < 0)
+        ft_error(MISSTEXT, cub);
+    close(fd);
+        fd = open(cub->north, O_RDONLY, 0);
+    if (fd < 0)
+        ft_error(MISSTEXT, cub);
+    close(fd);
+        fd = open(cub->north, O_RDONLY, 0);
+    if (fd < 0)
+        ft_error(MISSTEXT, cub);
+    close(fd);
+       fd = open(cub->north, O_RDONLY, 0);
+    if (fd < 0)
+        ft_error(MISSTEXT, cub);
+    close(fd);
 }

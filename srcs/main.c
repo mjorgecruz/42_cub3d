@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 09:57:38 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/15 13:57:44 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:57:40 by masoares         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
@@ -23,7 +23,6 @@ int	main(int argc, char **argv)
 	t_data	cub;
 
 	tex_preparer(&cub);
-	check_user_input(argc, argv[1], &cub);
 	cub.map_h = 0;
 	cub.map_w = 0;
 	cub.count[0] = 0;
@@ -38,6 +37,7 @@ int	main(int argc, char **argv)
     cub.lc = 0;
 	cub.line = NULL;
 	cub.in_map = false;
+	check_user_input(argc, argv[1], &cub);
 	read_mapfile(&cub, argv[1]);
 	read_lines(&cub);
 	parser_first(&cub);	

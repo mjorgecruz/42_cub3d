@@ -150,6 +150,7 @@ enum ERRORS
 	MAPNAME,
 	CANTOPEN,
 	IVALIDMAP,
+	MISSTEXT,
 	PATHERR,
 	MLX,
 	WINDOW,
@@ -326,6 +327,8 @@ void get_scenic_id(t_data *cub, int i);
 bool has_reached_map(char *line, t_data *cub);
 void read_mapfile(t_data *cub, char *filename);
 void read_lines(t_data *cub);
+
+void    check_xpm_exist(t_data *cub);
 
 /* ************************************************************************** */
 /*                                MAP_BUILD                                   */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:57:21 by masoares          #+#    #+#             */
-/*   Updated: 2024/07/30 11:57:13 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/15 17:00:54 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,9 @@ bool ft_cubfile(char *str)
 {
 	int	i;
 
-	i = 0;
-	while (str[i] && str[i] != '.')
-		i++;
-	if (!str[i] || i == 0)
-		return (false);
+	i = ft_strlen(str);
+	while (i >= 0 && str[i] != '.')
+		i--;
 	if (ft_strcmp("cub", str + i + 1) == 0)
 		return (true);
 	return (false);

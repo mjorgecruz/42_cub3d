@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   init_window.c                                      :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/15 09:43:25 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 18:29:04 by masoares         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
@@ -51,9 +51,9 @@ void init_orientation(t_player *player, char player_init_ori)
 	player->fov = FOV;
 	if (player_init_ori == 'N')
 		player->p_ang = -90 * DG_RAD;
-	else if (player_init_ori == 'E')
+	else if (player_init_ori == 'W')
 		player->p_ang = 0 * DG_RAD;
-	else if (player_init_ori == 'O')
+	else if (player_init_ori == 'E')
 		player->p_ang = 180 * DG_RAD;
 	else
 		player->p_ang = 90 * DG_RAD;
@@ -89,25 +89,25 @@ void init_textures_to_null(t_data *cub)
 void textures_definer(t_data *cub)
 {
 	cub->texNorth.img = mlx_xpm_file_to_image(cub->mlx_ptr,
-			"./refs/redbrick.xpm", &cub->texNorth.width,
+			cub->north, &cub->texNorth.width,
 			&cub->texNorth.height);
 	cub->texNorth.data = mlx_get_data_addr(cub->texNorth.img,
 			&cub->texNorth.bits_per_pixel, &cub->texNorth.line_length, 
 			&cub->texNorth.endian);
 	cub->texSouth.img = mlx_xpm_file_to_image(cub->mlx_ptr,
-			"./refs/mossy.xpm", &cub->texSouth.width,
+			cub->south, &cub->texSouth.width,
 			&cub->texSouth.height);
 	cub->texSouth.data = mlx_get_data_addr(cub->texSouth.img, 
 			&cub->texSouth.bits_per_pixel, &cub->texSouth.line_length, 
 			&cub->texSouth.endian);
 	cub->texEast.img = mlx_xpm_file_to_image(cub->mlx_ptr,
-			"./refs/greystone.xpm", &cub->texEast.width,
+			cub->east, &cub->texEast.width,
 			&cub->texEast.height);
 	cub->texEast.data = mlx_get_data_addr(cub->texEast.img, 
 			&cub->texEast.bits_per_pixel, &cub->texEast.line_length, 
 			&cub->texEast.endian);
 	cub->texWest.img = mlx_xpm_file_to_image(cub->mlx_ptr,
-			"./refs/colorstone.xpm", &cub->texWest.width,
+			cub->west, &cub->texWest.width,
 			&cub->texWest.height);
 	cub->texWest.data = mlx_get_data_addr(cub->texWest.img, 
 			&cub->texWest.bits_per_pixel, &cub->texWest.line_length, 
