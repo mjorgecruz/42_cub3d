@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:31:18 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/14 17:22:03 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/15 09:18:11 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d.h"
 
@@ -18,8 +18,7 @@ void    ft_perror(char *msg)
     int size;
 
     size = ft_strlen(msg);
-    write(stderr, msg, size);
-    general_free(cub);
+    write(STDERR_FILENO, msg, size);
     exit(EXIT_FAILURE);
 }
 
@@ -34,9 +33,8 @@ void ft_error(int n, t_data *cub)
         ft_perror("\033[31mCouldn't open file\033[0m\n");
     else if  (n == PATHERR)
         ft_perror("\033[31mCouldn't reach texture path\033[0m\n");
-    ft_perror("UNSPECIFIED ERROR\n")
+    ft_perror("UNSPECIFIED ERROR\n");
+    general_free(cub);
 }
 
 //still needs to open texture
-
-

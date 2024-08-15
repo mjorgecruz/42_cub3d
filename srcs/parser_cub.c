@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parser_cub.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:30:36 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/14 17:31:16 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/15 09:34:53 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d.h"
 
@@ -34,6 +34,7 @@ void get_player_pos(t_data *cub)
             {
                 cub->init_x = j;
                 cub->init_y = i;
+                cub->player_init_ori = cub->map[i][j];
                 cub->map[i][j] = '0';
                 dup++;
             }
@@ -41,7 +42,6 @@ void get_player_pos(t_data *cub)
 	}
     if (dup != 1)
         ft_error(11, cub);
-
 }
 
 void    map_space(t_data *cub) //final do mapa com newlines

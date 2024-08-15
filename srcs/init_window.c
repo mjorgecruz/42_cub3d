@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/14 15:51:21 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 09:43:25 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -40,12 +40,9 @@ t_player *init_player(t_data *cub)
 	player = (t_player *) malloc(sizeof(t_player) * 1);
 	if (player == NULL)
 		ft_error(PLAYER, cub);
-	//init_map(cub);
 	player->pov = (t_pov *) malloc(sizeof(t_pov) * 1);
 	init_orientation(player, cub->player_init_ori);
 	init_camera(player, cub);
-	
-
 	return (player);
 }
 
@@ -66,29 +63,8 @@ void init_orientation(t_player *player, char player_init_ori)
 
 void init_position(t_data *cub)
 {
-
 	cub->player->posX = (double) cub->init_x + 0.5;
 	cub->player->posY = (double) cub->init_y + 0.5;
-	
-	// y = 0;
-	// x = 0;
-	// PRINT_COLOR_MAP(cub);
-	// while (y < cub->map_h)
-	// {
-	// 	x = 0;
-	// 	while (x < cub->map_w && cub->map[y][x] != 0 && cub->map[y][x] != '\n')
-	// 	{
-	// 		if (cub->map[y][x] > 49)
-	// 		{
-	// 			cub->player->posX = x + 0.5;
-	// 			cub->player->posY = y + 0.5;
-	// 			cub->map[y][x] = '0';
-	// 			break;
-	// 		}
-	// 		x++;
-	// 	}
-	// 	y++;
-	// }
 	return ;
 }
 
@@ -99,33 +75,6 @@ void init_camera(t_player *player, t_data *cub)
 		ft_error(CAMERA, cub);
 	player->cam->planeX = -player->pov->dirY * tan(player->fov / 2);
 	player->cam->planeY = player->pov->dirX * tan(player->fov / 2);
-}
-
-void init_map(t_data *cub)
-{
-	int 	**map;
-	int		i;
-	int		j;
-	int 	c_map[4][4] = {{1, 1, 1, 1},{1, 1, 0, 1}, {1, 0, 'E', 1}, {1, 1, 1, 1}};
-
-	i = 0;	
-	map = ft_calloc(4, sizeof(int *));
-	while (i < 4)
-	{
-		map[i] = ft_calloc(4, sizeof(int));
-		j = 0;
-		while (j < 4)
-		{
-			map[i][j] = c_map[i][j];
-			j++;
-		}
-		i++;
-	}
-	cub->map = map;
-	cub->map_h = 4;
-	cub->map_w = 4;
-	cub->player_init_ori = 'E';
-	
 }
 
 void init_textures_to_null(t_data *cub)

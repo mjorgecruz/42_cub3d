@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minimaper.c                                        :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:32:31 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/10 14:50:37 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 09:44:30 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d.h"
 
@@ -17,8 +17,6 @@ int minimaper(t_data *cub)
 	int		map_scale;
 
 	map_scale = 20;
-	cub->map_h = 4;
-	cub->map_w = 4;
 	map_drawing(cub, map_scale);
 	render_point_player(cub, (int) (cub->player->posX * map_scale), (int) (cub->player->posY * map_scale));
 	render_direction(cub);
@@ -33,14 +31,15 @@ void 	map_drawing(t_data *cub, int map_scale)
 	
 	y = 0;
 	x = 0;
+	ft_printf("map_w %i  map_h %i", cub->map_w, cub->map_h);
 	while (y < cub->map_h)
 	{
 		x = 0;
 		while (x < cub->map_w)
 		{
-			if (cub->map[(int) x][(int) y] == 1)
+			if (cub->map[(int) y][(int) x] == '1')
 				render_rect_wall(cub, x, y, map_scale);
-			else if (cub->map[(int) x][(int) y] == 0)
+			else if (cub->map[(int) y][(int) x] == '0')
 				render_rect_ground(cub, x, y, map_scale);
 			else
 			{
