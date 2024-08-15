@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/cub3d",
+            "program": "${workspaceFolder}/cub3d_bonus",
             "args": ["./maps/valid/test_pos_left.cub"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

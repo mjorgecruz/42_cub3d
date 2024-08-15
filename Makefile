@@ -36,7 +36,7 @@ BONUS_SRC = closing_bonus.c freeing_bonus.c handlers_bonus.c init_window_bonus.c
 		main_bonus.c main_utils_bonus.c minimaper_bonus.c raycaster_bonus.c \
 		errors_bonus.c render_bonus.c minimaper_utils_bonus.c render_utils_bonus.c \
 		minimaper_renders_bonus.c fileread_bonus.c fileread_utils_bonus.c\
-		rgb_bonus.c parser_cub_bonus.c map_build_bonus.c
+		rgb_bonus.c parser_cub_bonus.c map_build_bonus.c tests_bonus.c
 
 OBJ := $(patsubst %.c, $(ODIR)/%.o,$(SRC))
 
@@ -61,15 +61,11 @@ $(NAME): $(OBJ) $(LIBFT) $(LIBMLX)
 	@printf "\n"
 	@echo "${BOLD_GREEN}cub3d is reborn...${END}"
 
-$(NAME_BONUS): $(OBJS_BONUS) $(LIBFT) $(LIBMLX)
-	@$(CC) $(CFLAGS) $(OBJ_BONUS) $(LIBFLAGS) -o $(NAME)
+$(NAME_BONUS):  $(OBJ_BONUS) $(LIBFT) $(LIBMLX)
+	@$(CC) $(CFLAGS) $(OBJ_BONUS) $(LIBFLAGS) -o $(NAME_BONUS)
 	@printf "$(BOLD_GREEN)... bonus cub3d in the making: $$(echo "$(shell find $(ODIR_BONUS) -name "*.o" | wc -l) $(TOTAL_FILES)" | awk '{printf "%.2f", $$1/$$2 * 100}')%%$(RES)\r"
 	@printf "\n"
 	@echo "${BOLD_GREEN}bonus cub3d is reborn...${END}"
-
-test: $(OBJ)
-	@$(CC) $(CFLAGS) $(TESTFLAGS) $(OBJ) $(LIBFLAGS) -o $(NAME)
-	@echo "${BOLD_GREEN}...cub3d is reborn${END}"
 
 $(ODIR):
 	@mkdir -p $@
@@ -77,6 +73,14 @@ $(ODIR):
 $(ODIR)/%.o: $(INCDIR)/%.c
 	@mkdir -p $(dir $@) 
 	@printf "$(BOLD_GREEN)...cub3d in the making: $$(echo "$(shell find $(ODIR) -name "*.o" | wc -l) $(TOTAL_FILES)" | awk '{printf "%.2f", $$1/$$2 * 100}')%%$(RES)\r"
+	@$(CC) $(CFLAGS) -c -o $@ $<
+
+$(ODIR_BONUS):
+	@mkdir -p $@
+	
+$(ODIR_BONUS)/%.o: $(INCDIR_BONUS)/%.c
+	@mkdir -p $(dir $@) 
+	@printf "$(BOLD_GREEN)...cub3d in the making: $$(echo "$(shell find $(ODIR_BONUS) -name "*.o" | wc -l) $(TOTAL_FILES)" | awk '{printf "%.2f", $$1/$$2 * 100}')%%$(RES)\r"
 	@$(CC) $(CFLAGS) -c -o $@ $<
 
 $(LIBFT):

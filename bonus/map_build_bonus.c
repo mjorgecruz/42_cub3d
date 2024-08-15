@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 10:54:20 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/15 21:12:08 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 21:22:07 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void    build_map(t_data *cub)
     
     cub->map = (int **)ft_calloc(cub->map_h, sizeof(int *));
     if (!cub->map)
-        ft_error(11, cub); //dar frees e erro de memoria  ft_error    
+        ft_error(11, cub);    
     i = -1;
     while (++i < cub->map_h)
     {
@@ -60,7 +60,6 @@ void    build_map(t_data *cub)
            cub->map[i][j] = cub->line[(cub->l_start + i)][j];
     }
     map_space(cub);
-    PRINT_COLOR_MAP(cub);
 }
 
 void make_map_copy(t_data *cub)
@@ -81,5 +80,4 @@ void make_map_copy(t_data *cub)
         while (++j < cub->map_w)
            cub->map_cpy[i][j] = cub->map[i][j];
     }
-    PRINT_COLOR_MAPCPY(cub);
 }

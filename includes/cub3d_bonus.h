@@ -204,11 +204,19 @@ t_player *init_player(t_data *cub);
 void init_orientation(t_player *player, char player_init_ori);
 
 /*Define initial position of player*/
-void init_position(t_data *cub);
+void	init_position_bonus(t_data *cub);
 
-void init_camera(t_player *player, t_data *cub);
+void	init_doors_bonus(t_data *cub, int count);
 
-void textures_definer_bonus(t_data *cub);
+void	fill_door_info_bonus(t_data *cub, int door_num, int i, int j);
+
+void	init_camera(t_player *player, t_data *cub);
+
+void	textures_definer_bonus(t_data *cub);
+
+void	texture_door_bonus(t_data *cub);
+
+
 
 /* ************************************************************************** */
 /*                                 RENDER                                     */
@@ -257,6 +265,7 @@ int	close_win_free(t_data *cub);
 
 /**/
 void	general_free(t_data *cub);
+
 void    ft_free_split(char **array);
 
 
@@ -368,8 +377,8 @@ int jump_whitepaces(char *line);
 
 void    get_player_pos(t_data *cub);
 void    map_space(t_data *cub);
-int     floodfill(t_data *cub, int x, int y, int targ, int new);
-void    parser_first(t_data *cub);
+int     floodfill_bonus(t_data *cub, int x, int y, int targ, int new);
+void    parser_first_bonus(t_data *cub);
 
 /* ************************************************************************** */
 /*                                  ERRORS                                    */

@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:30:36 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/15 21:12:43 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 22:08:05 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void    map_space(t_data *cub) //final do mapa com newlines
     }
 }
 
-int floodfill(t_data *cub, int x, int y, int targ, int new)
+int floodfill_bonus(t_data *cub, int x, int y, int targ, int new)
 {
     int current;
     int ret;
@@ -74,38 +74,30 @@ int floodfill(t_data *cub, int x, int y, int targ, int new)
     current = cub->map_cpy[y][x];
     if (current == 49)
         return 1;
-    if (current != targ && !is_valid_orient(current))
+    if (current != targ && !is_valid_orient(current) && current != 'D')
         return 0;
-
     cub->map_cpy[y][x] = new;
-    ret += floodfill(cub, x - 1, y, targ, new);
-    ret += floodfill(cub, x + 1, y, targ, new);
-    ret += floodfill(cub, x, y - 1, targ, new);
-    ret += floodfill(cub, x, y + 1, targ, new);
+    ret += floodfill_bonus(cub, x - 1, y, targ, new);
+    ret += floodfill_bonus(cub, x + 1, y, targ, new);
+    ret += floodfill_bonus(cub, x, y - 1, targ, new);
+    ret += floodfill_bonus(cub, x, y + 1, targ, new);
     if (ret == 4)
         return 1;
     return 0;
 }
 
-void parser_first(t_data *cub)
+void parser_first_bonus(t_data *cub)
 {
     get_map_size(cub);
     build_map(cub);
-    make_map_copy(cub); // error and free case it cant
+    make_map_copy(cub); 
     get_player_pos(cub);
-    
-    ft_printf("Nx = %i\n", cub->init_x);
-    ft_printf("Ny = %i\n", cub->init_y);
-
-    if (floodfill(cub, cub->init_x, cub->init_y, 48, 49) == 0) //proper errors and frees
+    if (floodfill_bonus(cub, cub->init_x, cub->init_y, 48, 49) == 0)
     {
-        ft_printf("\033[1;31mFLOODFILL RESULT: \033[0m\n");///////////////////////////////////////////////
-        PRINT_COLOR_MAPCPY(cub);//////////////////////////////////////////////////////////////////////////
         ft_error(11, cub);
         return ;
     }
-    ft_printf("\n\033[1;32mFLOODFILL RESULT: \033[0m\n");/////////////////////////////////////////////////
-    PRINT_COLOR_MAPCPY(cub);//////////////////////////////////////////////////////////////////////////////
-    ft_printf("\n\033[1;32m!MAPA OK!\033[0m\n");
+    PRINT_COLOR_MAP(cub);
+    PRINT_COLOR_MAPCPY(cub);
     return ; //passes returns 0
 }

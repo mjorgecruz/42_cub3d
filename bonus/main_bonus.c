@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 09:57:38 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/15 19:28:42 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 21:46:49 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char **argv)
 	check_user_input(argc, argv[1], &cub);
 	read_mapfile(&cub, argv[1]);
 	read_lines(&cub);
-	parser_first(&cub);	
+	parser_first_bonus(&cub);	
 	init_fields_bonus(&cub);
 	run_window(&cub);
 	general_free(&cub);

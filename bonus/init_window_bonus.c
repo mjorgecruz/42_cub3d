@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/15 19:26:13 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 22:35:25 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	init_fields_bonus(t_data *cub)
 	cub->addr = mlx_get_data_addr(cub->img, &cub->bits_per_pixel,
 			&cub->line_length, &cub->endian);
 	cub->player = init_player(cub);
-	init_position(cub);
-	textures_definer(cub);
+	init_position_bonus(cub);
+	textures_definer_bonus(cub);
 	return (0);
 }
 
@@ -61,11 +61,60 @@ void init_orientation(t_player *player, char player_init_ori)
 	player->pov->dirY = sin(player->p_ang);
 }
 
-void init_position(t_data *cub)
+void init_position_bonus(t_data *cub)
 {
+	int i;
+	int j;
+	int count;
+
+	count = 0;
 	cub->player->posX = (double) cub->init_x + 0.5;
 	cub->player->posY = (double) cub->init_y + 0.5;
+    i = -1;
+	while (++i < cub->map_h)
+	{
+		j = -1;
+		while (++j < cub->map_w)
+		{
+			if (cub->map[i][j] == 'D')
+				count++;
+		}
+	}
+	if (count > 0)
+		init_doors_bonus(cub, count);
 	return ;
+}
+
+void	init_doors_bonus(t_data *cub, int count)
+{
+	int i;
+	int j;
+	int door_num;
+
+	door_num = 0;
+	cub->doors = (t_door *)malloc(count * sizeof(t_door));
+	if (cub->doors == NULL)
+		ft_error(125, cub);
+	i = -1;
+	while (++i < cub->map_h)
+	{
+		j = -1;
+		while (++j < cub->map_w)
+		{
+			if (cub->map[i][j] == 'D')
+			{
+				fill_door_info_bonus(cub, door_num, i, j);
+				door_num++;
+			}
+		}
+	}
+}
+
+void	fill_door_info_bonus(t_data *cub, int door_num, int i, int j)
+{
+	cub->doors[door_num].pos_x = j;
+	cub->doors[door_num].pos_y = i;
+	
 }
 
 void init_camera(t_player *player, t_data *cub)
@@ -77,7 +126,7 @@ void init_camera(t_player *player, t_data *cub)
 	player->cam->planeY = player->pov->dirX * tan(player->fov / 2);
 }
 
-void textures_definer(t_data *cub)
+void textures_definer_bonus(t_data *cub)
 {
 	cub->texNorth.img = mlx_xpm_file_to_image(cub->mlx_ptr,
 			cub->north, &cub->texNorth.width,
@@ -103,5 +152,22 @@ void textures_definer(t_data *cub)
 	cub->texWest.data = mlx_get_data_addr(cub->texWest.img, 
 			&cub->texWest.bits_per_pixel, &cub->texWest.line_length, 
 			&cub->texWest.endian);
+	texture_door_bonus(cub);
+}
+
+void texture_door_bonus(t_data *cub)
+{
+	int fd;
+
+	fd = open("./textures/Door.xpm", O_RDONLY, 0);
+	if (fd < 0)
+		ft_error(20, cub);
+	close(fd);
+	cub->door.img = mlx_xpm_file_to_image(cub->mlx_ptr,
+			"./textures/Door.xpm", &cub->door.width,
+			&cub->door.height);
+	cub->door.data = mlx_get_data_addr(cub->door.img, 
+			&cub->door.bits_per_pixel, &cub->door.line_length, 
+			&cub->door.endian);
 }
 	
