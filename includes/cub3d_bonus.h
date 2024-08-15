@@ -273,9 +273,9 @@ void    ft_free_split(char **array);
 /*                               MINIMAPER                                    */
 /* ************************************************************************** */
 
-int     minimaper(t_data *cub);
+int     minimaper_bonus(t_data *cub);
 
-void 	map_drawing(t_data *cub, int map_scale);
+void 	map_drawing_bonus(t_data *cub, int map_scale);
 
 void    render_direction(t_data *cub);
 
@@ -293,6 +293,12 @@ void	render_rect_wall(t_data *img, int pos_x, int pos_y, int scale);
 
 void	render_rect_ground(t_data *img, int pos_x, int pos_y, int scale);
 
+void	render_rect_door(t_data *img, double pos_x, double pos_y, int scale);
+
+void	render_h_door(t_data *img, double pos_x, double pos_y, int scale);
+
+void	render_v_door(t_data *img, double pos_x, double pos_y, int scale);
+
 /* ************************************************************************** */
 /*                             MINIMAPER_UTILS                                */
 /* ************************************************************************** */
@@ -304,6 +310,8 @@ void	delta_calc(t_data *cub);
 void	step_calc(t_data *cub);
 
 int		side_calc(t_data *cub);
+
+int		search_door(t_data *cub, double x, double y);
 
 /* ************************************************************************** */
 /*                                RAYCASTER                                   */

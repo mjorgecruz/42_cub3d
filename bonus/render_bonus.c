@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:43:00 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/15 22:57:00 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 23:30:55 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void render_bonus(t_data *cub)
 	cub->img = mlx_new_image(cub->mlx_ptr, cub->img_w, cub->img_h);
 	render_cel_gr(cub);
 	display(cub);
-	minimaper(cub);
+	minimaper_bonus(cub);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
 }
 

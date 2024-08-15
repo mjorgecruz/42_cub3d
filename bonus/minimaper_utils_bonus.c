@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 00:16:41 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/15 21:12:38 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 23:50:41 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,22 @@ int side_calc(t_data *cub)
 			hit = 1;
 	}
 	return (side);
+}
+
+int		search_door(t_data *cub, double x, double y)
+{
+	int i;
+
+	i = 0;
+	while (cub->doors[i].orientation != -1)
+	{
+		if ((int)cub->doors[i].pos_x == (int) x)
+		{
+			if  ((int)cub->doors[i].pos_y == (int) y)
+				return (i);
+		}
+		i++;
+	}
+	ft_error(135, cub);
+	return (-1);
 }

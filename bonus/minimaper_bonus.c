@@ -6,25 +6,25 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:32:31 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/15 21:12:12 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/16 00:02:42 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
 
-int minimaper(t_data *cub)
+int minimaper_bonus(t_data *cub)
 {
 	int		map_scale;
 
 	map_scale = 20;
-	map_drawing(cub, map_scale);
+	map_drawing_bonus(cub, map_scale);
 	render_point_player(cub, (int) (cub->player->posX * map_scale), (int) (cub->player->posY * map_scale));
 	render_direction(cub);
 	return (1);
 
 }
 
-void 	map_drawing(t_data *cub, int map_scale)
+void 	map_drawing_bonus(t_data *cub, int map_scale)
 {
 	double		x;
 	double		y;
@@ -40,10 +40,8 @@ void 	map_drawing(t_data *cub, int map_scale)
 				render_rect_wall(cub, x, y, map_scale);
 			else if (cub->map[(int) y][(int) x] == '0')
 				render_rect_ground(cub, x, y, map_scale);
-			else
-			{
-				render_rect_ground(cub, x, y, map_scale);
-			}
+			else if (cub->map[(int) y][(int) x] == 'D')
+				render_rect_door(cub, x, y, map_scale);
 			x++;
 		}
 		y++;

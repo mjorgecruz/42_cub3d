@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:30:36 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/15 22:08:05 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 23:23:13 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,8 @@ void parser_first_bonus(t_data *cub)
     make_map_copy(cub); 
     get_player_pos(cub);
     if (floodfill_bonus(cub, cub->init_x, cub->init_y, 48, 49) == 0)
-    {
         ft_error(11, cub);
-        return ;
-    }
+    
     PRINT_COLOR_MAP(cub);
     PRINT_COLOR_MAPCPY(cub);
     return ; //passes returns 0

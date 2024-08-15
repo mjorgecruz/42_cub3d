@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/15 22:35:25 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 23:44:33 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,12 @@ void init_position_bonus(t_data *cub)
 		j = -1;
 		while (++j < cub->map_w)
 		{
-			if (cub->map[i][j] == 'D')
+			if (cub->map[i][j] == 'D'
+				&& ((cub->map[i + 1][j] == '1' && cub->map[i - 1][j] == '1') 
+				||(cub->map[i][j + 1] == '1' && cub->map[i][j + 1] == '1')))
 				count++;
+			else if (cub->map[i][j] == 'D')
+				cub->map[i][j] = '0';
 		}
 	}
 	if (count > 0)
@@ -92,7 +96,7 @@ void	init_doors_bonus(t_data *cub, int count)
 	int door_num;
 
 	door_num = 0;
-	cub->doors = (t_door *)malloc(count * sizeof(t_door));
+	cub->doors = (t_door *)malloc((count + 1) * sizeof(t_door));
 	if (cub->doors == NULL)
 		ft_error(125, cub);
 	i = -1;
@@ -108,13 +112,18 @@ void	init_doors_bonus(t_data *cub, int count)
 			}
 		}
 	}
+	cub->doors[count].orientation = -1;
 }
 
 void	fill_door_info_bonus(t_data *cub, int door_num, int i, int j)
 {
-	cub->doors[door_num].pos_x = j;
-	cub->doors[door_num].pos_y = i;
-	
+	cub->doors[door_num].pos_x = (double) j + 0.5;
+	cub->doors[door_num].pos_y = (double) i + 0.5;
+	if(cub->map[i + 1][j] == '1' && cub->map[i - 1][j] == '1')
+		cub->doors[door_num].orientation = 1;
+	else
+		cub->doors[door_num].orientation = 0;
+	cub->doors[door_num].open = false;
 }
 
 void init_camera(t_player *player, t_data *cub)

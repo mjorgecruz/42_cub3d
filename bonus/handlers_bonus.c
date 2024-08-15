@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:53:30 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/15 21:11:52 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 23:29:49 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	key_detect(int key, t_data *cub)
 		control_rot(cub,-1);
 	else if (key == XK_Right)
 		control_rot(cub, 1);
-	render(cub);
+	render_bonus(cub);
 	return (0);
 }
 
