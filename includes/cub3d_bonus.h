@@ -225,7 +225,7 @@ void	texture_door_bonus(t_data *cub);
 /*manages all window updates and updates based on input*/
 void	run_window(t_data *cub);
 
-void    render(t_data *cub);
+void    render_bonus(t_data *cub);
 
 void	render_cel_gr(t_data *cub);
 

@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:43:00 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/15 21:12:58 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 22:57:00 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 void	run_window(t_data *cub)
 {
 	
-	render(cub);
+	render_bonus(cub);
 	mlx_hook(cub->win_ptr, KeyPress, KeyPressMask, key_detect, cub);
 	mlx_hook(cub->win_ptr, DestroyNotify, NoEventMask, close_win_free, cub);
 	mlx_loop(cub->mlx_ptr);
 }
 
-void render(t_data *cub)
+void render_bonus(t_data *cub)
 {
 	mlx_destroy_image(cub->mlx_ptr, cub->img);
 	cub->img = mlx_new_image(cub->mlx_ptr, cub->img_w, cub->img_h);
