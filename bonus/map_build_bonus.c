@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_build.c                                        :+:      :+:    :+:   */
+/*   map_build_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 10:54:20 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/15 18:18:31 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 21:12:08 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 void    get_map_size(t_data *cub);
 void    build_map(t_data *cub);

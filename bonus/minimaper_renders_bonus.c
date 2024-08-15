@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimaper_renders.c                                :+:      :+:    :+:   */
+/*   minimaper_renders_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 00:19:22 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/10 00:24:19 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 21:12:16 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 void	render_point_player(t_data *img, double pos_x, double pos_y)
 {

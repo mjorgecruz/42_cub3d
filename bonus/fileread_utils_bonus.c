@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fileread_utils.c                                   :+:      :+:    :+:   */
+/*   fileread_utils_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:25:06 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/13 10:58:21 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/15 21:11:42 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 bool is_valid_orient(int c);
 bool is_empty_line(char *str);

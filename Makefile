@@ -32,7 +32,11 @@ SRC := closing.c freeing.c handlers.c init_window.c \
 		minimaper_renders.c fileread.c fileread_utils.c\
 		rgb.c parser_cub.c map_build.c tests.c
 
-BONUS_SRC = 
+BONUS_SRC = closing_bonus.c freeing_bonus.c handlers_bonus.c init_window_bonus.c \
+		main_bonus.c main_utils_bonus.c minimaper_bonus.c raycaster_bonus.c \
+		errors_bonus.c render_bonus.c minimaper_utils_bonus.c render_utils_bonus.c \
+		minimaper_renders_bonus.c fileread_bonus.c fileread_utils_bonus.c\
+		rgb_bonus.c parser_cub_bonus.c map_build_bonus.c
 
 OBJ := $(patsubst %.c, $(ODIR)/%.o,$(SRC))
 

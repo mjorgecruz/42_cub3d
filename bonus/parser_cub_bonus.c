@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_cub.c                                       :+:      :+:    :+:   */
+/*   parser_cub_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:30:36 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/15 18:26:14 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 21:12:43 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 void    get_player_pos(t_data *cub);
 void    map_space(t_data *cub);
