@@ -1,16 +1,16 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 09:57:38 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/15 13:57:44 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:53:27 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 void	window_updater(t_data *cub)
 {
@@ -57,8 +57,6 @@ void tex_preparer(t_data *cub)
 	cub->texNorth.img = NULL;
 	cub->texSouth.img = NULL;
 	cub->texWest.img = NULL;
-	cub->door.data = NULL;
-	cub->door.img = NULL;
 	cub->north = NULL;
 	cub->south = NULL;
 	cub->east = NULL;

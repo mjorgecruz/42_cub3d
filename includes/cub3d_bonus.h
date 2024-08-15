@@ -44,7 +44,6 @@ typedef struct s_pov
 
 }   t_pov;
 
-
 typedef struct s_camera
 {
 	double cameraX;
@@ -129,6 +128,7 @@ typedef struct s_data
 	t_img		texSouth;
 	t_img		texEast;
 	t_img		texWest;
+	t_img		door;
 }		t_data;
 
 typedef struct s_castInfo
