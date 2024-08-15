@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:30:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/15 10:00:47 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 10:02:03 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -17,7 +17,6 @@ void display(t_data *cub)
 	double x;
 	int side;
 	double wallDist;
-	//double wall_pos;
 	
 	x = 1;
 	side = 0;
@@ -109,7 +108,6 @@ int side_calc_ray(t_data *cub)
 
 int		line_display(t_data *cub, int x, double wallDist, int side)
 {
-	//max_height = WIN_H when wallDist = 1
 	t_castInfo line_prop;
 	
 	line_prop.x = x;

@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:32:31 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/15 09:44:30 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 10:03:02 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -32,10 +32,10 @@ void 	map_drawing(t_data *cub, int map_scale)
 	y = 0;
 	x = 0;
 	ft_printf("map_w %i  map_h %i", cub->map_w, cub->map_h);
-	while (y < cub->map_h)
+	while (y < cub->map_h && y * map_scale < WIN_H)
 	{
 		x = 0;
-		while (x < cub->map_w)
+		while (x < cub->map_w && x * map_scale < WIN_W)
 		{
 			if (cub->map[(int) y][(int) x] == '1')
 				render_rect_wall(cub, x, y, map_scale);
