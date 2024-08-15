@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:07:04 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/15 11:10:18 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 11:25:13 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -74,6 +74,5 @@ void	general_free(t_data *cub)
 	ft_free_array(cub, cub->map_cpy);
 	ft_free_struct_a(cub);
 	//free(cub);
-	//free t_player
 	ft_printf("\n -- GENERAL FREED -- \n");
 }

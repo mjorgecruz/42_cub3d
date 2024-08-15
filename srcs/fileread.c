@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   fileread.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:23:03 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/14 17:24:25 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/15 11:38:27 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d.h"
 
@@ -117,13 +117,13 @@ void check_xpm_format(t_data *cub)
 {
     
     if (!check_texture_str(cub->north))
-        exit(EXIT_FAILURE);
+        ft_error(IVALIDMAP, cub);
     else if (!check_texture_str(cub->east))
-        exit(EXIT_FAILURE);
+        ft_error(IVALIDMAP, cub);
     else if (!check_texture_str(cub->south))
-        exit(EXIT_FAILURE);
+        ft_error(IVALIDMAP, cub);
     else if (!check_texture_str(cub->west))
-        exit(EXIT_FAILURE);    
+        ft_error(IVALIDMAP, cub);
 }
 
 void check_scenics(t_data *cub)
@@ -155,13 +155,21 @@ void save_path(char *line, t_data *cub, int id)
     i = jump_whitepaces(line);
     fill_counter(cub, id);
     if (id == NORTH)
+    {
         cub->north = ft_strdup(&line[i]);
+    }
     else if (id == SOUTH)
+    {
         cub->south = ft_strdup(&line[i]);
+    }
     else if (id == WEST)
+    {
         cub->west = ft_strdup(&line[i]);
+    }
     else if (id == EAST)
+    {
         cub->east = ft_strdup(&line[i]);
+    }
 }
 
 void get_scenic_id(t_data *cub, int i)

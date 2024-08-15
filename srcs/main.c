@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 09:57:38 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/15 11:04:24 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 11:51:17 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -57,4 +57,12 @@ void tex_preparer(t_data *cub)
 	cub->texNorth.img = NULL;
 	cub->texSouth.img = NULL;
 	cub->texWest.img = NULL;
+	cub->north = NULL;
+	cub->south = NULL;
+	cub->east = NULL;
+	cub->west = NULL;
+	cub->map = NULL;
+	cub->map_cpy = NULL;
+	cub->player = NULL;
+	
 }

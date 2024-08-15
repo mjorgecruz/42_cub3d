@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:31:18 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/15 09:18:11 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 11:47:52 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -19,7 +19,7 @@ void    ft_perror(char *msg)
 
     size = ft_strlen(msg);
     write(STDERR_FILENO, msg, size);
-    exit(EXIT_FAILURE);
+    // exit(EXIT_FAILURE);
 }
 
 void ft_error(int n, t_data *cub)
@@ -35,6 +35,7 @@ void ft_error(int n, t_data *cub)
         ft_perror("\033[31mCouldn't reach texture path\033[0m\n");
     ft_perror("UNSPECIFIED ERROR\n");
     general_free(cub);
+    exit(EXIT_FAILURE);
 }
 
 //still needs to open texture
