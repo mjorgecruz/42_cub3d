@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:57:21 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/15 17:00:54 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 18:53:19 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,13 @@ bool ft_cubfile(char *str)
 {
 	int	i;
 
+	if (!str)
+		return (false);
 	i = ft_strlen(str);
 	while (i >= 0 && str[i] != '.')
 		i--;
+	if (i == 0)
+		return (false);
 	if (ft_strcmp("cub", str + i + 1) == 0)
 		return (true);
 	return (false);
