@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   freeing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:07:04 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/14 16:04:29 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/15 11:10:18 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d.h"
 
@@ -40,9 +40,6 @@ void ft_free_array(t_data *cub, int **array)
 
 void	ft_free_struct_a(t_data *cub)
 {
-	// int i;
-
-	// i = -1;
 	if	(cub->north)
 		free(cub->north);
 	if (cub->south)
@@ -54,6 +51,22 @@ void	ft_free_struct_a(t_data *cub)
 	while (--cub->lc >= 0)
 		free(cub->line[cub->lc]);
 	free(cub->line);
+	if (cub->player)
+	{	
+		if (cub->player->cam)
+			free(cub->player->cam);
+		if(cub->player->pov)
+			free(cub->player->pov);
+		free(cub->player);
+	}
+	if (cub->texEast.img)
+		mlx_destroy_image(cub->mlx_ptr, cub->texEast.img);
+	if (cub->texNorth.img)
+		mlx_destroy_image(cub->mlx_ptr, cub->texNorth.img);
+	if (cub->texSouth.img)
+		mlx_destroy_image(cub->mlx_ptr, cub->texSouth.img);
+	if (cub->texWest.img)
+		mlx_destroy_image(cub->mlx_ptr, cub->texWest.img);
 }
 void	general_free(t_data *cub)
 {

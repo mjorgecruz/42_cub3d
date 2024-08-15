@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:53:30 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/15 10:28:11 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 11:02:16 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -14,7 +14,6 @@
 
 int	key_detect(int key, t_data *cub)
 {
-	printf("key %x \n", key);
 	if (key == XK_Escape)
 		close_win_free(cub);
 	else if (key == XK_Up)

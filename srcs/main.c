@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 09:57:38 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/15 09:21:39 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/15 11:04:24 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -22,6 +22,7 @@ int	main(int argc, char **argv)
 {
 	t_data	cub;
 
+	tex_preparer(&cub);
 	check_user_input(argc, argv[1], &cub);
 	cub.map_h = 0;
 	cub.map_w = 0;
@@ -44,4 +45,16 @@ int	main(int argc, char **argv)
 	run_window(&cub);
 	general_free(&cub);
 	return (0);
+}
+
+void tex_preparer(t_data *cub)
+{
+	cub->texEast.data = NULL;
+	cub->texNorth.data = NULL;
+	cub->texSouth.data = NULL;
+	cub->texWest.data = NULL;
+	cub->texEast.img = NULL;
+	cub->texNorth.img = NULL;
+	cub->texSouth.img = NULL;
+	cub->texWest.img = NULL;
 }
