@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:32:31 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 02:07:04 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/16 02:15:38 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,12 @@ void hit_point_vertical_door(t_data *cub)
 {
 	if (cub->player->pov->stepX == -1)
 	{
-		cub->player->pov->hitX = (double) cub->player->pov->mapX + 0.4 / cub->player->pov->dirX;
+		cub->player->pov->hitX = (double) cub->player->pov->mapX + 0.6;
 		cub->player->pov->hitY = cub->player->posY + (cub->player->pov->sideDistX - cub->player->pov->deltaX) * cub->player->pov->dirY;
 	}
 	else
 	{
-		cub->player->pov->hitX = (double) cub->player->pov->mapX - 0.4/ cub->player->pov->dirX;
+		cub->player->pov->hitX = (double) cub->player->pov->mapX - 0.6;
 		cub->player->pov->hitY = cub->player->posY + (cub->player->pov->sideDistX - cub->player->pov->deltaX) * cub->player->pov->dirY;
 	}
 }
@@ -121,11 +121,11 @@ void hit_point_horizontal_door(t_data *cub)
 	if (cub->player->pov->stepY == -1)
 	{
 		cub->player->pov->hitX = cub->player->posX + (cub->player->pov->sideDistY - cub->player->pov->deltaY) * cub->player->pov->dirX;
-		cub->player->pov->hitY = cub->player->pov->mapY + 0.4 / cub->player->pov->dirY;
+		cub->player->pov->hitY = cub->player->pov->mapY + 0.6;
 	}
 	else
 	{
 		cub->player->pov->hitX = cub->player->posX + (cub->player->pov->sideDistY - cub->player->pov->deltaY) * cub->player->pov->dirX;
-		cub->player->pov->hitY = cub->player->pov->mapY - 0.4 / cub->player->pov->dirY;
+		cub->player->pov->hitY = cub->player->pov->mapY - 0.6;
 	}
 }

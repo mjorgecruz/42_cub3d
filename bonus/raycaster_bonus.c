@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:30:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 02:10:43 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/16 03:04:55 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void display_bonus(t_data *cub)
 		line_display(cub, x, wallDist, side);
 		x++;
 	}
-	printf("\n");
 }
 
 void delta_calc_ray(t_data *cub)
@@ -114,31 +113,19 @@ int distance_doors_cam(t_data *cub, int *side)
 		return (1);
 	if (fabs(cub->player->cam->r_sideDistX) < fabs(cub->player->cam->r_sideDistY))
 	{
-		if (fabs(cub->player->cam->r_sideDistX) > fabs(0.6 / cub->player->pov->dirX))
-		{
-			cub->player->cam->r_sideDistX += 0.6 / cub->player->pov->dirX;
-			*side = 11;
-		}
+		if (cub->player->cam->rayDirX > 0)
+			cub->player->cam->r_sideDistX -= 0.5 * cub->player->cam->r_deltaX;
 		else
-		{
-			cub->player->cam->r_sideDistX += cub->player->cam->r_deltaX;
-			*side = 1;
-		}
-		cub->player->cam->r_mapX += cub->player->cam->r_stepX;
+			cub->player->cam->r_sideDistX += 0.5 * cub->player->cam->r_deltaX;
+		*side = 11;
 	}
 	else
 	{
-		if (fabs(cub->player->cam->r_sideDistY) > fabs(0.6 / cub->player->pov->dirY))
-		{
-			cub->player->cam->r_sideDistY += 0.6 / cub->player->pov->dirY;
-			*side = 10;
-		}
+		if (cub->player->cam->rayDirY > 0)
+			cub->player->cam->r_sideDistY -= 0.5 * cub->player->pov->dirY;
 		else
-		{
-			cub->player->cam->r_sideDistY += cub->player->cam->r_deltaY;
-			*side = 0;
-		}
-		cub->player->cam->r_mapY += cub->player->cam->r_stepY;
+			cub->player->cam->r_sideDistY += 0.5 * cub->player->pov->dirY;
+		*side = 10;
 	}
 	return (1);
 }
@@ -166,7 +153,7 @@ int wallX_calculator(t_data *cub, double wallDist, int side)
 	double wall_pos;
 	int wallX;
 
-	if(side == 0)
+	if(side == 0 || side == 10)
 		wall_pos = (cub->player->posX + (wallDist) * cub->player->cam->rayDirX);
 	else
 		wall_pos = cub->player->posY + (wallDist) * cub->player->cam->rayDirY;
