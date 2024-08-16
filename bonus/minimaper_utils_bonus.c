@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 00:16:41 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 11:23:32 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/16 11:32:32 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -90,8 +90,16 @@ int side_calc(t_data *cub)
 
 int distance_doors(t_data *cub, int *side)
 {
+	int		door_num;
+
 	if (cub->map[cub->player->pov->mapY][cub->player->pov->mapX] == '1')
 		return (1);
+	if (cub->map[cub->player->pov->mapY][cub->player->pov->mapX] == 'D')
+	{
+		door_num = search_door(cub, (double)cub->player->pov->mapX, (double)cub->player->pov->mapY);
+		if (cub->doors[door_num].open == true)
+			return (0);
+	}
 	if (fabs(cub->player->pov->sideDistX) < fabs(cub->player->pov->sideDistY))
 	{
 		if (fabs(cub->player->pov->sideDistX) > fabs(0.5 / cub->player->pov->dirX))

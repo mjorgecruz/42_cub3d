@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:53:30 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 11:20:59 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/16 12:14:30 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -51,6 +51,7 @@ void control_trans(t_data *cub, int dir)
 {
 	int finalX;
 	int finalY;
+	int door_num;
 	
 	if (dir > 0 )
 	{
@@ -59,23 +60,80 @@ void control_trans(t_data *cub, int dir)
 		if (cub->map[finalY][(int)(cub->player->posX)] == '0')
 			cub->player->posY = cub->player->posY + sin(cub->player->p_ang)/10;
 		if (cub->map[(int)(cub->player->posY)][finalX] == '0')
-			cub->player->posX = cub->player->posX + cos(cub->player->p_ang)/10;	
+			cub->player->posX = cub->player->posX + cos(cub->player->p_ang)/10;
+		if (cub->map[finalY][finalX] == 'D')
+		{
+			door_num = search_door(cub, cub->player->posX, cub->player->posY);
+			if (cub->doors[door_num].open == false)
+			{
+				if (cub->doors[door_num].orientation == 1)
+				{
+					if (cub->player->posX + cos(cub->player->p_ang)/10 < cub->doors[door_num].pos_x)
+						cub->player->posX = cub->player->posX + cos(cub->player->p_ang)/10;
+					cub->player->posY = cub->player->posY + sin(cub->player->p_ang)/10;
+				}
+				else
+				{
+					if (cub->player->posX + sin(cub->player->p_ang)/10 < cub->doors[door_num].pos_y)
+						cub->player->posY = cub->player->posY + sin(cub->player->p_ang)/10;
+					cub->player->posX = cub->player->posX + cos(cub->player->p_ang)/10;
+				}
+			}
+			else
+			{
+				cub->player->posY = cub->player->posY + sin(cub->player->p_ang)/10;
+				cub->player->posX = cub->player->posX + cos(cub->player->p_ang)/10;			
+			}
+		}
 	}	
 	else
 	{
 		finalX = (int)(cub->player->posX - cos(cub->player->p_ang)/10);
 		finalY = (int)(cub->player->posY - sin(cub->player->p_ang)/10);
+		if (cub->map[finalY][(int)(cub->player->posX)] == '0')
+			cub->player->posY = cub->player->posY - sin(cub->player->p_ang)/10;
 		if (cub->map[(int)(cub->player->posY)][finalX] == '0')
-			cub->player->posX -= (cos(cub->player->p_ang)/10);
-		if (cub->map[finalY][(int)(cub->player->posX)] == '0')	
-			cub->player->posY -= (sin(cub->player->p_ang)/10);
+			cub->player->posX = cub->player->posX - cos(cub->player->p_ang)/10;
+		if (cub->map[finalY][finalX] == 'D')
+		{
+			door_num = search_door(cub, cub->player->posX, cub->player->posY);
+			if (cub->doors[door_num].open == false)
+			{
+				if (cub->doors[door_num].orientation == 1)
+				{
+					if (cub->player->posX - cos(cub->player->p_ang)/10 > cub->doors[door_num].pos_x)
+						cub->player->posX = cub->player->posX - cos(cub->player->p_ang)/10;
+					// else if (cub->player->posX - cos(cub->player->p_ang)/10 > cub->doors[door_num].pos_x)
+					// 	cub->player->posX = cub->player->posX - cos(cub->player->p_ang)/10;
+					cub->player->posY = cub->player->posY - sin(cub->player->p_ang)/10;
+				}
+				else
+				{
+					if (cub->player->posX - sin(cub->player->p_ang)/10 > cub->doors[door_num].pos_y)
+						cub->player->posY = cub->player->posY - sin(cub->player->p_ang)/10;
+					// else if (cub->player->posX - sin(cub->player->p_ang)/10 > cub->doors[door_num].pos_y)
+					// 	cub->player->posY = cub->player->posY - sin(cub->player->p_ang)/10;
+					cub->player->posX = cub->player->posX - cos(cub->player->p_ang)/10;
+				}
+			}
+			else
+			{
+				cub->player->posY = cub->player->posY - sin(cub->player->p_ang)/10;
+				cub->player->posX = cub->player->posX - cos(cub->player->p_ang)/10;			
+			}
+		}
 	}
 }
 void control_door(t_data *cub)
 {
 	int door_num;
 	
-	door_num = search_door(cub, cub->player->posX, cub->player->posY);
-	
+	if (cub->doors)
+	{
+		door_num = search_door(cub, cub->player->posX, cub->player->posY);
+		if (door_num == -1)
+			return;
+		cub->doors[door_num].open = !cub->doors[door_num].open;
+	}
 	return;
 }
