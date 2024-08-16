@@ -283,6 +283,10 @@ void	hit_point_vertical(t_data *cub);
 
 void	hit_point_horizontal(t_data *cub);
 
+void hit_point_vertical_door(t_data *cub);
+
+void hit_point_horizontal_door(t_data *cub);
+
 /* ************************************************************************** */
 /*                           MINIMAPER_RENDERS                                */
 /* ************************************************************************** */
@@ -310,6 +314,8 @@ void	delta_calc(t_data *cub);
 void	step_calc(t_data *cub);
 
 int		side_calc(t_data *cub);
+
+int 	distance_doors(t_data *cub, int *side);
 
 int		search_door(t_data *cub, double x, double y);
 

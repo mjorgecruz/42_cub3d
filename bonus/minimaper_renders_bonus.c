@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 00:19:22 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 00:21:04 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/16 00:32:56 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,10 @@ void	render_h_door(t_data *img, double pos_x, double pos_y, int scale)
 	int		j;
 	int     color;
 
-	i = (int) (pos_x * (double) scale - (double) scale / 4);
+	i = (int) (pos_x * (double) scale - (double) scale / 5);
 	j = (int) pos_y * scale;
 
-	while (i < (int) (pos_x * (double) scale + (double) scale / 4))
+	while (i < (int) (pos_x * (double) scale + (double) scale / 5))
 	{
 		j = (int) pos_y * scale;
 		while (j < (int) pos_y * scale + scale - 1)
@@ -111,11 +111,11 @@ void	render_v_door(t_data *img, double pos_x, double pos_y, int scale)
 	int     color;
 
 	i = (int) pos_x * scale;
-	j = (int) (pos_y * (double) scale - (double) scale / 4);
+	j = (int) (pos_y * (double) scale - (double) scale / 5);
 	while (i < (int) pos_x * scale + scale - 1)
 	{
-		j = (int) (pos_y * (double) scale - (double) scale / 4);
-		while (j < (int) (pos_y * (double) scale + (double) scale / 4))
+		j = (int) (pos_y * (double) scale - (double) scale / 5);
+		while (j < (int) (pos_y * (double) scale + (double) scale / 5))
 		{
 			color = 0x305060;
 			pixel_put(img, i, j, color);
