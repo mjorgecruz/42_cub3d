@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:57:21 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 14:23:35 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/16 15:43:23 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,18 +75,18 @@ void	tex_preparer(t_data *cub)
 void	field_filler(t_data *cub)
 {
 	tex_preparer(cub);
-	cub.map_h = 0;
-	cub.map_w = 0;
-	cub.count[0] = 0;
-	cub.count[1] = 0;
-	cub.count[2] = 0;
-	cub.count[3] = 0;
-	cub.count[4] = 0;
-	cub.count[5] = 0;
-	cub.l_start = 0;
-	cub.init_x = -1;
-	cub.init_y = -1;
-	cub.lc = 0;
-	cub.line = NULL;
-	cub.in_map = false;
+	cub->map_h = 0;
+	cub->map_w = 0;
+	cub->count[0] = 0;
+	cub->count[1] = 0;
+	cub->count[2] = 0;
+	cub->count[3] = 0;
+	cub->count[4] = 0;
+	cub->count[5] = 0;
+	cub->l_start = 0;
+	cub->init_x = -1;
+	cub->init_y = -1;
+	cub->lc = 0;
+	cub->line = NULL;
+	cub->in_map = false;
 }

@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   closing.c                                          :+:      :+:    :+:   */
+/*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 14:04:45 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 16:27:00 by luis-ffe         ###   ########.fr       */
+/*   Created: 2024/08/16 16:29:59 by luis-ffe          #+#    #+#             */
+/*   Updated: 2024/08/16 16:30:18 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	close_win_free(t_data *cub)
+t_player	*init_player(t_data *cub);
+
+t_player	*init_player(t_data *cub)
 {
-	general_free(cub);
-	if (cub->win_ptr)
-		mlx_destroy_window(cub->mlx_ptr, cub->win_ptr);
-	if (cub->img)
-		mlx_destroy_image(cub->mlx_ptr, cub->img);
-	if (cub->mlx_ptr)
-		mlx_destroy_display(cub->mlx_ptr);
-	if (cub->mlx_ptr)
-		free(cub->mlx_ptr);
-	ft_printf("\n-- Display Cleared --\n");
-	exit(EXIT_SUCCESS);
+	t_player	*player;
+
+	player = (t_player *) malloc(sizeof(t_player) * 1);
+	if (player == NULL)
+		ft_error(MEMERR, cub);
+	player->pov = (t_pov *) malloc(sizeof(t_pov) * 1);
+	init_orientation(player, cub->player_init_ori);
+	init_camera(player, cub);
+	return (player);
 }

@@ -6,11 +6,17 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 14:15:49 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/16 16:31:51 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+int		init_fields(t_data *cub);
+void	init_orientation(t_player *player, char player_init_ori);
+void	init_position(t_data *cub);
+void	init_camera(t_player *player, t_data *cub);
+void	textures_definer(t_data *cub);
 
 int	init_fields(t_data *cub)
 {
@@ -31,19 +37,6 @@ int	init_fields(t_data *cub)
 	init_position(cub);
 	textures_definer(cub);
 	return (0);
-}
-
-t_player	*init_player(t_data *cub)
-{
-	t_player	*player;
-
-	player = (t_player *) malloc(sizeof(t_player) * 1);
-	if (player == NULL)
-		ft_error(PLAYER, cub);
-	player->pov = (t_pov *) malloc(sizeof(t_pov) * 1);
-	init_orientation(player, cub->player_init_ori);
-	init_camera(player, cub);
-	return (player);
 }
 
 void	init_orientation(t_player *player, char player_init_ori)

@@ -1,27 +1,30 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:43:00 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/15 10:18:17 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:07:41 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+void	run_window(t_data *cub);
+void	render(t_data *cub);
+void	render_cel_gr(t_data *cub);
+
 void	run_window(t_data *cub)
 {
-	
 	render(cub);
 	mlx_hook(cub->win_ptr, KeyPress, KeyPressMask, key_detect, cub);
 	mlx_hook(cub->win_ptr, DestroyNotify, NoEventMask, close_win_free, cub);
 	mlx_loop(cub->mlx_ptr);
 }
 
-void render(t_data *cub)
+void	render(t_data *cub)
 {
 	mlx_destroy_image(cub->mlx_ptr, cub->img);
 	cub->img = mlx_new_image(cub->mlx_ptr, cub->img_w, cub->img_h);
@@ -33,15 +36,15 @@ void render(t_data *cub)
 
 void	render_cel_gr(t_data *cub)
 {
-	int x;
-	int y;
-	int c_color;
-	int g_color;
-	
+	int	x;
+	int	y;
+	int	c_color;
+	int	g_color;
+
 	x = 0;
 	y = 0;
-	g_color = (cub->fl_rgb[0]<< 16) + (cub->fl_rgb[1] << 8) + cub->fl_rgb[2];
-	c_color = (cub->cl_rgb[0]<< 16) + (cub->cl_rgb[1] << 8) + cub->cl_rgb[2];
+	g_color = (cub->fl_rgb[0] << 16) + (cub->fl_rgb[1] << 8) + cub->fl_rgb[2];
+	c_color = (cub->cl_rgb[0] << 16) + (cub->cl_rgb[1] << 8) + cub->cl_rgb[2];
 	while (y < WIN_H / 2)
 	{
 		x = 0;
@@ -57,4 +60,3 @@ void	render_cel_gr(t_data *cub)
 		y++;
 	}
 }
-

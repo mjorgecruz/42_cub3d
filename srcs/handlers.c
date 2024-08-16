@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:53:30 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 14:11:35 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/16 17:59:31 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,31 +40,36 @@ void	control_rot(t_data *cub, int dir)
 		cub->player->pov->dirX = 0;
 	if (cub->player->pov->dirY < 0.00001 && cub->player->pov->dirY > -0.00001)
 		cub->player->pov->dirY = 0;
-	cub->player->cam->planeX = (-cub->player->pov->dirY) * tan(cub->player->fov / 2);
-	cub->player->cam->planeY = cub->player->pov->dirX * tan(cub->player->fov / 2);
+	cub->player->cam->planeX = (-cub->player->pov->dirY) * \
+		tan(cub->player->fov / 2);
+	cub->player->cam->planeY = cub->player->pov->dirX * \
+		tan(cub->player->fov / 2);
 }
 
 void	control_trans(t_data *cub, int dir)
 {
-	int	finalX;
-	int	finalY;
+	int	finalx;
+	int	finaly;
 
 	if (dir > 0)
 	{
-		finalX = (int)(cub->player->posX + cos(cub->player->p_ang) / 10);
-		finalY = (int)(cub->player->posY + sin(cub->player->p_ang) / 10);
-		if (cub->map[finalY][(int)(cub->player->posX)] == '0')
-			cub->player->posY = cub->player->posY + sin(cub->player->p_ang) / 10;
-		if (cub->map[(int)(cub->player->posY)][finalX] == '0')
-			cub->player->posX = cub->player->posX + cos(cub->player->p_ang) / 10;
+		finalx = (int)(cub->player->posX + cos(cub->player->p_ang) / 10);
+		finaly = (int)(cub->player->posY + \
+			sin(cub->player->p_ang) / 10);
+		if (cub->map[finaly][(int)(cub->player->posX)] == '0')
+			cub->player->posY = cub->player->posY + \
+				sin(cub->player->p_ang) / 10;
+		if (cub->map[(int)(cub->player->posY)][finalx] == '0')
+			cub->player->posX = cub->player->posX + \
+				cos(cub->player->p_ang) / 10;
 	}
 	else
 	{
-		finalX = (int)(cub->player->posX - cos(cub->player->p_ang) / 10);
-		finalY = (int)(cub->player->posY - sin(cub->player->p_ang) / 10);
-		if (cub->map[(int)(cub->player->posY)][finalX] == '0')
+		finalx = (int)(cub->player->posX - cos(cub->player->p_ang) / 10);
+		finaly = (int)(cub->player->posY - sin(cub->player->p_ang) / 10);
+		if (cub->map[(int)(cub->player->posY)][finalx] == '0')
 			cub->player->posX -= (cos(cub->player->p_ang) / 10);
-		if (cub->map[finalY][(int)(cub->player->posX)] == '0')
+		if (cub->map[finaly][(int)(cub->player->posX)] == '0')
 			cub->player->posY -= (sin(cub->player->p_ang) / 10);
 	}
 }

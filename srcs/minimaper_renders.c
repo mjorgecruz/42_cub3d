@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimaper_renders.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 00:19:22 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/10 00:24:19 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/16 17:02:10 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	render_point_player(t_data *img, double pos_x, double pos_y)
 {
-	int     color;
+	int	color;
 
 	color = 0xFFFFFF;
 	pixel_put(img, (int) pos_x, (int) pos_y, color);
 	pixel_put(img, (int) pos_x + 1, (int)pos_y, color);
-	pixel_put(img, (int) pos_x - 1, (int) pos_y , color);
+	pixel_put(img, (int) pos_x - 1, (int) pos_y, color);
 	pixel_put(img, (int) pos_x, (int) pos_y + 1, color);
 	pixel_put(img, (int) pos_x, (int) pos_y - 1, color);
 }
@@ -28,11 +28,10 @@ void	render_rect_wall(t_data *img, int pos_x, int pos_y, int scale)
 {
 	int		i;
 	int		j;
-	int     color;
+	int		color;
 
 	i = pos_x * scale;
 	j = pos_y * scale;
-
 	while (i < pos_x * scale + scale - 1)
 	{
 		j = pos_y * scale;
@@ -50,7 +49,7 @@ void	render_rect_ground(t_data *img, int pos_x, int pos_y, int scale)
 {
 	int		i;
 	int		j;
-	int     color;
+	int		color;
 
 	i = pos_x * scale;
 	j = pos_y * scale;
