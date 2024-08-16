@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:53:30 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 13:15:18 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/16 15:04:04 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -63,19 +63,23 @@ void control_trans(t_data *cub, int dir)
 			cub->player->posX = cub->player->posX + cos(cub->player->p_ang)/10;
 		if (cub->map[finalY][finalX] == 'D')
 		{
-			door_num = search_door(cub, cub->player->posX, cub->player->posY);
+			door_num = search_door(cub, cub->player->posX + cos(cub->player->p_ang)/10, cub->player->posY + sin(cub->player->p_ang)/10);
 			if (cub->doors[door_num].open == false)
 			{
-				if (cub->doors[door_num].orientation == 1)
+				if (cub->doors[door_num].orientation == 1 && cub->doors[door_num].pos_x - 0.2 > cub->player->posX)
 				{
-					if (cub->player->posX + cos(cub->player->p_ang)/10 < cub->doors[door_num].pos_x)
+					if (cub->player->posX + cos(cub->player->p_ang)/10 < cub->doors[door_num].pos_x - 0.2)
 						cub->player->posX = cub->player->posX + cos(cub->player->p_ang)/10;
+					else
+						cub->player->posX = cub->player->posX - 0.2; 
 					cub->player->posY = cub->player->posY + sin(cub->player->p_ang)/10;
 				}
-				else
+				else if (cub->doors[door_num].orientation == 0 && cub->doors[door_num].pos_y > cub->player->posY)
 				{
-					if (cub->player->posX + sin(cub->player->p_ang)/10 < cub->doors[door_num].pos_y)
+					if (cub->player->posY + sin(cub->player->p_ang)/10 < cub->doors[door_num].pos_y)
 						cub->player->posY = cub->player->posY + sin(cub->player->p_ang)/10;
+					else
+						cub->player->posY = cub->player->posY - 0.2;
 					cub->player->posX = cub->player->posX + cos(cub->player->p_ang)/10;
 				}
 			}
@@ -101,14 +105,18 @@ void control_trans(t_data *cub, int dir)
 			{
 				if (cub->doors[door_num].orientation == 1)
 				{
-					if (cub->player->posX - cos(cub->player->p_ang)/10 > cub->doors[door_num].pos_x)
+					if (cub->player->posX - cos(cub->player->p_ang)/10 >= cub->doors[door_num].pos_x + 0.2)
 						cub->player->posX = cub->player->posX - cos(cub->player->p_ang)/10;
+					// else
+					// 	cub->player->posX = cub->player->posX + 0.2;
 					cub->player->posY = cub->player->posY - sin(cub->player->p_ang)/10;
 				}
 				else
 				{
-					if (cub->player->posX - sin(cub->player->p_ang)/10 > cub->doors[door_num].pos_y)
+					if (cub->player->posY - sin(cub->player->p_ang)/10 >= cub->doors[door_num].pos_y + 0.2)
 						cub->player->posY = cub->player->posY - sin(cub->player->p_ang)/10;
+					// else
+					// 	cub->player->posY = cub->player->posY + 0.2;
 					cub->player->posX = cub->player->posX - cos(cub->player->p_ang)/10;
 				}
 			}

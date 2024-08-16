@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 00:16:41 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 11:32:32 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/16 14:25:15 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -102,9 +102,15 @@ int distance_doors(t_data *cub, int *side)
 	}
 	if (fabs(cub->player->pov->sideDistX) < fabs(cub->player->pov->sideDistY))
 	{
+		
 		if (fabs(cub->player->pov->sideDistX) > fabs(0.5 / cub->player->pov->dirX))
 		{
 			cub->player->pov->sideDistX += 0.5 / cub->player->pov->dirX;
+			*side = 11;
+		}
+		else if (fabs(cub->player->pov->sideDistX) > fabs((cub->doors[door_num].pos_x - cub->player->posX) / cub->player->pov->dirX))
+		{
+			cub->player->pov->sideDistX += (cub->doors[door_num].pos_x - cub->player->posX) / cub->player->pov->dirX;
 			*side = 11;
 		}
 		else
@@ -119,6 +125,11 @@ int distance_doors(t_data *cub, int *side)
 		if (fabs(cub->player->pov->sideDistY) > fabs(0.5 / cub->player->pov->dirY))
 		{
 			cub->player->pov->sideDistY += 0.5 / cub->player->pov->dirY;
+			*side = 10;
+		}
+		else if (fabs(cub->player->pov->sideDistY) > fabs((cub->doors[door_num].pos_y - cub->player->posY) / cub->player->pov->dirY))
+		{
+			cub->player->pov->sideDistY += (cub->doors[door_num].pos_y - cub->player->posY) / cub->player->pov->dirY;
 			*side = 10;
 		}
 		else
