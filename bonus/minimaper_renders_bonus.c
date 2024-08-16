@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minimaper_renders_bonus.c                          :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 00:19:22 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 00:32:56 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/16 11:23:45 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d_bonus.h"
 
@@ -72,6 +72,8 @@ void	render_rect_door(t_data *img, double pos_x, double pos_y, int scale)
 	int door_num;
 	
 	door_num = search_door(img, pos_x, pos_y);
+	if (door_num == -1)
+		ft_error(135, img);
 	render_rect_ground(img, (int) pos_x, (int) pos_y, scale);
 	if (img->doors[door_num].open == false)
 	{

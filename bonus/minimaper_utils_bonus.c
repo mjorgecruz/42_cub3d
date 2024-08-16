@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minimaper_utils_bonus.c                            :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 00:16:41 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 01:26:53 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/16 11:23:32 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d_bonus.h"
 
@@ -94,9 +94,9 @@ int distance_doors(t_data *cub, int *side)
 		return (1);
 	if (fabs(cub->player->pov->sideDistX) < fabs(cub->player->pov->sideDistY))
 	{
-		if (fabs(cub->player->pov->sideDistX) > fabs(0.6 / cub->player->pov->dirX))
+		if (fabs(cub->player->pov->sideDistX) > fabs(0.5 / cub->player->pov->dirX))
 		{
-			cub->player->pov->sideDistX += 0.6 / cub->player->pov->dirX;
+			cub->player->pov->sideDistX += 0.5 / cub->player->pov->dirX;
 			*side = 11;
 		}
 		else
@@ -108,9 +108,9 @@ int distance_doors(t_data *cub, int *side)
 	}
 	else
 	{
-		if (fabs(cub->player->pov->sideDistY) > fabs(0.6 / cub->player->pov->dirY))
+		if (fabs(cub->player->pov->sideDistY) > fabs(0.5 / cub->player->pov->dirY))
 		{
-			cub->player->pov->sideDistY += 0.6 / cub->player->pov->dirY;
+			cub->player->pov->sideDistY += 0.5 / cub->player->pov->dirY;
 			*side = 10;
 		}
 		else
@@ -137,6 +137,5 @@ int		search_door(t_data *cub, double x, double y)
 		}
 		i++;
 	}
-	ft_error(135, cub);
 	return (-1);
 }

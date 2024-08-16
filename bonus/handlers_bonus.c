@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   handlers_bonus.c                                   :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:53:30 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/15 23:29:49 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/16 11:20:59 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d_bonus.h"
 
@@ -16,13 +16,15 @@ int	key_detect(int key, t_data *cub)
 {
 	if (key == XK_Escape)
 		close_win_free(cub);
-	else if (key == XK_Up)
+	else if(key == XK_space)
+		control_door(cub);
+	else if (key == XK_Up || key == XK_w)
 		control_trans(cub, 1);
-	else if (key == XK_Down)
+	else if (key == XK_Down || key == XK_s)
 		control_trans(cub, -1);
-	else if (key == XK_Left)
+	else if (key == XK_Left || key == XK_a)
 		control_rot(cub,-1);
-	else if (key == XK_Right)
+	else if (key == XK_Right || key == XK_d)
 		control_rot(cub, 1);
 	render_bonus(cub);
 	return (0);
@@ -68,4 +70,12 @@ void control_trans(t_data *cub, int dir)
 		if (cub->map[finalY][(int)(cub->player->posX)] == '0')	
 			cub->player->posY -= (sin(cub->player->p_ang)/10);
 	}
+}
+void control_door(t_data *cub)
+{
+	int door_num;
+	
+	door_num = search_door(cub, cub->player->posX, cub->player->posY);
+	
+	return;
 }

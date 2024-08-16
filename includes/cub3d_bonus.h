@@ -223,7 +223,7 @@ void	texture_door_bonus(t_data *cub);
 /* ************************************************************************** */
 
 /*manages all window updates and updates based on input*/
-void	run_window(t_data *cub);
+void	run_window_bonus(t_data *cub);
 
 void    render_bonus(t_data *cub);
 
@@ -250,6 +250,8 @@ int	key_detect(int key, t_data *cub);
 void control_rot(t_data *cub, int dir);
 
 void control_trans(t_data *cub, int dir);
+
+void control_door(t_data *cub);
 
 
 /* ************************************************************************** */
