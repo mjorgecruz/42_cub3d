@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 00:16:41 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 14:25:15 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/16 17:11:20 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -84,6 +84,8 @@ int side_calc(t_data *cub)
 		}
 		if (cub->map[cub->player->pov->mapY][cub->player->pov->mapX] > '0')
 			hit = distance_doors(cub, &side);
+		else if (cub->map[(int)cub->player->posY][(int)cub->player->posX] == 'D')
+			hit = distance_doors_within(cub, &side);
 	}
 	return (side);
 }
@@ -99,16 +101,87 @@ int distance_doors(t_data *cub, int *side)
 		door_num = search_door(cub, (double)cub->player->pov->mapX, (double)cub->player->pov->mapY);
 		if (cub->doors[door_num].open == true)
 			return (0);
+		if (cub->doors[door_num].orientation == 1)
+		{
+			if (fabs(cub->player->pov->sideDistY) < fabs(cub->player->pov->sideDistX))
+			{
+				if (fabs(cub->player->pov->sideDistY) > (fabs(cub->doors[door_num].pos_x - cub->player->posX) / cub->player->pov->dirX))
+				{
+					cub->player->pov->sideDistX += (cub->doors[door_num].pos_x - cub->player->posX) / cub->player->pov->dirX;
+					cub->player->pov->mapY += cub->player->pov->stepY;
+					*side = 11;
+				}	
+			}
+			else if(cub->player->pov->sideDistX > (fabs(cub->doors[door_num].pos_x - cub->player->posX) / cub->player->pov->dirX))
+			{
+				cub->player->pov->sideDistX += (cub->doors[door_num].pos_x - cub->player->posX) / cub->player->pov->dirX;
+				cub->player->pov->mapY += cub->player->pov->stepY;
+				*side = 11;
+			}
+			else
+			{
+				cub->player->pov->sideDistY += cub->player->pov->deltaY;
+				cub->player->pov->mapX += cub->player->pov->stepX;
+				*side = 0;
+			}
+		}
+	}
+	// if (fabs(cub->player->pov->sideDistX) < fabs(cub->player->pov->sideDistY))
+	// {
+	// 	if ((cub->player->pov->sideDistX) > ((cub->doors[door_num].pos_x - cub->player->posX) / cub->player->pov->dirX))
+	// 	{
+	// 		cub->player->pov->sideDistX += (cub->doors[door_num].pos_x - cub->player->posX) / cub->player->pov->dirX;
+	// 		*side = 11;
+	// 	}
+	// 	else if ((cub->player->pov->sideDistX) > ((cub->doors[door_num].pos_y - cub->player->posY) / cub->player->pov->dirY))
+	// 	{
+	// 		cub->player->pov->sideDistX += ((cub->doors[door_num].pos_y - cub->player->posY) / cub->player->pov->dirY);
+	// 		*side = 10;
+	// 	}
+	// 	else
+	// 	{
+	// 		cub->player->pov->sideDistX += cub->player->pov->deltaX;
+	// 		*side = 1;
+	// 	}
+	// 	cub->player->pov->mapX += cub->player->pov->stepX;
+	// }
+	// else
+	// {
+	// 	if ((cub->player->pov->sideDistY) > ((cub->doors[door_num].pos_y - cub->player->posY) / cub->player->pov->dirY))
+	// 	{
+	// 		cub->player->pov->sideDistY += (cub->doors[door_num].pos_y - cub->player->posY) / cub->player->pov->dirY;
+	// 		*side = 10;
+	// 	}
+	// 	else if ((cub->player->pov->sideDistY) > ((cub->doors[door_num].pos_x - cub->player->posX) / cub->player->pov->dirX))
+	// 	{
+	// 		cub->player->pov->sideDistY += (cub->doors[door_num].pos_x - cub->player->posX) / cub->player->pov->dirX;
+	// 		*side = 10;
+	// 	}
+	// 	else
+	// 	{
+	// 		cub->player->pov->sideDistY += cub->player->pov->deltaY;
+	// 		*side = 0;
+	// 	}
+	// 	cub->player->pov->mapY += cub->player->pov->stepY;
+	// }
+	return (1);
+}
+
+int distance_doors_within(t_data *cub, int *side)
+{
+	int		door_num;
+
+	if (cub->map[(int) cub->player->posY][(int) cub->player->posX] == '1')
+		return (1);
+	if (cub->map[(int) cub->player->posY][(int) cub->player->posX] == 'D')
+	{
+		door_num = search_door(cub, cub->player->posX, cub->player->posY);
+		if (cub->doors[door_num].open == true)
+			return (0);
 	}
 	if (fabs(cub->player->pov->sideDistX) < fabs(cub->player->pov->sideDistY))
 	{
-		
-		if (fabs(cub->player->pov->sideDistX) > fabs(0.5 / cub->player->pov->dirX))
-		{
-			cub->player->pov->sideDistX += 0.5 / cub->player->pov->dirX;
-			*side = 11;
-		}
-		else if (fabs(cub->player->pov->sideDistX) > fabs((cub->doors[door_num].pos_x - cub->player->posX) / cub->player->pov->dirX))
+		if (fabs(cub->player->pov->sideDistX) > fabs((cub->doors[door_num].pos_x - cub->player->posX) / cub->player->pov->dirX))
 		{
 			cub->player->pov->sideDistX += (cub->doors[door_num].pos_x - cub->player->posX) / cub->player->pov->dirX;
 			*side = 11;
@@ -122,12 +195,7 @@ int distance_doors(t_data *cub, int *side)
 	}
 	else
 	{
-		if (fabs(cub->player->pov->sideDistY) > fabs(0.5 / cub->player->pov->dirY))
-		{
-			cub->player->pov->sideDistY += 0.5 / cub->player->pov->dirY;
-			*side = 10;
-		}
-		else if (fabs(cub->player->pov->sideDistY) > fabs((cub->doors[door_num].pos_y - cub->player->posY) / cub->player->pov->dirY))
+		if (fabs(cub->player->pov->sideDistY) > fabs((cub->doors[door_num].pos_y - cub->player->posY) / cub->player->pov->dirY))
 		{
 			cub->player->pov->sideDistY += (cub->doors[door_num].pos_y - cub->player->posY) / cub->player->pov->dirY;
 			*side = 10;

@@ -320,6 +320,8 @@ int		side_calc(t_data *cub);
 
 int 	distance_doors(t_data *cub, int *side);
 
+int distance_doors_within(t_data *cub, int *side);
+
 int		search_door(t_data *cub, double x, double y);
 
 /* ************************************************************************** */
