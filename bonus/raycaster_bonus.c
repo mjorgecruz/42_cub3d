@@ -6,19 +6,19 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:30:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/15 21:12:48 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/16 02:09:01 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
 
-void display(t_data *cub)
+void display_bonus(t_data *cub)
 {
 	double x;
 	int side;
 	double wallDist;
 	
-	x = 1;
+	x =  1;
 	side = 0;
 	direction_calc(cub, 0);
 	while(x <  WIN_W)
@@ -28,16 +28,18 @@ void display(t_data *cub)
 		cub->player->cam->rayDirY = cub->player->pov->dirY + cub->player->cam->planeY * cub->player->cam->cameraX;
 		delta_calc_ray(cub);
 		step_calc_ray(cub);
-		side = side_calc_ray(cub);
-		if(side == 1)
+		side = side_calc_ray_bonus(cub);
+		if(side == 1 || side == 11)
 			wallDist = fabs((cub->player->cam->r_sideDistX  - cub->player->cam->r_deltaX));
 		else
 			wallDist = fabs((cub->player->cam->r_sideDistY - cub->player->cam->r_deltaY));
 		if (wallDist < 0.0001)
 			wallDist = 0.0001;
+		printf("%f ", wallDist);
 		line_display(cub, x, wallDist, side);
 		x++;
 	}
+	printf("\n");
 }
 
 void delta_calc_ray(t_data *cub)
@@ -78,7 +80,7 @@ void step_calc_ray(t_data *cub)
 	}
 }
 
-int side_calc_ray(t_data *cub)
+int side_calc_ray_bonus(t_data *cub)
 {
 	int hit;
 	int side;
@@ -102,11 +104,46 @@ int side_calc_ray(t_data *cub)
 		if(cub->player->cam->r_mapX >= 0 && cub->player->cam->r_mapY >= 0)
 		{
 			if (cub->map[cub->player->cam->r_mapY][cub->player->cam->r_mapX] > '0')
-				hit = 1;
+				hit = distance_doors_cam(cub, &side);
 		}
 	}
 	return (side);
 }
+int distance_doors_cam(t_data *cub, int *side)
+{
+	if (cub->map[cub->player->cam->r_mapY][cub->player->cam->r_mapX] == '1')
+		return (1);
+	if (fabs(cub->player->cam->r_sideDistX) < fabs(cub->player->cam->r_sideDistY))
+	{
+		if (fabs(cub->player->cam->r_sideDistX) > fabs(0.6 / cub->player->pov->dirX))
+		{
+			cub->player->cam->r_sideDistX += 0.6 / cub->player->pov->dirX;
+			*side = 11;
+		}
+		else
+		{
+			cub->player->cam->r_sideDistX += cub->player->cam->r_deltaX;
+			*side = 1;
+		}
+		cub->player->cam->r_mapX += cub->player->cam->r_stepX;
+	}
+	else
+	{
+		if (fabs(cub->player->cam->r_sideDistY) > fabs(0.6 / cub->player->pov->dirY))
+		{
+			cub->player->cam->r_sideDistY += 0.6 / cub->player->pov->dirY;
+			*side = 10;
+		}
+		else
+		{
+			cub->player->cam->r_sideDistY += cub->player->cam->r_deltaY;
+			*side = 0;
+		}
+		cub->player->cam->r_mapY += cub->player->cam->r_stepY;
+	}
+	return (1);
+}
+
 
 int		line_display(t_data *cub, int x, double wallDist, int side)
 {
@@ -149,13 +186,15 @@ int	line_maker(t_data *cub, t_castInfo line_prop, int side)
 		else
 			liner(cub, line_prop, cub->texWest);
 	}
-	else
+	else if (side == 0)
 	{
 		if (cub->player->cam->rayDirY < 0)
 			liner(cub, line_prop, cub->texNorth);
 		else
 			liner(cub, line_prop, cub->texSouth);	
 	}
+	else
+		liner(cub, line_prop, cub->door);
 	return(1);
 }
 

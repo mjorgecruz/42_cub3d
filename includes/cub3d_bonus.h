@@ -323,13 +323,15 @@ int		search_door(t_data *cub, double x, double y);
 /*                                RAYCASTER                                   */
 /* ************************************************************************** */
 
-void 	display(t_data *cub);
+void 	display_bonus(t_data *cub);
 
 void	delta_calc_ray(t_data *cub);
 
 void	step_calc_ray(t_data *cub);
 
-int		side_calc_ray(t_data *cub);
+int		side_calc_ray_bonus(t_data *cub);
+
+int 	distance_doors_cam(t_data *cub, int *side);
 
 int		line_display(t_data *cub, int x, double wallDist, int side);
 
