@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:53:30 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 12:14:30 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/16 13:15:18 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -103,16 +103,12 @@ void control_trans(t_data *cub, int dir)
 				{
 					if (cub->player->posX - cos(cub->player->p_ang)/10 > cub->doors[door_num].pos_x)
 						cub->player->posX = cub->player->posX - cos(cub->player->p_ang)/10;
-					// else if (cub->player->posX - cos(cub->player->p_ang)/10 > cub->doors[door_num].pos_x)
-					// 	cub->player->posX = cub->player->posX - cos(cub->player->p_ang)/10;
 					cub->player->posY = cub->player->posY - sin(cub->player->p_ang)/10;
 				}
 				else
 				{
 					if (cub->player->posX - sin(cub->player->p_ang)/10 > cub->doors[door_num].pos_y)
 						cub->player->posY = cub->player->posY - sin(cub->player->p_ang)/10;
-					// else if (cub->player->posX - sin(cub->player->p_ang)/10 > cub->doors[door_num].pos_y)
-					// 	cub->player->posY = cub->player->posY - sin(cub->player->p_ang)/10;
 					cub->player->posX = cub->player->posX - cos(cub->player->p_ang)/10;
 				}
 			}

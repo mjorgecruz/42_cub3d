@@ -17,7 +17,7 @@
 # include "../lib/mlx.h"
 # include "../libft/libft.h"
 
-# define WIN_W 1080
+# define WIN_W 1920
 # define WIN_H 1080
 # define DG_RAD 0.0174533
 # define FOV 2 * atan(0.66 / 1)
@@ -72,6 +72,7 @@ typedef struct s_player
 	t_camera *cam;
 	double fov;
 	double p_ang;
+	int		prev_x;
 	t_pov   *pov;
 
 }   t_player;
@@ -415,5 +416,11 @@ void PRINT_COLOR_MAPCPY(t_data *cub);
 void PRINT_COLOR_MAP(t_data *cub);
 void color_select(int i);
 void print_scenics(t_data *cub);
+
+/* ************************************************************************** */
+/*                              CONTROLS_BONUS                                */
+/* ************************************************************************** */
+
+int	handle_mouse_move(int x, int y, t_data *cub);
 
 #endif
