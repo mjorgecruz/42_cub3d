@@ -190,6 +190,8 @@ void	check_user_input(int ac, char *av, t_data *cub);
 
 int		ft_strcmp(char *s1, char *s2);
 
+void	field_filler(t_data *cub);
+
 void	tex_preparer(t_data *cub);
 
 /* ************************************************************************** */
