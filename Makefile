@@ -30,7 +30,8 @@ SRC := closing.c freeing.c handlers.c init_window.c \
 		main.c main_utils.c minimaper.c raycaster.c \
 		errors.c render.c minimaper_utils.c render_utils.c \
 		minimaper_renders.c fileread.c fileread_utils.c\
-		rgb.c parser_cub.c map_build.c tests.c
+		rgb.c parser_cub.c map_build.c tests.c fileread_utils2.c\
+		fileread_xpm.c player.c raycaster_cont.c raycaster_cont2.c
 
 BONUS_SRC = closing_bonus.c freeing_bonus.c handlers_bonus.c init_window_bonus.c \
 		main_bonus.c main_utils_bonus.c minimaper_bonus.c raycaster_bonus.c \

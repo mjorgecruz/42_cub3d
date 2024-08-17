@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 09:57:38 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/16 14:24:55 by luis-ffe         ###   ########.fr       */
+/*   Created: 2024/08/16 16:29:59 by luis-ffe          #+#    #+#             */
+/*   Updated: 2024/08/16 16:30:18 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	main(int argc, char **argv)
-{
-	t_data	cub;
+t_player	*init_player(t_data *cub);
 
-	field_filler(&cub);
-	check_user_input(argc, argv[1], &cub);
-	read_mapfile(&cub, argv[1]);
-	read_lines(&cub);
-	parser_first(&cub);
-	init_fields(&cub);
-	run_window(&cub);
-	general_free(&cub);
-	return (0);
+t_player	*init_player(t_data *cub)
+{
+	t_player	*player;
+
+	player = (t_player *) malloc(sizeof(t_player) * 1);
+	if (player == NULL)
+		ft_error(MEMERR, cub);
+	player->pov = (t_pov *) malloc(sizeof(t_pov) * 1);
+	init_orientation(player, cub->player_init_ori);
+	init_camera(player, cub);
+	return (player);
 }
