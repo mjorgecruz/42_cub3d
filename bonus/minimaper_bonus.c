@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minimaper_bonus.c                                  :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:32:31 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/17 01:31:23 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/17 10:18:50 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d_bonus.h"
 
@@ -19,7 +19,7 @@ int minimaper_bonus(t_data *cub)
 	map_scale = 20;
 	map_drawing_bonus(cub, map_scale);
 	render_point_player(cub, (int) (cub->player->posX * map_scale), (int) (cub->player->posY * map_scale));
-	render_direction(cub);
+	render_direction_bonus(cub);
 	return (1);
 
 }
@@ -48,7 +48,7 @@ void 	map_drawing_bonus(t_data *cub, int map_scale)
 	}
 }
 
-void render_direction(t_data *cub)
+void render_direction_bonus(t_data *cub)
 {
 	double ang;
 	int side; 

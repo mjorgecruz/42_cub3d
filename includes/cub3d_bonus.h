@@ -280,7 +280,7 @@ int     minimaper_bonus(t_data *cub);
 
 void 	map_drawing_bonus(t_data *cub, int map_scale);
 
-void    render_direction(t_data *cub);
+void    render_direction_bonus(t_data *cub);
 
 void	hit_point_vertical(t_data *cub);
 
