@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minimaper_utils_bonus.c                            :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 00:16:41 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 19:55:13 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/17 01:10:16 by masoares         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
 
@@ -68,6 +68,8 @@ int side_calc(t_data *cub)
 	side = 0;
 	hit = 0;
 	
+	if (cub->map[(int)cub->player->posY][(int)cub->player->posX] == 'D')
+		hit = distance_doors_within(cub, &side);
 	while (hit == 0)
 	{
 		if (fabs(cub->player->pov->sideDistX) < fabs(cub->player->pov->sideDistY))
@@ -84,15 +86,17 @@ int side_calc(t_data *cub)
 		}
 		if (cub->map[cub->player->pov->mapY][cub->player->pov->mapX] > '0')
 			hit = distance_doors(cub, &side);
-		else if (cub->map[(int)cub->player->posY][(int)cub->player->posX] == 'D')
-			hit = distance_doors_within(cub, &side);
 	}
 	return (side);
 }
 
+
+
 int distance_doors(t_data *cub, int *side)
 {
-	int		door_num;
+	int door_num;
+	double mid_distX;
+	double mid_distY;
 
 	if (cub->map[cub->player->pov->mapY][cub->player->pov->mapX] == '1')
 		return (1);
@@ -101,98 +105,92 @@ int distance_doors(t_data *cub, int *side)
 		door_num = search_door(cub, (double)cub->player->pov->mapX, (double)cub->player->pov->mapY);
 		if (cub->doors[door_num].open == true)
 			return (0);
-	}
-	if (fabs(cub->player->pov->sideDistX) < fabs(cub->player->pov->sideDistY))
-    {
-		if (cub->doors[door_num].orientation == 0)
-		{
-			cub->player->pov->sideDistX += cub->player->pov->deltaX;
-			*side = 1;
-		}
-        else if ((cub->player->pov->sideDistX) > ((cub->doors[door_num].pos_x - cub->player->posX) / cub->player->pov->dirX))
-        {
-            cub->player->pov->sideDistX += (cub->doors[door_num].pos_x - cub->player->posX) / cub->player->pov->dirX;
-            *side = 11;
-        }
-		else
-		{
-			cub->player->pov->sideDistX += cub->player->pov->deltaX;
-			*side = 1;
-		}
-		cub->player->pov->mapX += cub->player->pov->stepX;
-    }
-    else
-    {
 		if (cub->doors[door_num].orientation == 1)
 		{
-			if ((cub->player->pov->sideDistY) > ((cub->doors[door_num].pos_x - cub->player->posX) / cub->player->pov->dirX))
-				cub->player->pov->sideDistY += (cub->doors[door_num].pos_x - cub->player->posX) / cub->player->pov->dirX;
+			if (cub->player->pov->stepX == -1)
+				mid_distX = (cub->player->posX - (cub->player->pov->mapX + 0.5)) * cub->player->pov->deltaX;
 			else
+				mid_distX = ((cub->player->pov->mapX + 0.5) - cub->player->posX) * cub->player->pov->deltaX;
+			if (fabs(mid_distX) < fabs(cub->player->pov->sideDistY))
+			{
+				cub->player->pov->sideDistX = mid_distX;
+				*side = 11;
+			}
+			else
+			{
 				cub->player->pov->sideDistY += cub->player->pov->deltaY;
-			*side = 0;
+				cub->player->pov->mapY += cub->player->pov->stepY;
+				*side = 0;
+			}
 		}
-        else if ((cub->player->pov->sideDistY) > ((cub->doors[door_num].pos_y - cub->player->posY) / cub->player->pov->dirY))
-        {
-            cub->player->pov->sideDistY += (cub->doors[door_num].pos_y - cub->player->posY) / cub->player->pov->dirY;
-            *side = 10;
-        }
-		else
+		else if (cub->doors[door_num].orientation == 0)
 		{
-			cub->player->pov->sideDistY += cub->player->pov->deltaY;
-			*side = 0;
+			if (cub->player->pov->stepY == -1)
+				mid_distY = (cub->player->posY - (cub->player->pov->mapY + 0.5)) * cub->player->pov->deltaY;
+			else
+				mid_distY = ((cub->player->pov->mapY + 0.5) - cub->player->posY) * cub->player->pov->deltaY;
+			if (fabs(mid_distY) < fabs(cub->player->pov->sideDistX))
+			{
+				cub->player->pov->sideDistY = mid_distY;
+				*side = 10;
+			}
+			else
+			{
+				cub->player->pov->sideDistX += cub->player->pov->deltaX;
+				cub->player->pov->mapX += cub->player->pov->stepX;
+				*side = 1;
+			}
 		}
-		cub->player->pov->mapY += cub->player->pov->stepY;
-    }
-	return (1);
+	}
+	return 1;
 }
 
 int distance_doors_within(t_data *cub, int *side)
 {
 	int		door_num;
-
-	if (cub->map[(int) cub->player->posY][(int) cub->player->posX] == '1')
-		return (1);
-	if (cub->map[(int) cub->player->posY][(int) cub->player->posX] == 'D')
+	double mid_dist;
+	
+	door_num = search_door(cub, cub->player->posX, cub->player->posY);
+	if (cub->doors[door_num].open == true)
+		return (0);
+	if (cub->doors[door_num].orientation == 1)
 	{
-		door_num = search_door(cub, cub->player->posX, cub->player->posY);
-		if (cub->doors[door_num].open == true)
+		if (cub->player->pov->stepX == -1)
+			mid_dist = (cub->player->posX - (cub->player->pov->mapX + 0.5)) * cub->player->pov->deltaX;
+		else
+			mid_dist = ((cub->player->pov->mapX + 0.5) - cub->player->posX) * cub->player->pov->deltaX;
+		if (mid_dist < 0)
 			return (0);
-	}
-	if (fabs(cub->player->pov->sideDistX) < fabs(cub->player->pov->sideDistY))
-	{
-
-		if (cub->doors[door_num].orientation == 0)
+		if (fabs(mid_dist) < fabs(cub->player->pov->sideDistY))
 		{
-			cub->player->pov->sideDistX += cub->player->pov->deltaX;
-			*side = 0;
-		}
-		if (fabs(cub->player->pov->sideDistX) > fabs((cub->doors[door_num].pos_x - cub->player->posX) / cub->player->pov->dirX))
-		{
-			cub->player->pov->sideDistX += (cub->doors[door_num].pos_x - cub->player->posX) / cub->player->pov->dirX;
+			cub->player->pov->sideDistX = mid_dist;
 			*side = 11;
 		}
 		else
 		{
-			cub->player->pov->sideDistX += cub->player->pov->deltaX;
-			*side = 1;
-		}
-	}
-	else
-	{
-		if (cub->doors[door_num].orientation == 1)
-		{
 			cub->player->pov->sideDistY += cub->player->pov->deltaY;
+			cub->player->pov->mapY += cub->player->pov->stepY;
 			*side = 0;
 		}
-		else if (fabs(cub->player->pov->sideDistY) > fabs((cub->doors[door_num].pos_y - cub->player->posY) / cub->player->pov->dirY))
+	}
+	else if(cub->doors[door_num].orientation == 0)
+	{
+		if (cub->player->pov->stepY == -1)
+			mid_dist = (cub->player->posY - (cub->player->pov->mapY + 0.5)) * cub->player->pov->deltaY;
+		else
+			mid_dist = ((cub->player->pov->mapY + 0.5) - cub->player->posY) * cub->player->pov->deltaY;
+		if (mid_dist < 0)
+			return (0);
+		if (fabs(mid_dist) < fabs(cub->player->pov->sideDistX))
 		{
-			cub->player->pov->sideDistY += (cub->doors[door_num].pos_y - cub->player->posY) / cub->player->pov->dirY;
+			cub->player->pov->sideDistY = mid_dist;
 			*side = 10;
 		}
 		else
 		{
-			cub->player->pov->sideDistY += cub->player->pov->deltaY;
-			*side = 0;
+			cub->player->pov->sideDistX += cub->player->pov->deltaX;
+			cub->player->pov->mapX += cub->player->pov->stepX;
+			*side = 1;
 		}
 	}
 	return (1);

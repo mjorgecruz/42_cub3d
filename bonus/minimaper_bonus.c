@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minimaper_bonus.c                                  :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:32:31 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 19:42:44 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/17 00:43:09 by masoares         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
 
@@ -102,28 +102,28 @@ void hit_point_horizontal(t_data *cub)
 }
 void hit_point_vertical_door(t_data *cub)
 {
-	if (cub->player->pov->stepX == -1)
-	{
+	//if (cub->player->pov->stepX == -1)
+	// {
 		cub->player->pov->hitX = (double) cub->player->pov->mapX + 0.5;
-		cub->player->pov->hitY = cub->player->posY + (cub->player->pov->sideDistX - cub->player->pov->deltaX) * cub->player->pov->dirY;
-	}
-	else
-	{
-		cub->player->pov->hitX = (double) cub->player->pov->mapX - 0.5;
-		cub->player->pov->hitY = cub->player->posY + (cub->player->pov->sideDistX + cub->player->pov->deltaX) * cub->player->pov->dirY;
-	}
+		cub->player->pov->hitY = cub->player->posY + (cub->player->pov->sideDistX) * cub->player->pov->dirY;
+	// }
+	// else
+	// {
+	// 	cub->player->pov->hitX = (double) cub->player->pov->mapX - 0.5;
+	// 	cub->player->pov->hitY = cub->player->posY + (cub->player->pov->sideDistX - cub->player->pov->deltaX) * cub->player->pov->dirY;
+	// }
 }
 
 void hit_point_horizontal_door(t_data *cub)
 {
-	if (cub->player->pov->stepY == -1)
-	{
-		cub->player->pov->hitX = cub->player->posX + (cub->player->pov->sideDistY - cub->player->pov->deltaY) * cub->player->pov->dirX;
-		cub->player->pov->hitY = cub->player->pov->mapY;
-	}
-	else
-	{
-		cub->player->pov->hitX = cub->player->posX + (cub->player->pov->sideDistY + cub->player->pov->deltaY) * cub->player->pov->dirX;
-		cub->player->pov->hitY = cub->player->pov->mapY - 0.5;
-	}
+	// if (cub->player->pov->stepY == -1)
+	// {
+		cub->player->pov->hitX = cub->player->posX + (cub->player->pov->sideDistY ) * cub->player->pov->dirX;
+		cub->player->pov->hitY = cub->player->pov->mapY + 0.5;
+	// }
+	// else
+	// {
+	// 	cub->player->pov->hitX = cub->player->posX + (cub->player->pov->sideDistY + cub->player->pov->deltaY) * cub->player->pov->dirX;
+	// 	cub->player->pov->hitY = cub->player->pov->mapY - 0.5;
+	// }
 }
