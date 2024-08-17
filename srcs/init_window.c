@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 16:31:51 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/17 10:32:24 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ void	init_orientation(t_player *player, char player_init_ori)
 		player->p_ang = 180 * DG_RAD;
 	else
 		player->p_ang = 90 * DG_RAD;
-	player->pov->dirX = cos(player->p_ang);
-	player->pov->dirY = sin(player->p_ang);
+	player->pov->dirx = cos(player->p_ang);
+	player->pov->diry = sin(player->p_ang);
 }
 
 void	init_position(t_data *cub)
 {
-	cub->player->posX = (double) cub->init_x + 0.5;
-	cub->player->posY = (double) cub->init_y + 0.5;
+	cub->player->posx = (double) cub->init_x + 0.5;
+	cub->player->posy = (double) cub->init_y + 0.5;
 	return ;
 }
 
@@ -66,34 +66,34 @@ void	init_camera(t_player *player, t_data *cub)
 	player->cam = (t_camera *) malloc(sizeof(t_camera) * 1);
 	if (player->cam == NULL)
 		ft_error(CAMERA, cub);
-	player->cam->planeX = -player->pov->dirY * tan(player->fov / 2);
-	player->cam->planeY = player->pov->dirX * tan(player->fov / 2);
+	player->cam->planex = -player->pov->diry * tan(player->fov / 2);
+	player->cam->planey = player->pov->dirx * tan(player->fov / 2);
 }
 
 void	textures_definer(t_data *cub)
 {
-	cub->texNorth.img = mlx_xpm_file_to_image(cub->mlx_ptr,
-			cub->north, &cub->texNorth.width,
-			&cub->texNorth.height);
-	cub->texNorth.data = mlx_get_data_addr(cub->texNorth.img,
-			&cub->texNorth.bits_per_pixel, &cub->texNorth.line_length,
-			&cub->texNorth.endian);
-	cub->texSouth.img = mlx_xpm_file_to_image(cub->mlx_ptr,
-			cub->south, &cub->texSouth.width,
-			&cub->texSouth.height);
-	cub->texSouth.data = mlx_get_data_addr(cub->texSouth.img,
-			&cub->texSouth.bits_per_pixel, &cub->texSouth.line_length,
-			&cub->texSouth.endian);
-	cub->texEast.img = mlx_xpm_file_to_image(cub->mlx_ptr,
-			cub->east, &cub->texEast.width,
-			&cub->texEast.height);
-	cub->texEast.data = mlx_get_data_addr(cub->texEast.img,
-			&cub->texEast.bits_per_pixel, &cub->texEast.line_length,
-			&cub->texEast.endian);
-	cub->texWest.img = mlx_xpm_file_to_image(cub->mlx_ptr,
-			cub->west, &cub->texWest.width,
-			&cub->texWest.height);
-	cub->texWest.data = mlx_get_data_addr(cub->texWest.img,
-			&cub->texWest.bits_per_pixel, &cub->texWest.line_length,
-			&cub->texWest.endian);
+	cub->texnorth.img = mlx_xpm_file_to_image(cub->mlx_ptr,
+			cub->north, &cub->texnorth.width,
+			&cub->texnorth.height);
+	cub->texnorth.data = mlx_get_data_addr(cub->texnorth.img,
+			&cub->texnorth.bits_per_pixel, &cub->texnorth.line_length,
+			&cub->texnorth.endian);
+	cub->texsouth.img = mlx_xpm_file_to_image(cub->mlx_ptr,
+			cub->south, &cub->texsouth.width,
+			&cub->texsouth.height);
+	cub->texsouth.data = mlx_get_data_addr(cub->texsouth.img,
+			&cub->texsouth.bits_per_pixel, &cub->texsouth.line_length,
+			&cub->texsouth.endian);
+	cub->texeast.img = mlx_xpm_file_to_image(cub->mlx_ptr,
+			cub->east, &cub->texeast.width,
+			&cub->texeast.height);
+	cub->texeast.data = mlx_get_data_addr(cub->texeast.img,
+			&cub->texeast.bits_per_pixel, &cub->texeast.line_length,
+			&cub->texeast.endian);
+	cub->texwest.img = mlx_xpm_file_to_image(cub->mlx_ptr,
+			cub->west, &cub->texwest.width,
+			&cub->texwest.height);
+	cub->texwest.data = mlx_get_data_addr(cub->texwest.img,
+			&cub->texwest.bits_per_pixel, &cub->texwest.line_length,
+			&cub->texwest.endian);
 }

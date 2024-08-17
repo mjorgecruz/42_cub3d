@@ -6,15 +6,17 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:57:21 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 15:43:23 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/17 10:50:52 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-bool	ft_cubfile(char *str);
 void	check_user_input(int ac, char *av, t_data *cub);
+bool	ft_cubfile(char *str);
 int		ft_strcmp(char *s1, char *s2);
+void	tex_preparer(t_data *cub);
+void	field_filler(t_data *cub);
 
 void	check_user_input(int ac, char *av, t_data *cub)
 {
@@ -52,14 +54,14 @@ int	ft_strcmp(char *s1, char *s2)
 
 void	tex_preparer(t_data *cub)
 {
-	cub->texEast.data = NULL;
-	cub->texNorth.data = NULL;
-	cub->texSouth.data = NULL;
-	cub->texWest.data = NULL;
-	cub->texEast.img = NULL;
-	cub->texNorth.img = NULL;
-	cub->texSouth.img = NULL;
-	cub->texWest.img = NULL;
+	cub->texeast.data = NULL;
+	cub->texnorth.data = NULL;
+	cub->texsouth.data = NULL;
+	cub->texwest.data = NULL;
+	cub->texeast.img = NULL;
+	cub->texnorth.img = NULL;
+	cub->texsouth.img = NULL;
+	cub->texwest.img = NULL;
 	cub->door.data = NULL;
 	cub->door.img = NULL;
 	cub->north = NULL;

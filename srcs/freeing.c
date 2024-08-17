@@ -6,11 +6,16 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:07:04 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 14:03:08 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/17 10:44:19 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void		ft_free_split(char **array);
+void		general_free(t_data *cub);
+void		ft_free_array(t_data *cub, int **array);
+static void	free_mlx_checker(t_data *cub);
 
 void	ft_free_split(char **array)
 {
@@ -39,16 +44,15 @@ void	ft_free_array(t_data *cub, int **array)
 
 static void	free_mlx_checker(t_data *cub)
 {
-	if (cub->texEast.img)
-		mlx_destroy_image(cub->mlx_ptr, cub->texEast.img);
-	if (cub->texNorth.img)
-		mlx_destroy_image(cub->mlx_ptr, cub->texNorth.img);
-	if (cub->texSouth.img)
-		mlx_destroy_image(cub->mlx_ptr, cub->texSouth.img);
-	if (cub->texWest.img)
-		mlx_destroy_image(cub->mlx_ptr, cub->texWest.img);
+	if (cub->texeast.img)
+		mlx_destroy_image(cub->mlx_ptr, cub->texeast.img);
+	if (cub->texnorth.img)
+		mlx_destroy_image(cub->mlx_ptr, cub->texnorth.img);
+	if (cub->texsouth.img)
+		mlx_destroy_image(cub->mlx_ptr, cub->texsouth.img);
+	if (cub->texwest.img)
+		mlx_destroy_image(cub->mlx_ptr, cub->texwest.img);
 }
-//redution needed lests divide this one
 
 void	ft_free_struct_a(t_data *cub)
 {

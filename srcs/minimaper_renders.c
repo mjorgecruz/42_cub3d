@@ -6,11 +6,15 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 00:19:22 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 17:02:10 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/17 10:52:32 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	render_point_player(t_data *img, double pos_x, double pos_y);
+void	render_rect_wall(t_data *img, int pos_x, int pos_y, int scale);
+void	render_rect_ground(t_data *img, int pos_x, int pos_y, int scale);
 
 void	render_point_player(t_data *img, double pos_x, double pos_y)
 {

@@ -6,11 +6,15 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 00:23:23 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 18:56:21 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/17 11:09:41 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	pixel_put(t_data *data, int x, int y, int color);
+int		bresenham(t_data *img, double u1, double v1);
+int		max_finder(double varu, double varv);
 
 void	pixel_put(t_data *data, int x, int y, int color)
 {
@@ -33,8 +37,8 @@ int	bresenham(t_data *img, double u1, double v1)
 	int		i;
 
 	map_scale = 20;
-	img->u = img->player->posX * map_scale;
-	img->v = img->player->posY * map_scale;
+	img->u = img->player->posx * map_scale;
+	img->v = img->player->posy * map_scale;
 	u1 = u1 * map_scale;
 	v1 = v1 * map_scale;
 	varu = u1 - img->u;

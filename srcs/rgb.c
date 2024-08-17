@@ -6,17 +6,17 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 10:40:15 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/16 19:05:27 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/17 11:10:20 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
 int		ft_confirm_line_rgb(char *color);
+void	validate_rgb(char **color, t_data *cub);
 void	get_rgb_fr_str(char *line, t_data *cub, int id);
 void	check_color_range(t_data *cub);
 void	save_rgb(char *line, t_data *cub, int id);
-void	validate_rgb(char **color, t_data *cub);
 
 int	ft_confirm_line_rgb(char *color)
 {
