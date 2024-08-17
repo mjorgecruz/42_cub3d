@@ -254,6 +254,8 @@ void control_trans(t_data *cub, int dir);
 
 void control_door(t_data *cub);
 
+void 	animate_door_opening(t_data *cub, int door_num);
+
 
 /* ************************************************************************** */
 /*                               CLOSING                                      */

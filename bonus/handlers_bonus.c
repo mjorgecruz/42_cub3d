@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:53:30 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/17 11:32:54 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/17 13:43:54 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -176,5 +176,7 @@ void control_door(t_data *cub)
 
 void 	animate_door_opening(t_data *cub, int door_num)
 {
-	
+	(void) cub;
+	(void) door_num;
+	return;
 }
