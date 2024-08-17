@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:23:03 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/16 19:51:47 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/17 13:49:36 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,15 +126,15 @@ void	check_xpm_exist(t_data *cub)
 	if (fd < 0)
 		ft_error(MISSTEXT, cub);
 	close(fd);
-	fd = open(cub->north, O_RDONLY, 0);
+	fd = open(cub->south, O_RDONLY, 0);
 	if (fd < 0)
 		ft_error(MISSTEXT, cub);
 	close(fd);
-	fd = open(cub->north, O_RDONLY, 0);
+	fd = open(cub->east, O_RDONLY, 0);
 	if (fd < 0)
 		ft_error(MISSTEXT, cub);
 	close(fd);
-	fd = open(cub->north, O_RDONLY, 0);
+	fd = open(cub->west, O_RDONLY, 0);
 	if (fd < 0)
 		ft_error(MISSTEXT, cub);
 	close(fd);
