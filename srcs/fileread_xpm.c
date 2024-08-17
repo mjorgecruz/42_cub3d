@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:23:33 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/16 19:14:33 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/17 09:31:09 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ bool	is_xpm_file(char *xpm)
 				if (is_empty_line(&xpm[i] + 4))
 					return (true);
 			}
+			else
+				return (false);
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 11:09:53 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/16 19:50:18 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/17 09:33:27 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	*clear_path(char *line)
 	str = ft_strdup(line);
 	i = 0;
 	size = ft_strlen(line);
-	while (!ft_iswhitespace(line[i]))
+	while (line[i] && !ft_iswhitespace(line[i]))
 		i++;
 	ft_strlcpy(str, line, ++i);
 	return (str);
