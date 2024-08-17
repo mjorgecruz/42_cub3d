@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 11:09:53 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/17 09:33:27 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/17 14:04:58 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ void	print_color_mapcpy(t_data *cub)
 
 char	*clear_path(char *line)
 {
-	int		size;
 	int		i;
 	char	*str;
 
@@ -102,7 +101,6 @@ char	*clear_path(char *line)
 		return (NULL);
 	str = ft_strdup(line);
 	i = 0;
-	size = ft_strlen(line);
 	while (line[i] && !ft_iswhitespace(line[i]))
 		i++;
 	ft_strlcpy(str, line, ++i);

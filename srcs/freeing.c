@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:07:04 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/17 10:44:19 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/17 14:34:07 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,7 @@ void	ft_free_struct_a(t_data *cub)
 		free(cub->west);
 	if (cub->east)
 		free(cub->east);
-	while (--cub->lc >= 0)
-		free(cub->line[cub->lc]);
-	free(cub->line);
+	ft_free_split(cub->line);
 	if (cub->player)
 	{
 		if (cub->player->cam)
