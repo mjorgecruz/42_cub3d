@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:23:03 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/17 13:49:36 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/17 14:23:17 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	read_mapfile(t_data *cub, char *filename)
 
 	fd = open(filename, O_RDONLY, 0);
 	is_fd_invalid(fd, cub);
-	join = clear_path("");
+	join = ft_strdup("");
 	temp = get_next_line(fd);
 	while (temp)
 	{
