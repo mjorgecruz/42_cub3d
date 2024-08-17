@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:30:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 03:04:55 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/17 01:47:20 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,14 @@ void display_bonus(t_data *cub)
 		delta_calc_ray(cub);
 		step_calc_ray(cub);
 		side = side_calc_ray_bonus(cub);
-		if(side == 1 || side == 11)
+		if(side == 1)
 			wallDist = fabs((cub->player->cam->r_sideDistX  - cub->player->cam->r_deltaX));
-		else
+		else if (side == 0)
 			wallDist = fabs((cub->player->cam->r_sideDistY - cub->player->cam->r_deltaY));
+		else if (side == 10)
+			wallDist = fabs((cub->player->cam->r_sideDistY));
+		else if (side == 11)
+			wallDist = fabs((cub->player->cam->r_sideDistX));
 		if (wallDist < 0.0001)
 			wallDist = 0.0001;
 		line_display(cub, x, wallDist, side);
@@ -85,6 +89,8 @@ int side_calc_ray_bonus(t_data *cub)
 
 	side = 0;
 	hit = 0;
+	if (cub->map[(int)cub->player->posY][(int)cub->player->posX] == 'D')
+		hit = distance_doors_within_cam(cub, &side);
 	while (hit == 0)
 	{
 		if (fabs(cub->player->cam->r_sideDistX) < fabs(cub->player->cam->r_sideDistY))
@@ -99,36 +105,115 @@ int side_calc_ray_bonus(t_data *cub)
 			cub->player->cam->r_mapY += cub->player->cam->r_stepY;
 			side = 0;
 		}
-		if(cub->player->cam->r_mapX >= 0 && cub->player->cam->r_mapY >= 0)
-		{
-			if (cub->map[cub->player->cam->r_mapY][cub->player->cam->r_mapX] > '0')
-				hit = distance_doors_cam(cub, &side);
-		}
+		if (cub->map[cub->player->cam->r_mapY][cub->player->cam->r_mapX] > '0')
+			hit = distance_doors_cam(cub, &side);
 	}
 	return (side);
 }
 int distance_doors_cam(t_data *cub, int *side)
 {
+	int door_num;
+	double mid_distX;
+	double mid_distY;
+
 	if (cub->map[cub->player->cam->r_mapY][cub->player->cam->r_mapX] == '1')
 		return (1);
-	if (fabs(cub->player->cam->r_sideDistX) < fabs(cub->player->cam->r_sideDistY))
+	if (cub->map[cub->player->cam->r_mapY][cub->player->cam->r_mapX] == 'D')
 	{
-		if (cub->player->cam->rayDirX > 0)
-			cub->player->cam->r_sideDistX -= 0.5 * cub->player->cam->r_deltaX;
-		else
-			cub->player->cam->r_sideDistX += 0.5 * cub->player->cam->r_deltaX;
-		*side = 11;
+		door_num = search_door(cub, (double)cub->player->cam->r_mapX, (double)cub->player->cam->r_mapY);
+		if (cub->doors[door_num].open == true)
+			return (0);
+		if (cub->doors[door_num].orientation == 1)
+		{
+			if (cub->player->cam->r_stepX == -1)
+				mid_distX = (cub->player->posX - (cub->player->cam->r_mapX + 0.5)) * cub->player->cam->r_deltaX;
+			else
+				mid_distX = ((cub->player->cam->r_mapX + 0.5) - cub->player->posX) * cub->player->cam->r_deltaX;
+			if (fabs(mid_distX) < fabs(cub->player->cam->r_sideDistY))
+			{
+				cub->player->cam->r_sideDistX = mid_distX;
+				*side = 11;
+			}
+			else
+			{
+				cub->player->cam->r_sideDistY += cub->player->cam->r_deltaY;
+				cub->player->cam->r_mapY += cub->player->cam->r_stepY;
+				*side = 0;
+			}
+		}
+		else if (cub->doors[door_num].orientation == 0)
+		{
+			if (cub->player->cam->r_stepY == -1)
+				mid_distY = (cub->player->posY - (cub->player->cam->r_mapY + 0.5)) * cub->player->cam->r_deltaY;
+			else
+				mid_distY = ((cub->player->cam->r_mapY + 0.5) - cub->player->posY) * cub->player->cam->r_deltaY;
+			if (fabs(mid_distY) < fabs(cub->player->cam->r_sideDistX))
+			{
+				cub->player->cam->r_sideDistY = mid_distY;
+				*side = 10;
+			}
+			else
+			{
+				cub->player->cam->r_sideDistX += cub->player->cam->r_deltaX;
+				cub->player->cam->r_mapX += cub->player->cam->r_stepX;
+				*side = 1;
+			}
+		}
 	}
-	else
+	return 1;
+}
+
+int distance_doors_within_cam(t_data *cub, int *side)
+{
+	int		door_num;
+	double mid_dist;
+	
+	door_num = search_door(cub, cub->player->posX, cub->player->posY);
+	if (cub->doors[door_num].open == true)
+		return (0);
+	if (cub->doors[door_num].orientation == 1)
 	{
-		if (cub->player->cam->rayDirY > 0)
-			cub->player->cam->r_sideDistY -= 0.5 * cub->player->pov->dirY;
+		if (cub->player->cam->r_stepX == -1)
+			mid_dist = (cub->player->posX - (cub->player->cam->r_mapX + 0.5)) * cub->player->cam->r_deltaX;
 		else
-			cub->player->cam->r_sideDistY += 0.5 * cub->player->pov->dirY;
-		*side = 10;
+			mid_dist = ((cub->player->cam->r_mapX + 0.5) - cub->player->posX) * cub->player->cam->r_deltaX;
+		if (mid_dist < 0)
+			return (0);
+		if (fabs(mid_dist) < fabs(cub->player->cam->r_sideDistY))
+		{
+			cub->player->cam->r_sideDistX = mid_dist;
+			*side = 11;
+		}
+		else
+		{
+			cub->player->cam->r_sideDistY += cub->player->cam->r_deltaY;
+			cub->player->cam->r_mapY += cub->player->cam->r_stepY;
+			*side = 0;
+		}
+	}
+	else if(cub->doors[door_num].orientation == 0)
+	{
+		if (cub->player->cam->r_stepY == -1)
+			mid_dist = (cub->player->posY - (cub->player->cam->r_mapY + 0.5)) * cub->player->cam->r_deltaY;
+		else
+			mid_dist = ((cub->player->cam->r_mapY + 0.5) - cub->player->posY) * cub->player->cam->r_deltaY;
+		if (mid_dist < 0)
+			return (0);
+		if (fabs(mid_dist) < fabs(cub->player->cam->r_sideDistX))
+		{
+			cub->player->cam->r_sideDistY = mid_dist;
+			*side = 10;
+		}
+		else
+		{
+			cub->player->cam->r_sideDistX += cub->player->cam->r_deltaX;
+			cub->player->cam->r_mapX += cub->player->cam->r_stepX;
+			*side = 1;
+		}
 	}
 	return (1);
 }
+
 
 
 int		line_display(t_data *cub, int x, double wallDist, int side)

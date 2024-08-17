@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:32:31 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/17 00:43:09 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/17 01:31:23 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ void 	map_drawing_bonus(t_data *cub, int map_scale)
 
 void render_direction(t_data *cub)
 {
-	// double ang;
+	double ang;
 	int side; 
 	 
-	// ang = (-cub->player->fov / 2);
-	// while (ang <= cub->player->fov / 2)
-	// {
-		direction_calc(cub, 0);
+	ang = (-cub->player->fov / 2);
+	while (ang <= cub->player->fov / 2)
+	{
+		direction_calc(cub, ang);
 		delta_calc(cub);
 		step_calc(cub);
 		side = side_calc(cub);
@@ -69,8 +69,8 @@ void render_direction(t_data *cub)
 		else if (side == 11)
 			hit_point_vertical_door(cub);
 		bresenham(cub, cub->player->pov->hitX, cub->player->pov->hitY);
-	// 	ang+=0.05;
-	// }
+		ang+=0.05;
+	}
 }
 
 void hit_point_vertical(t_data *cub)
@@ -102,28 +102,12 @@ void hit_point_horizontal(t_data *cub)
 }
 void hit_point_vertical_door(t_data *cub)
 {
-	//if (cub->player->pov->stepX == -1)
-	// {
 		cub->player->pov->hitX = (double) cub->player->pov->mapX + 0.5;
 		cub->player->pov->hitY = cub->player->posY + (cub->player->pov->sideDistX) * cub->player->pov->dirY;
-	// }
-	// else
-	// {
-	// 	cub->player->pov->hitX = (double) cub->player->pov->mapX - 0.5;
-	// 	cub->player->pov->hitY = cub->player->posY + (cub->player->pov->sideDistX - cub->player->pov->deltaX) * cub->player->pov->dirY;
-	// }
 }
 
 void hit_point_horizontal_door(t_data *cub)
 {
-	// if (cub->player->pov->stepY == -1)
-	// {
 		cub->player->pov->hitX = cub->player->posX + (cub->player->pov->sideDistY ) * cub->player->pov->dirX;
 		cub->player->pov->hitY = cub->player->pov->mapY + 0.5;
-	// }
-	// else
-	// {
-	// 	cub->player->pov->hitX = cub->player->posX + (cub->player->pov->sideDistY + cub->player->pov->deltaY) * cub->player->pov->dirX;
-	// 	cub->player->pov->hitY = cub->player->pov->mapY - 0.5;
-	// }
 }

@@ -338,6 +338,8 @@ int		side_calc_ray_bonus(t_data *cub);
 
 int 	distance_doors_cam(t_data *cub, int *side);
 
+int 	distance_doors_within_cam(t_data *cub, int *side);
+
 int		line_display(t_data *cub, int x, double wallDist, int side);
 
 int 	wallX_calculator(t_data *cub, double wallDist, int side);
