@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 16:31:18 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 16:27:08 by luis-ffe         ###   ########.fr       */
+/*   Created: 2024/08/17 12:06:46 by masoares          #+#    #+#             */
+/*   Updated: 2024/08/17 12:08:57 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d.h"
 
@@ -63,5 +63,8 @@ void	ft_error(int n, t_data *cub)
 		ft_perror("\033[31mInvalid RGB Format.\033[0m\n");
 	else if (n == MEMERR)
 		ft_perror("\033[31mMem Alloc Error.\033[0m\n");
-	ft_error_plus(n, cub);
+	else
+		ft_error_plus(n, cub);
+	general_free(cub);
+	exit(EXIT_FAILURE);
 }

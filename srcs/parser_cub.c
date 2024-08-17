@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:30:36 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/17 12:01:03 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/17 12:07:10 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -94,16 +94,10 @@ void	parser_first(t_data *cub)
 	build_map(cub);
 	make_map_copy(cub);
 	get_player_pos(cub);
-	print_color_map(cub);
 	if (floodfill(cub, cub->init_x, cub->init_y, 48) == 0)
 	{
-		ft_printf("\033[1;31mFLOODFILL RESULT: \033[0m\n");
-		print_color_mapcpy(cub);
 		ft_error(IVALIDMAP, cub);
 		return ;
 	}
-	ft_printf("\n\033[1;32mFLOODFILL RESULT: \033[0m\n");
-	print_color_mapcpy(cub);
-	ft_printf("\n\033[1;32m!MAPA OK!\033[0m\n");
 	return ;
 }
