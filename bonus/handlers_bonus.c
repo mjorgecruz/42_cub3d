@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:53:30 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/18 02:18:15 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/18 02:43:43 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,7 +282,6 @@ void control_door(t_data *cub)
 		if (door_num == -1)
 			return;
 		animate_door_opening(cub, door_num);
-		cub->doors[door_num].open = !cub->doors[door_num].open;
 	}
 	return;
 }

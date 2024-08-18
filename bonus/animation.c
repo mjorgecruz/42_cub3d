@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 18:17:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/17 19:24:46 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/18 02:44:25 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void update_door_position(t_door *door)
         {
             door->position = 1.0;
             door->status = 2;
+            door->open = true;
         }
 	}
 	else if (door->status == 3)
@@ -48,6 +49,7 @@ void update_door_position(t_door *door)
         {
             door->position = 0.0;
             door->status = 0;
+            door->open = false;
         }
     }
 }

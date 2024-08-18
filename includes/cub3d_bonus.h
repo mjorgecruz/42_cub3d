@@ -362,6 +362,12 @@ void	step_calc_ray(t_data *cub);
 
 int		side_calc_ray_bonus(t_data *cub);
 
+int	side_calc_ray(t_data *cub);
+
+int	smaller_x_step(t_data *cub);
+
+int	smaller_y_step(t_data *cub);
+
 int 	distance_doors_cam(t_data *cub, int *side);
 
 int 	distance_doors_within_cam(t_data *cub, int *side);
