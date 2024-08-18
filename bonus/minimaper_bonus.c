@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:32:31 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/17 22:14:10 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/18 02:40:28 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,20 +102,12 @@ void hit_point_horizontal(t_data *cub)
 }
 void hit_point_vertical_door(t_data *cub)
 {
-	int door_num;
-	
 	cub->player->pov->hitX = (double) cub->player->pov->mapX + 0.5;
 	cub->player->pov->hitY = cub->player->posY + (cub->player->pov->sideDistX) * cub->player->pov->dirY;
-	door_num = search_door(cub, cub->player->pov->hitX, cub->player->pov->hitY);
-	cub->player->pov->hitX = (double) cub->player->pov->mapX + 0.5 - cub->doors[door_num].position;
 }
 
 void hit_point_horizontal_door(t_data *cub)
 {
-	int door_num;
-
 	cub->player->pov->hitX = cub->player->posX + (cub->player->pov->sideDistY ) * cub->player->pov->dirX;
 	cub->player->pov->hitY = cub->player->pov->mapY + 0.5;
-	door_num = search_door(cub, cub->player->pov->hitX, cub->player->pov->hitY);
-	cub->player->pov->hitY = cub->player->pov->mapY + 0.5 - cub->doors[door_num].position;
 }
