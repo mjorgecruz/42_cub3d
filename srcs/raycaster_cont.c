@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:19:48 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/18 03:40:54 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/18 11:27:46 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ int	side_calc_ray(t_data *cub)
 	}
 	return (side);
 }
-static int	smaller_x_step(t_data *cub)
+int	smaller_x_step(t_data *cub)
 {
 	cub->player->cam->r_sidedistx += cub->player->cam->r_deltax;
 	cub->player->cam->r_mapx += cub->player->cam->r_stepx;
 	return (1);
 }
 
-static int	smaller_y_step(t_data *cub)
+int	smaller_y_step(t_data *cub)
 {
 	cub->player->cam->r_sidedisty += cub->player->cam->r_deltay;
 	cub->player->cam->r_mapy += cub->player->cam->r_stepy;

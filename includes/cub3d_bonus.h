@@ -167,6 +167,13 @@ typedef struct s_castInfo
 	int		wallX;
 }	t_castInfo;
 
+typedef struct s_closest
+{
+	double	sidedistx;
+	double	sidedisty;
+	double	mapx;
+	double	mapy;
+}	t_closest;
 
 enum ERRORS
 {
@@ -312,9 +319,9 @@ void	hit_point_vertical(t_data *cub);
 
 void	hit_point_horizontal(t_data *cub);
 
-void hit_point_vertical_door(t_data *cub);
+void 	hit_point_vertical_door(t_data *cub);
 
-void hit_point_horizontal_door(t_data *cub);
+void 	hit_point_horizontal_door(t_data *cub);
 
 /* ************************************************************************** */
 /*                           MINIMAPER_RENDERS                                */
@@ -356,25 +363,65 @@ int		search_door(t_data *cub, double x, double y);
 
 void 	display_bonus(t_data *cub);
 
+void	camera_calculations(t_data *cub, int x);
+
+void	wall_displayer(t_data *cub, int x);
+
+void	door_displayer(t_data *cub, int x);
+
+/* ************************************************************************** */
+/*                               RAYCASTER_2                                  */
+/* ************************************************************************** */
+
+int		side_calc_ray(t_data *cub);
+
+int		smaller_x_step(t_data *cub);
+
+int		smaller_y_step(t_data *cub);
+
+int		side_calc_ray_bonus(t_data *cub, int x);
+
+/* ************************************************************************** */
+/*                               RAYCASTER_3                                  */
+/* ************************************************************************** */
+
+int 	distance_doors_cam(t_data *cub, int *side, int x);
+
+int		raycaster_recursive(t_data *cub, int x);
+
+t_closest	temp_var_holder(t_data *cub);
+
+int		door_side_calc_x(t_data *cub);
+
+int		door_side_calc_y(t_data *cub);
+
+/* ************************************************************************** */
+/*                               RAYCASTER_4                                  */
+/* ************************************************************************** */
+
+int 	distance_doors_within_cam(t_data *cub, int *side, int x);
+
+/* ************************************************************************** */
+/*                             RAYCASTER_UTILS                                */
+/* ************************************************************************** */
+
 void	delta_calc_ray(t_data *cub);
 
 void	step_calc_ray(t_data *cub);
 
-int		side_calc_ray_bonus(t_data *cub);
-
-int	side_calc_ray(t_data *cub);
-
-int	smaller_x_step(t_data *cub);
-
-int	smaller_y_step(t_data *cub);
-
-int 	distance_doors_cam(t_data *cub, int *side);
-
-int 	distance_doors_within_cam(t_data *cub, int *side);
-
 int		line_display(t_data *cub, int x, double wallDist, int side);
 
+int		line_display_door(t_data *cub, int x, double wallDist, int side);
+
+/* ************************************************************************** */
+/*                            RAYCASTER_UTILS_2                               */
+/* ************************************************************************** */
+
+int		line_to_print(t_data *cub, int door_num, double walldist);
+
 int 	wallX_calculator(t_data *cub, double wallDist, int side);
+
+int		wallx_calculator_door(t_data *cub, double wallDist, int side, int door_num);
 
 int		line_maker(t_data *cub, t_castInfo line_prop, int side);
 

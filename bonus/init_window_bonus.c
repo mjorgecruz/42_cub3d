@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/17 23:20:59 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/18 22:11:16 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void	fill_door_info_bonus(t_data *cub, int door_num, int i, int j)
 		cub->doors[door_num].orientation = 0;
 	cub->doors[door_num].open = false;
 	cub->doors[door_num].status = 0;
-	cub->doors[door_num].speed = 0.0002;
+	cub->doors[door_num].speed = 0.002;
 	cub->doors[door_num].last_time = get_time();
 	cub->doors[door_num].position = 0.0;
 

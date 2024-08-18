@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 18:17:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/18 02:44:25 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/18 19:28:03 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@ void 	animate_door_opening(t_data *cub, int door_num)
     if (cub->doors[door_num].status == 0)
         cub->doors[door_num].status = 1;
     else if (cub->doors[door_num].status == 2)
-	{
+    {
         cub->doors[door_num].status = 3;
-	}
+    }
 	cub->doors[door_num].last_time = get_time();
-	while (cub->doors[door_num].status != 0 && cub->doors[door_num].status != 2)
 	return;
 }
 void update_door_position(t_door *door)
@@ -51,5 +50,6 @@ void update_door_position(t_door *door)
             door->status = 0;
             door->open = false;
         }
+        printf(" position %f  %d\n", door->position, door->open);
     }
 }
