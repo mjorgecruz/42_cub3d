@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parser_cub_bonus.c                                 :+:      :+:    :+:   */
@@ -6,15 +6,14 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:30:36 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 15:12:19 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/17 22:48:53 by masoares         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
 
 void    get_player_pos(t_data *cub);
 void    map_space(t_data *cub);
-int     floodfill(t_data *cub, int x, int y, int targ, int new);
 void    parser_first(t_data *cub);
 
 void get_player_pos(t_data *cub)

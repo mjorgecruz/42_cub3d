@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:30:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/17 01:47:20 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/17 22:00:29 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,16 @@ void display_bonus(t_data *cub)
 	double x;
 	int side;
 	double wallDist;
+	int		door_num;
 	
+	door_num = 0;
 	x =  1;
 	side = 0;
+	if (cub->doors)
+	{
+		while (cub->doors[door_num].orientation >= 0)
+			update_door_position(&(cub->doors[door_num++]));
+	}
 	direction_calc(cub, 0);
 	while(x <  WIN_W)
 	{
@@ -126,9 +133,9 @@ int distance_doors_cam(t_data *cub, int *side)
 		if (cub->doors[door_num].orientation == 1)
 		{
 			if (cub->player->cam->r_stepX == -1)
-				mid_distX = (cub->player->posX - (cub->player->cam->r_mapX + 0.5)) * cub->player->cam->r_deltaX;
+				mid_distX = (cub->player->posX - (cub->player->cam->r_mapX + 0.5 - cub->doors[door_num].position)) * cub->player->cam->r_deltaX;
 			else
-				mid_distX = ((cub->player->cam->r_mapX + 0.5) - cub->player->posX) * cub->player->cam->r_deltaX;
+				mid_distX = ((cub->player->cam->r_mapX + 0.5 - cub->doors[door_num].position) - cub->player->posX) * cub->player->cam->r_deltaX;
 			if (fabs(mid_distX) < fabs(cub->player->cam->r_sideDistY))
 			{
 				cub->player->cam->r_sideDistX = mid_distX;
@@ -144,9 +151,9 @@ int distance_doors_cam(t_data *cub, int *side)
 		else if (cub->doors[door_num].orientation == 0)
 		{
 			if (cub->player->cam->r_stepY == -1)
-				mid_distY = (cub->player->posY - (cub->player->cam->r_mapY + 0.5)) * cub->player->cam->r_deltaY;
+				mid_distY = (cub->player->posY - (cub->player->cam->r_mapY + 0.5 - cub->doors[door_num].position)) * cub->player->cam->r_deltaY;
 			else
-				mid_distY = ((cub->player->cam->r_mapY + 0.5) - cub->player->posY) * cub->player->cam->r_deltaY;
+				mid_distY = ((cub->player->cam->r_mapY + 0.5 - cub->doors[door_num].position) - cub->player->posY) * cub->player->cam->r_deltaY;
 			if (fabs(mid_distY) < fabs(cub->player->cam->r_sideDistX))
 			{
 				cub->player->cam->r_sideDistY = mid_distY;
@@ -169,6 +176,7 @@ int distance_doors_within_cam(t_data *cub, int *side)
 	double mid_dist;
 	
 	door_num = search_door(cub, cub->player->posX, cub->player->posY);
+	update_door_position(&(cub->doors[door_num]));
 	if (cub->doors[door_num].open == true)
 		return (0);
 	if (cub->doors[door_num].orientation == 1)

@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
@@ -6,30 +6,33 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:43:00 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/17 11:17:42 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/18 01:36:36 by masoares         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
 
 void	run_window_bonus(t_data *cub)
 {
-	
-	render_bonus(cub);
 	mlx_hook(cub->win_ptr, KeyPress, KeyPressMask, key_detect, cub);
+	mlx_hook(cub->win_ptr, KeyRelease, KeyReleaseMask, key_undetect, cub);
 	mlx_hook(cub->win_ptr, DestroyNotify, NoEventMask, close_win_free, cub);
+	mlx_loop_hook(cub->mlx_ptr, render_bonus, cub);
 	mlx_hook(cub->win_ptr, 6, 1L << 6, &handle_mouse_move, cub);
 	mlx_loop(cub->mlx_ptr);
 }
 
-void render_bonus(t_data *cub)
+int render_bonus(t_data *cub)
 {
+	check_dirs(cub);
+	check_rots(cub);
 	mlx_destroy_image(cub->mlx_ptr, cub->img);
 	cub->img = mlx_new_image(cub->mlx_ptr, cub->img_w, cub->img_h);
 	render_cel_gr(cub);
 	display_bonus(cub);
 	minimaper_bonus(cub);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
+	return(0);
 }
 
 void	render_cel_gr(t_data *cub)
@@ -59,3 +62,22 @@ void	render_cel_gr(t_data *cub)
 	}
 }
 
+void	check_dirs(t_data *cub)
+{
+	if (cub->keys.back_front == 1)
+		control_trans(cub, 1);
+	if (cub->keys.back_front == -1)
+		control_trans(cub, -1);
+	if (cub->keys.left_right == 1)
+		control_sides(cub, 1);
+	if (cub->keys.left_right == -1)
+		control_sides(cub, -1);
+}
+	
+void	check_rots(t_data *cub)
+{
+	if (cub->keys.rotate == 1)
+		control_rot(cub, 1);
+	if (cub->keys.rotate == -1)
+		control_rot(cub, -1);
+}

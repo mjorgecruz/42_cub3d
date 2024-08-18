@@ -13,6 +13,7 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <stdbool.h>
+# include <sys/time.h> 
 
 # include "../lib/mlx.h"
 # include "../libft/libft.h"
@@ -21,6 +22,9 @@
 # define WIN_H 1080
 # define DG_RAD 0.0174533
 # define FOV 2 * atan(0.66 / 1)
+
+# define SPEED 0.002
+# define ROT 0.025
 
 
 typedef struct s_pov
@@ -95,8 +99,19 @@ typedef struct s_door
 	double	pos_y;
 	int		orientation;
 	bool	open;
+	int		status;
+	double	position;
+	double	speed;
+	double	last_time;
 
 }	t_door;
+
+typedef struct s_keys
+{
+	int		rotate;
+	int		back_front;
+	int		left_right;
+}	t_keys;
 
 typedef struct s_data
 {
@@ -140,6 +155,7 @@ typedef struct s_data
 	t_img		texEast;
 	t_img		texWest;
 	t_img		door;
+	t_keys		keys;
 }		t_data;
 
 typedef struct s_castInfo
@@ -217,7 +233,7 @@ void	textures_definer_bonus(t_data *cub);
 
 void	texture_door_bonus(t_data *cub);
 
-
+void	init_keys(t_data *cub);
 
 /* ************************************************************************** */
 /*                                 RENDER                                     */
@@ -226,9 +242,13 @@ void	texture_door_bonus(t_data *cub);
 /*manages all window updates and updates based on input*/
 void	run_window_bonus(t_data *cub);
 
-void    render_bonus(t_data *cub);
+int		render_bonus(t_data *cub);
 
 void	render_cel_gr(t_data *cub);
+
+void	check_dirs(t_data *cub);
+
+void	check_rots(t_data *cub);
 
 /* ************************************************************************** */
 /*                              RENDER_UTILS                                  */
@@ -248,11 +268,15 @@ int	    max_finder(double varu, double varv);
 /*define behaviour for specific key pressed*/
 int	key_detect(int key, t_data *cub);
 
+int	key_undetect(int key, t_data *cub);
+
 void control_rot(t_data *cub, int dir);
 
 void control_trans(t_data *cub, int dir);
 
 void control_door(t_data *cub);
+
+void	control_sides(t_data *cub, int dir);
 
 void 	animate_door_opening(t_data *cub, int door_num);
 
@@ -322,7 +346,7 @@ int		side_calc(t_data *cub);
 
 int 	distance_doors(t_data *cub, int *side);
 
-int distance_doors_within(t_data *cub, int *side);
+int 	distance_doors_within(t_data *cub, int *side);
 
 int		search_door(t_data *cub, double x, double y);
 
@@ -412,8 +436,6 @@ void    parser_first_bonus(t_data *cub);
 /*has a free and exit inside to terminate everything when displaying the error*/
 void ft_error(int n, t_data *cub);
 
-
-
 /* ************************************************************************** */
 /*                                  TESTS                                     */
 /* ************************************************************************** */
@@ -428,5 +450,20 @@ void print_scenics(t_data *cub);
 /* ************************************************************************** */
 
 int	handle_mouse_move(int x, int y, t_data *cub);
+
+/* ************************************************************************** */
+/*                                ANIMATION	                                  */
+/* ************************************************************************** */
+
+void 	animate_door_opening(t_data *cub, int door_num);
+
+void	update_door_position(t_door *door);
+
+/* ************************************************************************** */
+/*                              ANIMATION_UTILS	                              */
+/* ************************************************************************** */
+
+long	get_time(void);
+
 
 #endif

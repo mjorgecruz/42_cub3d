@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   handlers_bonus.c                                   :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:53:30 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/17 13:43:54 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/18 01:53:52 by masoares         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
 
@@ -16,27 +16,45 @@ int	key_detect(int key, t_data *cub)
 {
 	if (key == XK_Escape)
 		close_win_free(cub);
-	else if(key == XK_space)
+	if(key == XK_space)
 		control_door(cub);
-	else if (key == XK_Up || key == XK_w)
-		control_trans(cub, 1);
+	if (key == XK_Up || key == XK_w)
+		cub->keys.back_front = 1;
 	else if (key == XK_Down || key == XK_s)
-		control_trans(cub, -1);
-	else if (key == XK_Left || key == XK_a)
-		control_rot(cub,-1);
-	else if (key == XK_Right || key == XK_d)
-		control_rot(cub, 1);
-	render_bonus(cub);
+		cub->keys.back_front = -1;
+	else if (key == XK_a)
+		cub->keys.left_right = -1;
+	else if (key == XK_d)
+		cub->keys.left_right = 1;
+	else if (key == XK_Left)
+		cub->keys.rotate = -1;
+	else if (key == XK_Right)
+		cub->keys.rotate = 1;
+	return (0);
+}
+
+int	key_undetect(int key, t_data *cub)
+{
+	if (key == XK_Escape)
+		close_win_free(cub);
+	if ((key == XK_Up || key == XK_w) && cub->keys.back_front == 1)
+		cub->keys.back_front = 0;
+	if ((key == XK_Down || key == XK_s) && cub->keys.back_front == -1)
+		cub->keys.back_front = 0;
+	if (key == XK_a && cub->keys.left_right == -1)
+		cub->keys.left_right = 0;
+	if (key == XK_d && cub->keys.left_right == 1)
+		cub->keys.left_right = 0;
+	if (key == XK_Left && cub->keys.rotate == -1)
+		cub->keys.rotate = 0;
+	if (key == XK_Right && cub->keys.rotate == 1)
+		cub->keys.rotate = 0;
 	return (0);
 }
 
 void control_rot(t_data *cub, int dir)
 {
-	if (dir > 0)
-		cub->player->p_ang += DG_RAD*5;
-	else
-		(cub->player->p_ang) -= DG_RAD*5;
-		
+	cub->player->p_ang += ROT * dir;
 	cub->player->pov->dirX = cos(cub->player->p_ang);
 	cub->player->pov->dirY = sin(cub->player->p_ang);
 	if (cub->player->pov->dirX < 0.00001 && cub->player->pov->dirX > -0.00001)
@@ -55,87 +73,178 @@ void control_trans(t_data *cub, int dir)
 	
 	if (dir > 0 )
 	{
-		finalX = (int)(cub->player->posX + cos(cub->player->p_ang)/10);
-		finalY = (int)(cub->player->posY + sin(cub->player->p_ang)/10);
+		finalX = (int)(cub->player->posX + cos(cub->player->p_ang)/20);
+		finalY = (int)(cub->player->posY + sin(cub->player->p_ang)/20);
 		if (cub->map[finalY][(int)(cub->player->posX)] == '0')
-			cub->player->posY = cub->player->posY + sin(cub->player->p_ang)/10;
+			cub->player->posY = cub->player->posY + sin(cub->player->p_ang)/20;
 		if (cub->map[(int)(cub->player->posY)][finalX] == '0')
-			cub->player->posX = cub->player->posX + cos(cub->player->p_ang)/10;
+			cub->player->posX = cub->player->posX + cos(cub->player->p_ang)/20;
 		if (cub->map[finalY][finalX] == 'D')
 		{
-			door_num = search_door(cub, cub->player->posX + cos(cub->player->p_ang)/10, cub->player->posY + sin(cub->player->p_ang)/10);
+			door_num = search_door(cub, cub->player->posX + cos(cub->player->p_ang)/20, cub->player->posY + sin(cub->player->p_ang)/20);
 			if (cub->doors[door_num].open == false)
 			{
 				if (cub->doors[door_num].orientation == 1)
 				{
-					if (cub->player->posX + cos(cub->player->p_ang)/10 < cub->doors[door_num].pos_x - 0.2)
-						cub->player->posX = cub->player->posX + cos(cub->player->p_ang)/10;
-					else if (cub->player->posX + cos(cub->player->p_ang)/10 < cub->doors[door_num].pos_x)
+					if (cub->player->posX + cos(cub->player->p_ang)/20 < cub->doors[door_num].pos_x - 0.2)
+						cub->player->posX = cub->player->posX + cos(cub->player->p_ang)/20;
+					else if (cub->player->posX + cos(cub->player->p_ang)/20 < cub->doors[door_num].pos_x)
 						cub->player->posX = cub->player->posX - 0.2;
 					else
-						cub->player->posX = cub->player->posX + cos(cub->player->p_ang)/10;
-					cub->player->posY = cub->player->posY + sin(cub->player->p_ang)/10;
+						cub->player->posX = cub->player->posX + cos(cub->player->p_ang)/20;
+					cub->player->posY = cub->player->posY + sin(cub->player->p_ang)/20;
 				}
 				else if (cub->doors[door_num].orientation == 0)
 				{
-					if (cub->player->posY + sin(cub->player->p_ang)/10 < cub->doors[door_num].pos_y - 0.2)
-						cub->player->posY = cub->player->posY + sin(cub->player->p_ang)/10;
-					else if (cub->player->posY + sin(cub->player->p_ang)/10 < cub->doors[door_num].pos_y)
+					if (cub->player->posY + sin(cub->player->p_ang)/20 < cub->doors[door_num].pos_y - 0.2)
+						cub->player->posY = cub->player->posY + sin(cub->player->p_ang)/20;
+					else if (cub->player->posY + sin(cub->player->p_ang)/20 < cub->doors[door_num].pos_y)
 						cub->player->posY = cub->player->posY - 0.2;
 					else
-						cub->player->posY = cub->player->posY + sin(cub->player->p_ang)/10;
-					cub->player->posX = cub->player->posX + cos(cub->player->p_ang)/10;
+						cub->player->posY = cub->player->posY + sin(cub->player->p_ang)/20;
+					cub->player->posX = cub->player->posX + cos(cub->player->p_ang)/20;
 				}
 			}
 			else
 			{
-				cub->player->posY = cub->player->posY + sin(cub->player->p_ang)/10;
-				cub->player->posX = cub->player->posX + cos(cub->player->p_ang)/10;			
+				cub->player->posY = cub->player->posY + sin(cub->player->p_ang)/20;
+				cub->player->posX = cub->player->posX + cos(cub->player->p_ang)/20;			
 			}
 		}
 	}	
 	else
 	{
-		finalX = (int)(cub->player->posX - cos(cub->player->p_ang)/10);
-		finalY = (int)(cub->player->posY - sin(cub->player->p_ang)/10);
+		finalX = (int)(cub->player->posX - cos(cub->player->p_ang)/20);
+		finalY = (int)(cub->player->posY - sin(cub->player->p_ang)/20);
 		if (cub->map[finalY][(int)(cub->player->posX)] == '0')
-			cub->player->posY = cub->player->posY - sin(cub->player->p_ang)/10;
+			cub->player->posY = cub->player->posY - sin(cub->player->p_ang)/20;
 		if (cub->map[(int)(cub->player->posY)][finalX] == '0')
-			cub->player->posX = cub->player->posX - cos(cub->player->p_ang)/10;
+			cub->player->posX = cub->player->posX - cos(cub->player->p_ang)/20;
 		if (cub->map[finalY][finalX] == 'D')
 		{
-			door_num = search_door(cub, cub->player->posX - cos(cub->player->p_ang)/10, cub->player->posY - sin(cub->player->p_ang)/10);
+			door_num = search_door(cub, cub->player->posX - cos(cub->player->p_ang)/20, cub->player->posY - sin(cub->player->p_ang)/20);
 			if (cub->doors[door_num].open == false)
 			{
 				if (cub->doors[door_num].orientation == 1)
 				{
-					if (cub->player->posX - cos(cub->player->p_ang)/10 >= cub->doors[door_num].pos_x + 0.2)
-						cub->player->posX = cub->player->posX - cos(cub->player->p_ang)/10;
-					else if (cub->player->posX - cos(cub->player->p_ang)/10 >= cub->doors[door_num].pos_x)
+					if (cub->player->posX - cos(cub->player->p_ang)/20 >= cub->doors[door_num].pos_x + 0.2)
+						cub->player->posX = cub->player->posX - cos(cub->player->p_ang)/20;
+					else if (cub->player->posX - cos(cub->player->p_ang)/20 >= cub->doors[door_num].pos_x)
 						cub->player->posX = cub->player->posX + 0.2;
 					else
-						cub->player->posX = cub->player->posX - cos(cub->player->p_ang)/10;
-					cub->player->posY = cub->player->posY - sin(cub->player->p_ang)/10;
+						cub->player->posX = cub->player->posX - cos(cub->player->p_ang)/20;
+					cub->player->posY = cub->player->posY - sin(cub->player->p_ang)/20;
 				}
 				else if (cub->doors[door_num].orientation == 0)
 				{
-					if (cub->player->posY - sin(cub->player->p_ang)/10 < cub->doors[door_num].pos_y + 0.2)
-						cub->player->posY = cub->player->posY - sin(cub->player->p_ang)/10;
-					else if (cub->player->posY - sin(cub->player->p_ang)/10 < cub->doors[door_num].pos_y)
+					if (cub->player->posY - sin(cub->player->p_ang)/20 < cub->doors[door_num].pos_y + 0.2)
+						cub->player->posY = cub->player->posY - sin(cub->player->p_ang)/20;
+					else if (cub->player->posY - sin(cub->player->p_ang)/20 < cub->doors[door_num].pos_y)
 						cub->player->posY = cub->player->posY + 0.2;
 					else
-						cub->player->posY = cub->player->posY - sin(cub->player->p_ang)/10;
-					cub->player->posX = cub->player->posX - cos(cub->player->p_ang)/10;
+						cub->player->posY = cub->player->posY - sin(cub->player->p_ang)/20;
+					cub->player->posX = cub->player->posX - cos(cub->player->p_ang)/20;
 				}
 			}
 			else
 			{
-				cub->player->posY = cub->player->posY - sin(cub->player->p_ang)/10;
-				cub->player->posX = cub->player->posX - cos(cub->player->p_ang)/10;			
+				cub->player->posY = cub->player->posY - sin(cub->player->p_ang)/20;
+				cub->player->posX = cub->player->posX - cos(cub->player->p_ang)/20;			
 			}
 		}
 	}
 }
+
+void	control_sides(t_data *cub, int dir)
+{
+	int finalX;
+	int finalY;
+	int door_num;
+	
+	if (dir > 0 )
+	{
+		finalX = (int)(cub->player->posX - sin(cub->player->p_ang)/20);
+		finalY = (int)(cub->player->posY + cos(cub->player->p_ang)/20);
+		if (cub->map[finalY][(int)(cub->player->posX)] == '0')
+			cub->player->posY = cub->player->posY + cos(cub->player->p_ang)/20;
+		if (cub->map[(int)(cub->player->posY)][finalX] == '0')
+			cub->player->posX = cub->player->posX -sin(cub->player->p_ang)/20;
+		if (cub->map[finalY][finalX] == 'D')
+		{
+			door_num = search_door(cub, cub->player->posX + cos(cub->player->p_ang)/20, cub->player->posY + sin(cub->player->p_ang)/20);
+			if (cub->doors[door_num].open == false)
+			{
+				if (cub->doors[door_num].orientation == 1)
+				{
+					if (cub->player->posX -sin(cub->player->p_ang)/20 < cub->doors[door_num].pos_x - 0.2)
+						cub->player->posX = cub->player->posX - sin(cub->player->p_ang)/20;
+					else if (cub->player->posX -sin(cub->player->p_ang)/20 < cub->doors[door_num].pos_x)
+						cub->player->posX = cub->player->posX - 0.2;
+					else
+						cub->player->posX = cub->player->posX -sin(cub->player->p_ang)/20;
+					cub->player->posY = cub->player->posY + cos(cub->player->p_ang)/20;
+				}
+				else if (cub->doors[door_num].orientation == 0)
+				{
+					if (cub->player->posY + cos(cub->player->p_ang)/20 < cub->doors[door_num].pos_y - 0.2)
+						cub->player->posY = cub->player->posY + cos(cub->player->p_ang)/20;
+					else if (cub->player->posY + cos(cub->player->p_ang)/20 < cub->doors[door_num].pos_y)
+						cub->player->posY = cub->player->posY - 0.2;
+					else
+						cub->player->posY = cub->player->posY + cos(cub->player->p_ang)/20;
+					cub->player->posX = cub->player->posX - sin(cub->player->p_ang)/20;
+				}
+			}
+			else
+			{
+				cub->player->posY = cub->player->posY + cos(cub->player->p_ang)/20;
+				cub->player->posX = cub->player->posX + -sin(cub->player->p_ang)/20;			
+			}
+		}
+	}	
+	else
+	{
+		finalX = (int)(cub->player->posX + sin(cub->player->p_ang)/20);
+		finalY = (int)(cub->player->posY - cos(cub->player->p_ang)/20);
+		if (cub->map[finalY][(int)(cub->player->posX)] == '0')
+			cub->player->posY = cub->player->posY - cos(cub->player->p_ang)/20;
+		if (cub->map[(int)(cub->player->posY)][finalX] == '0')
+			cub->player->posX = cub->player->posX + sin(cub->player->p_ang)/20;
+		if (cub->map[finalY][finalX] == 'D')
+		{
+			door_num = search_door(cub, cub->player->posX + sin(cub->player->p_ang)/20, cub->player->posY - sin(cub->player->p_ang)/20);
+			if (cub->doors[door_num].open == false)
+			{
+				if (cub->doors[door_num].orientation == 1)
+				{
+					if (cub->player->posX + sin(cub->player->p_ang)/20 >= cub->doors[door_num].pos_x + 0.2)
+						cub->player->posX = cub->player->posX + sin(cub->player->p_ang)/20;
+					else if (cub->player->posX + sin(cub->player->p_ang)/20 >= cub->doors[door_num].pos_x)
+						cub->player->posX = cub->player->posX + 0.2;
+					else
+						cub->player->posX = cub->player->posX + sin(cub->player->p_ang)/20;
+					cub->player->posY = cub->player->posY - cos(cub->player->p_ang)/20;
+				}
+				else if (cub->doors[door_num].orientation == 0)
+				{
+					if (cub->player->posY - cos(cub->player->p_ang)/20 < cub->doors[door_num].pos_y + 0.2)
+						cub->player->posY = cub->player->posY - cos(cub->player->p_ang)/20;
+					else if (cub->player->posY - cos(cub->player->p_ang)/20 < cub->doors[door_num].pos_y)
+						cub->player->posY = cub->player->posY + 0.2;
+					else
+						cub->player->posY = cub->player->posY - cos(cub->player->p_ang)/20;
+					cub->player->posX = cub->player->posX +sin(cub->player->p_ang)/20;
+				}
+			}
+			else
+			{
+				cub->player->posY = cub->player->posY - cos(cub->player->p_ang)/20;
+				cub->player->posX = cub->player->posX + sin(cub->player->p_ang)/20;			
+			}
+		}
+	}
+}
+
 void control_door(t_data *cub)
 {
 	int door_num = -1;
@@ -174,9 +283,3 @@ void control_door(t_data *cub)
 	return;
 }
 
-void 	animate_door_opening(t_data *cub, int door_num)
-{
-	(void) cub;
-	(void) door_num;
-	return;
-}

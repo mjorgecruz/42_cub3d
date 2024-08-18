@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   init_window_bonus.c                                :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/16 13:57:22 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/17 23:20:59 by masoares         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
 
@@ -29,6 +29,7 @@ int	init_fields_bonus(t_data *cub)
 			&cub->line_length, &cub->endian);
 	cub->player = init_player(cub);
 	init_position_bonus(cub);
+	init_keys(cub);
 	textures_definer_bonus(cub);
 	return (0);
 }
@@ -78,7 +79,7 @@ void init_position_bonus(t_data *cub)
 		{
 			if (cub->map[i][j] == 'D'
 				&& ((cub->map[i + 1][j] == '1' && cub->map[i - 1][j] == '1') 
-				||(cub->map[i][j + 1] == '1' && cub->map[i][j + 1] == '1')))
+				||(cub->map[i][j + 1] == '1' && cub->map[i][j - 1] == '1')))
 				count++;
 			else if (cub->map[i][j] == 'D')
 				cub->map[i][j] = '0';
@@ -121,9 +122,14 @@ void	fill_door_info_bonus(t_data *cub, int door_num, int i, int j)
 	cub->doors[door_num].pos_y = (double) i + 0.5;
 	if(cub->map[i + 1][j] == '1' && cub->map[i - 1][j] == '1')
 		cub->doors[door_num].orientation = 1;
-	else
+	else if (cub->map[i][j - 1] == '1' && cub->map[i][j + 1] == '1')
 		cub->doors[door_num].orientation = 0;
 	cub->doors[door_num].open = false;
+	cub->doors[door_num].status = 0;
+	cub->doors[door_num].speed = 0.0002;
+	cub->doors[door_num].last_time = get_time();
+	cub->doors[door_num].position = 0.0;
+
 }
 
 void init_camera(t_player *player, t_data *cub)
@@ -179,4 +185,10 @@ void texture_door_bonus(t_data *cub)
 			&cub->door.bits_per_pixel, &cub->door.line_length, 
 			&cub->door.endian);
 }
-	
+
+void	init_keys(t_data *cub)
+{
+	cub->keys.back_front = 0;
+	cub->keys.left_right = 0;
+	cub->keys.rotate = 0;
+}
