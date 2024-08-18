@@ -328,9 +328,9 @@ void	render_rect_ground(t_data *img, int pos_x, int pos_y, int scale);
 
 void	render_rect_door(t_data *img, double pos_x, double pos_y, int scale);
 
-void	render_h_door(t_data *img, double pos_x, double pos_y, int scale);
+void	render_h_door(t_data *img, int door_num, int scale);
 
-void	render_v_door(t_data *img, double pos_x, double pos_y, int scale);
+void	render_v_door(t_data *img, int door_num, int scale);
 
 /* ************************************************************************** */
 /*                             MINIMAPER_UTILS                                */

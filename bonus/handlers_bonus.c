@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:53:30 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/18 01:53:52 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/18 02:18:15 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,24 +250,28 @@ void control_door(t_data *cub)
 	int door_num = -1;
 	double ang;
 
-	ang = cub->player->p_ang - (double)(int)(cub->player->p_ang / (360.0 * DG_RAD));
+	ang = cub->player->p_ang - ((double)(int)(cub->player->p_ang / (360.0 * DG_RAD)))*(360.0 * DG_RAD);
 	if (ang < 0)
 		ang += (360.0 * DG_RAD);
 	if (cub->doors)
 	{
-  		if ((ang >= (0 * DG_RAD) &&  ang <= (45 * DG_RAD)) || (ang < (360 * DG_RAD) &&  ang >= (315 * DG_RAD)))
+		if (cub->map[(int)cub->player->posY][(int)cub->player->posX] == 'D')
+		{
+			door_num = search_door(cub, cub->player->posX, cub->player->posY);
+		}
+  		else if ((ang >= (0 * DG_RAD) &&  ang <= (45 * DG_RAD)) || (ang < (360 * DG_RAD) &&  ang >= (315 * DG_RAD)))
 		{
 			if (cub->map[(int)cub->player->posY][(int)cub->player->posX + 1])
-				door_num = search_door(cub, cub->player->posX + 1, cub->player->posY);	
+				door_num = search_door(cub, cub->player->posX + 1, cub->player->posY);
 		}
 		else if (ang > (45 * DG_RAD) &&  ang <= (135 * DG_RAD))
 		{
-			if((int)cub->player->posY - 1 < 0 && cub->map[(int)cub->player->posY - 1][(int)cub->player->posX])
+			if((int)cub->player->posY - 1 > 0 && cub->map[(int)cub->player->posY - 1][(int)cub->player->posX])
 				door_num = search_door(cub, cub->player->posX, cub->player->posY - 1);
 		}
 		else if (ang > (135 * DG_RAD) &&  ang <= (225 * DG_RAD))
 		{
-			if ((int)cub->player->posX - 1 < 0 && cub->map[(int)cub->player->posY][(int)cub->player->posX - 1])
+			if ((int)cub->player->posX - 1 > 0 && cub->map[(int)cub->player->posY][(int)cub->player->posX - 1])
 				door_num = search_door(cub, cub->player->posX - 1, cub->player->posY);
 		}
 		else if (ang > (225 * DG_RAD) &&  ang <= (315 * DG_RAD))
