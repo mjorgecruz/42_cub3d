@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   raycaster_bonus.c                                  :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:30:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/18 17:11:59 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/19 09:24:39 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d_bonus.h"
 
@@ -47,6 +47,7 @@ void	wall_displayer(t_data *cub, int x)
 	int side;
 	double walldist;
 	
+	walldist = 0.0;
 	side = side_calc_ray(cub);
 	if(side == 1)
 		walldist = fabs((cub->player->cam->r_sideDistX  - cub->player->cam->r_deltaX));
@@ -63,6 +64,7 @@ void	door_displayer(t_data *cub, int x)
 	int side;
 	double walldist;
 	
+	walldist = 0.0;
 	side = side_calc_ray_bonus(cub, x);
 	if (side == 10)
 		walldist = fabs((cub->player->cam->r_sideDistY));

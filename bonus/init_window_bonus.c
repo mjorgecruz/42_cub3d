@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   init_window_bonus.c                                :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/18 22:11:16 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/19 10:41:20 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d_bonus.h"
 
@@ -168,6 +168,7 @@ void textures_definer_bonus(t_data *cub)
 			&cub->texWest.bits_per_pixel, &cub->texWest.line_length, 
 			&cub->texWest.endian);
 	texture_door_bonus(cub);
+	texture_fire_bonus(cub);
 }
 
 void texture_door_bonus(t_data *cub)
@@ -181,7 +182,51 @@ void texture_door_bonus(t_data *cub)
 	cub->door.img = mlx_xpm_file_to_image(cub->mlx_ptr,
 			"./textures/Door.xpm", &cub->door.width,
 			&cub->door.height);
+	if (cub->door.img == NULL)
+		ft_error(1000, cub);
 	cub->door.data = mlx_get_data_addr(cub->door.img, 
+			&cub->door.bits_per_pixel, &cub->door.line_length, 
+			&cub->door.endian);
+}
+
+void texture_fire_bonus(t_data *cub)
+{
+	int fd;
+
+	fd = open("./textures/fire1.xpm", O_RDONLY, 0);
+	if (fd < 0)
+		ft_error(20, cub);
+	close(fd);
+	fd = open("./textures/fire2.xpm", O_RDONLY, 0);
+	if (fd < 0)
+		ft_error(20, cub);
+	close(fd);
+	fd = open("./textures/fire3.xpm", O_RDONLY, 0);
+	if (fd < 0)
+		ft_error(20, cub);
+	close(fd);
+	cub->fire1.img = mlx_xpm_file_to_image(cub->mlx_ptr,
+			"./textures/fire1.xpm", &cub->door.width,
+			&cub->door.height);
+	if (cub->door.img == NULL)
+			ft_error(1000, cub);
+	cub->fire1.data = mlx_get_data_addr(cub->door.img, 
+			&cub->door.bits_per_pixel, &cub->door.line_length, 
+			&cub->door.endian);
+	cub->fire2.img = mlx_xpm_file_to_image(cub->mlx_ptr,
+			"./textures/fire2.xpm", &cub->door.width,
+			&cub->door.height);
+	if (cub->fire2.img == NULL)
+		ft_error(1000, cub);
+	cub->fire2.data = mlx_get_data_addr(cub->door.img, 
+			&cub->door.bits_per_pixel, &cub->door.line_length, 
+			&cub->door.endian);
+	cub->fire3.img = mlx_xpm_file_to_image(cub->mlx_ptr,
+			"./textures/fire3.xpm", &cub->door.width,
+			&cub->door.height);
+	if (cub->fire3.img == NULL)
+		ft_error(1000, cub);
+	cub->fire3.data = mlx_get_data_addr(cub->door.img, 
 			&cub->door.bits_per_pixel, &cub->door.line_length, 
 			&cub->door.endian);
 }

@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 09:57:38 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/16 13:46:33 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/19 10:30:04 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -53,6 +53,12 @@ void tex_preparer(t_data *cub)
 	cub->texWest.img = NULL;
 	cub->door.data = NULL;
 	cub->door.img = NULL;
+	cub->fire1.data = NULL;
+	cub->fire1.img = NULL;
+	cub->fire2.data = NULL;
+	cub->fire2.img = NULL;
+	cub->fire3.data = NULL;
+	cub->fire3.img = NULL;
 	cub->north = NULL;
 	cub->south = NULL;
 	cub->east = NULL;

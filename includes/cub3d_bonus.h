@@ -155,6 +155,9 @@ typedef struct s_data
 	t_img		texEast;
 	t_img		texWest;
 	t_img		door;
+	t_img		fire1;
+	t_img		fire2;
+	t_img		fire3;
 	t_keys		keys;
 }		t_data;
 
@@ -239,6 +242,8 @@ void	init_camera(t_player *player, t_data *cub);
 void	textures_definer_bonus(t_data *cub);
 
 void	texture_door_bonus(t_data *cub);
+
+void	texture_fire_bonus(t_data *cub);
 
 void	init_keys(t_data *cub);
 
