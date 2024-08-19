@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_bonus_utils2.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:57:10 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/18 22:07:46 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/19 11:41:16 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int wallX_calculator(t_data *cub, double wallDist, int side)
 	else
 		wall_pos = cub->player->posY + (wallDist) * cub->player->cam->rayDirY;
 	wall_pos-=(double)((int) wall_pos);
-	wallX = (int)(wall_pos * (double)(cub->texNorth.width));
+	wallX = (int)(wall_pos * (double)(cub->texnorth.width));
 	return(wallX);
 }
 
@@ -58,7 +58,7 @@ int	wallx_calculator_door(t_data *cub, double wallDist, int side, int door_num)
 	else
 		wall_pos = cub->player->posY + cub->doors[door_num].position * 0.8 + (wallDist) * cub->player->cam->rayDirY;
 	wall_pos-=(double)((int) wall_pos);
-	wallX = (int)(wall_pos * (double)(cub->texNorth.width));
+	wallX = (int)(wall_pos * (double)(cub->texnorth.width));
 	return(wallX);
 }
 
@@ -68,16 +68,16 @@ int	line_maker(t_data *cub, t_castInfo line_prop, int side)
 	if (side == 1)
 	{
 		if (cub->player->cam->rayDirX > 0)
-			liner(cub, line_prop, cub->texEast);
+			liner(cub, line_prop, cub->texeast);
 		else
-			liner(cub, line_prop, cub->texWest);
+			liner(cub, line_prop, cub->texwest);
 	}
 	else if (side == 0)
 	{
 		if (cub->player->cam->rayDirY < 0)
-			liner(cub, line_prop, cub->texNorth);
+			liner(cub, line_prop, cub->texnorth);
 		else
-			liner(cub, line_prop, cub->texSouth);	
+			liner(cub, line_prop, cub->texsouth);	
 	}
 	else
 	{
@@ -101,7 +101,7 @@ void	liner(t_data *cub, t_castInfo line_prop, t_img tex)
 	{
 		texY = (int)texPos & (tex.height - 1);
 		texPos += step;
-		color = *((int *)(tex.data + (texY * tex.line_length + line_prop.wallX * (cub->texNorth.bits_per_pixel / 8))));
+		color = *((int *)(tex.data + (texY * tex.line_length + line_prop.wallX * (cub->texnorth.bits_per_pixel / 8))));
 		pixel_put(cub, line_prop.x, pos, color);
 		pos++;
 	}
