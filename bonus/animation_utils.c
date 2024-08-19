@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   animation_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 18:17:46 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/17 22:43:42 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:18:27 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
+
+long	get_time(void);
 
 long	get_time(void)
 {
@@ -18,6 +20,6 @@ long	get_time(void)
 	double			time;
 
 	gettimeofday(&current, NULL);
-	time = current.tv_sec*1000 + current.tv_usec / 1000;
+	time = current.tv_sec * 1000 + current.tv_usec / 1000;
 	return (time);
 }

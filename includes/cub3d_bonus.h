@@ -92,6 +92,7 @@ typedef struct s_door
 	double	position;
 	double	speed;
 	double	last_time;
+	double	current_time;
 }	t_door;
 
 typedef struct s_fire
@@ -519,39 +520,56 @@ void	parser_first(t_data *cub);
 
 /*has a free and exit inside to terminate everything when displaying the error*/
 void		ft_perror(char *msg);
+
 void		ft_error_plus(int n, t_data *cub);
+
 void		ft_error(int n, t_data *cub);
 
 /* ************************************************************************** */
 /*                                  TESTS                                     */
 /* ************************************************************************** */
 
-void	print_color_mapcpy(t_data *cub);
-void	print_color_map(t_data *cub);
-void	color_select(int i);
-void	print_scenics(t_data *cub);
+void		print_color_mapcpy(t_data *cub);
+
+void		print_color_map(t_data *cub);
+
+void		color_select(int i);
+
+void		print_scenics(t_data *cub);
 
 /* ************************************************************************** */
 /*                              CONTROLS_BONUS                                */
 /* ************************************************************************** */
 
-int	handle_mouse_move(int x, int y, t_data *cub);
+int			handle_mouse_move(int x, int y, t_data *cub);
 
 /* ************************************************************************** */
 /*                                ANIMATION	                                  */
 /* ************************************************************************** */
 
-void 	animate_door_opening(t_data *cub, int door_num);
+void		nimate_door_opening(t_data *cub, int door_num);
 
-void	update_door_position(t_door *door);
+void		update_door_position(t_door *door);
 
-void 	update_fire(t_data *cub);
+void		update_fire(t_data *cub);
 
 /* ************************************************************************** */
 /*                              ANIMATION_UTILS	                              */
 /* ************************************************************************** */
 
-long	get_time(void);
+long		get_time(void);
 
+/*NORMINETE MADE FOR 
+tests_bonus
+filereader
+filereader xpm
+filereader_utils
+filereader_utils2
+closings
+frreeing
+animation
+animation utils
+errors
+*/
 
 #endif

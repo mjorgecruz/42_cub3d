@@ -6,11 +6,13 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:04:45 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/19 11:52:38 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:17:37 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
+
+int	close_win_free(t_data *cub);
 
 int	close_win_free(t_data *cub)
 {
