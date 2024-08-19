@@ -296,7 +296,7 @@ void 	animate_door_opening(t_data *cub, int door_num);
 /* ************************************************************************** */
 
 /**/
-int	close_win_free(t_data *cub);
+int			close_win_free(t_data *cub);
 
 /* ************************************************************************** */
 /*                               FREEING                                      */
@@ -304,27 +304,30 @@ int	close_win_free(t_data *cub);
 
 /**/
 void		ft_free_split(char **array);
+
 void		general_free(t_data *cub);
+
 void		ft_free_array(t_data *cub, int **array);
+
 void		free_mlx_checker(t_data *cub);
 
 /* ************************************************************************** */
 /*                               MINIMAPER                                    */
 /* ************************************************************************** */
 
-int     minimaper_bonus(t_data *cub);
+int			minimaper_bonus(t_data *cub);
 
-void 	map_drawing_bonus(t_data *cub, int map_scale);
+void		map_drawing_bonus(t_data *cub, int map_scale);
 
-void    render_direction_bonus(t_data *cub);
+void		render_direction_bonus(t_data *cub);
 
-void	hit_point_vertical(t_data *cub);
+void		hit_point_vertical(t_data *cub);
 
-void	hit_point_horizontal(t_data *cub);
+void		hit_point_horizontal(t_data *cub);
 
-void 	hit_point_vertical_door(t_data *cub);
+void		hit_point_vertical_door(t_data *cub);
 
-void 	hit_point_horizontal_door(t_data *cub);
+void		hit_point_horizontal_door(t_data *cub);
 
 /* ************************************************************************** */
 /*                           MINIMAPER_RENDERS                                */
@@ -446,35 +449,58 @@ void	liner_fire(t_data *cub, t_castInfo line_prop);
 /*                               FILEREADER                                   */
 /* ************************************************************************** */
 
+void	save_path(char *line, t_data *cub, int id);
 
-//utils
+bool	has_reached_map(char *line, t_data *cub);
+
+void	read_mapfile(t_data *cub, char *filename);
+
+void	read_lines(t_data *cub);
+
+void	check_xpm_exist(t_data *cub);
+
+/* ************************************************************************** */
+/*                            FILEREADER UTILS                                */
+/* ************************************************************************** */
 
 bool	is_valid_orient(int c);
+
 bool	is_empty_line(char *str);
+
 void	is_fd_invalid(int fd, t_data *cub);
+
 int		ft_iswhitespace(int c);
+
 int		jump_whitepaces(char *line);
 
-//utils 2
+/* ************************************************************************** */
+/*                            FILEREADER UTILS 2                              */
+/* ************************************************************************** */
+
 void	check_scenics_count(t_data *cub);
+
 void	check_scenics(t_data *cub);
+
 void	check_duplicates(t_data *cub, int id);
+
 void	fill_counter(t_data *cub, int id);
+
 void	get_scenic_id(t_data *cub, int i);
 
-//xpm
+/* ************************************************************************** */
+/*                            FILEREADER XPM                                  */
+/* ************************************************************************** */
+
 bool	is_xpm_file(char *xpm);
+
 bool	compare_id_xpm(char *xpm);
+
 bool	check_texture_match(char *xpm);
+
 bool	check_texture_str(char *xpm);
+
 void	check_xpm_format(t_data *cub);
 
-//origin
-void	save_path(char *line, t_data *cub, int id);
-bool	has_reached_map(char *line, t_data *cub);
-void	read_mapfile(t_data *cub, char *filename);
-void	read_lines(t_data *cub);
-void	check_xpm_exist(t_data *cub);
 
 /* ************************************************************************** */
 /*                                MAP_BUILD                                   */
