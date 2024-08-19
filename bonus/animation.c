@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 18:17:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/19 11:31:11 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:14:51 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -60,11 +60,12 @@ void 	update_fire(t_data *cub)
 
     current_time = get_time();
 	ongoing_time = current_time - cub->fire_last_time;
-    if (ongoing_time < 0.5)
+    printf("%f ", ongoing_time);
+    if (ongoing_time < 500)
         cub->fire_num = 0;
-    else if (ongoing_time < 1)
+    else if (ongoing_time < 1000)
         cub->fire_num = 1;
-    else if (ongoing_time < 1.5)
+    else if (ongoing_time < 1500)
         cub->fire_num = 2;
     else
     {

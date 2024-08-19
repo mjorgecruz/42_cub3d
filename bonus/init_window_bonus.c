@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/19 11:48:22 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:10:12 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -245,29 +245,29 @@ void texture_fire_bonus(t_data *cub)
 		ft_error(20, cub);
 	close(fd);
 	cub->fire1.img = mlx_xpm_file_to_image(cub->mlx_ptr,
-			"./textures/fire1.xpm", &cub->door.width,
-			&cub->door.height);
-	if (cub->door.img == NULL)
+			"./textures/fire1.xpm", &cub->fire1.width,
+			&cub->fire1.height);
+	if (cub->fire1.img == NULL)
 			ft_error(1000, cub);
-	cub->fire1.data = mlx_get_data_addr(cub->door.img, 
-			&cub->door.bits_per_pixel, &cub->door.line_length, 
-			&cub->door.endian);
+	cub->fire1.data = mlx_get_data_addr(cub->fire1.img, 
+			&cub->fire1.bits_per_pixel, &cub->fire1.line_length, 
+			&cub->fire1.endian);
 	cub->fire2.img = mlx_xpm_file_to_image(cub->mlx_ptr,
-			"./textures/fire2.xpm", &cub->door.width,
-			&cub->door.height);
+			"./textures/fire2.xpm", &cub->fire2.width,
+			&cub->fire2.height);
 	if (cub->fire2.img == NULL)
 		ft_error(1000, cub);
-	cub->fire2.data = mlx_get_data_addr(cub->door.img, 
-			&cub->door.bits_per_pixel, &cub->door.line_length, 
-			&cub->door.endian);
+	cub->fire2.data = mlx_get_data_addr(cub->fire2.img, 
+			&cub->fire2.bits_per_pixel, &cub->fire2.line_length, 
+			&cub->fire2.endian);
 	cub->fire3.img = mlx_xpm_file_to_image(cub->mlx_ptr,
-			"./textures/fire3.xpm", &cub->door.width,
-			&cub->door.height);
+			"./textures/fire3.xpm", &cub->fire3.width,
+			&cub->fire3.height);
 	if (cub->fire3.img == NULL)
 		ft_error(1000, cub);
-	cub->fire3.data = mlx_get_data_addr(cub->door.img, 
-			&cub->door.bits_per_pixel, &cub->door.line_length, 
-			&cub->door.endian);
+	cub->fire3.data = mlx_get_data_addr(cub->fire3.img, 
+			&cub->fire3.bits_per_pixel, &cub->fire3.line_length, 
+			&cub->fire3.endian);
 	cub->fire_num = 0;
 	cub->fire_last_time = 0.0;
 }
