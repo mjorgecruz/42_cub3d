@@ -6,11 +6,12 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 10:40:15 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/19 13:33:33 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:09:47 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
+
 int		ft_confirm_line_rgb(char *color);
 void	validate_rgb(char **color, t_data *cub);
 void	get_rgb_fr_str(char *line, t_data *cub, int id);
