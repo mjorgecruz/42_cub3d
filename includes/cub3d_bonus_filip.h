@@ -21,7 +21,7 @@
 # define WIN_W 1920
 # define WIN_H 1080
 # define DG_RAD 0.0174533
-# define FOV 2 * atan(0.66 / 1)
+# define FOV 1.16674601
 
 # define SPEED 0.002
 # define ROT 0.025
@@ -103,7 +103,6 @@ typedef struct s_door
 	double	position;
 	double	speed;
 	double	last_time;
-
 }	t_door;
 
 typedef struct s_fire
@@ -122,26 +121,21 @@ typedef struct s_keys
 typedef struct s_data
 {
 	int cub_fd;
-	/* header reading and info gathering */
-
-    int count[6]; // order  = NO SO WE EA F C  count[1] is SO  if it is 0 it stil availble to populate
-    int fl_rgb[3]; //save F color
-    int cl_rgb[3]; //save C color
-    int lc;
-
-    char *north;
-    char *south;
-    char *west;
-    char *east;
-    bool in_map;
-
-    char **line;
-    int l_start;
-
+	int count[6];
+	int fl_rgb[3];
+	int cl_rgb[3];
+	int lc;
+	char *north;
+	char *south;
+	char *west;
+	char *east;
+	bool in_map;
+	char **line;
+	int l_start;
 	int		map_w;
 	int		map_h;
 	int		**map;
-    int		**map_cpy;
+	int		**map_cpy;
 	void	*mlx_ptr;
 	void	*win_ptr;
 	int		img_w;
@@ -156,10 +150,10 @@ typedef struct s_data
 	double  init_y;
 	t_player    *player;
 	t_door		*doors;
-	t_img		texNorth;
-	t_img		texSouth;
-	t_img		texEast;
-	t_img		texWest;
+	t_img		texnorth;
+	t_img		texsouth;
+	t_img		texeast;
+	t_img		texwest;
 	t_img		door;
 	t_img		fire1;
 	t_img		fire2;
@@ -187,7 +181,7 @@ typedef struct s_closest
 	double	mapy;
 }	t_closest;
 
-enum ERRORS
+enum e_ERRORS
 {
 	DATA,
 	PLAYER,
@@ -200,7 +194,10 @@ enum ERRORS
 	MLX,
 	WINDOW,
 	CUBIMG,
-	CAMERA
+	CAMERA,
+	MEMERR,
+	SCENIC,
+	RGBS
 };
 
 enum DIRECTION
@@ -217,15 +214,11 @@ enum DIRECTION
 /*                               MAIN_UTILS                                   */
 /* ************************************************************************** */
 
-/*Checks if the user input is correct (maximum 2 arguments)*/
-bool	ft_cubfile(char *str);
-
-/*Verifies file format .cub */
 void	check_user_input(int ac, char *av, t_data *cub);
-
+bool	ft_cubfile(char *str);
 int		ft_strcmp(char *s1, char *s2);
-
 void	tex_preparer(t_data *cub);
+void	field_filler(t_data *cub);
 
 /* ************************************************************************** */
 /*                             INIT_WINDOWS                                   */
@@ -318,10 +311,10 @@ int	close_win_free(t_data *cub);
 /* ************************************************************************** */
 
 /**/
-void	general_free(t_data *cub);
-
-void    ft_free_split(char **array);
-
+void		ft_free_split(char **array);
+void		general_free(t_data *cub);
+void		ft_free_array(t_data *cub, int **array);
+void		free_mlx_checker(t_data *cub);
 
 /* ************************************************************************** */
 /*                               MINIMAPER                                    */
@@ -461,18 +454,35 @@ void	liner_fire(t_data *cub, t_castInfo line_prop);
 /*                               FILEREADER                                   */
 /* ************************************************************************** */
 
-void check_scenics_count(t_data *cub);
-void check_scenics(t_data *cub);
 
-void check_duplicates(t_data *cub, int id);
-void fill_counter(t_data *cub, int id);
-void save_path(char *line, t_data *cub, int id);
-void get_scenic_id(t_data *cub, int i);
-bool has_reached_map(char *line, t_data *cub);
-void read_mapfile(t_data *cub, char *filename);
-void read_lines(t_data *cub);
+//utils
 
-void    check_xpm_exist(t_data *cub);
+bool	is_valid_orient(int c);
+bool	is_empty_line(char *str);
+void	is_fd_invalid(int fd, t_data *cub);
+int		ft_iswhitespace(int c);
+int		jump_whitepaces(char *line);
+
+//utils 2
+void	check_scenics_count(t_data *cub);
+void	check_scenics(t_data *cub);
+void	check_duplicates(t_data *cub, int id);
+void	fill_counter(t_data *cub, int id);
+void	get_scenic_id(t_data *cub, int i);
+
+//xpm
+bool	is_xpm_file(char *xpm);
+bool	compare_id_xpm(char *xpm);
+bool	check_texture_match(char *xpm);
+bool	check_texture_str(char *xpm);
+void	check_xpm_format(t_data *cub);
+
+//origin
+void	save_path(char *line, t_data *cub, int id);
+bool	has_reached_map(char *line, t_data *cub);
+void	read_mapfile(t_data *cub, char *filename);
+void	read_lines(t_data *cub);
+void	check_xpm_exist(t_data *cub);
 
 /* ************************************************************************** */
 /*                                MAP_BUILD                                   */
@@ -496,37 +506,46 @@ void    save_rgb(char *line, t_data *cub, int id);
 /*                            FILEREADER UTILS                                */
 /* ************************************************************************** */
 
-bool is_valid_orient(int c);
-bool is_empty_line(char *str);
-void is_fd_invalid(int fd, t_data *cub);
-int ft_iswhitespace(int c);
-int jump_whitepaces(char *line);
+// bool is_valid_orient(int c);
+// bool is_empty_line(char *str);
+// void is_fd_invalid(int fd, t_data *cub);
+// int ft_iswhitespace(int c);
+// int jump_whitepaces(char *line);
 
 
 /* ************************************************************************** */
 /*                               PARSER_CUB                                   */
 /* ************************************************************************** */
 
-void    get_player_pos(t_data *cub);
-void    map_space(t_data *cub);
-int     floodfill_bonus(t_data *cub, int x, int y, int targ, int new);
-void    parser_first_bonus(t_data *cub);
+void	get_player_pos(t_data *cub);
+void	map_space(t_data *cub);
+int		floodfill(t_data *cub, int x, int y, int targ);
+void	parser_first(t_data *cub);
 
 /* ************************************************************************** */
 /*                                  ERRORS                                    */
 /* ************************************************************************** */
 
 /*has a free and exit inside to terminate everything when displaying the error*/
-void ft_error(int n, t_data *cub);
+void		ft_perror(char *msg);
+void		ft_error_plus(int n, t_data *cub);
+void		ft_error(int n, t_data *cub);
 
 /* ************************************************************************** */
 /*                                  TESTS                                     */
 /* ************************************************************************** */
 
-void PRINT_COLOR_MAPCPY(t_data *cub);
-void PRINT_COLOR_MAP(t_data *cub);
-void color_select(int i);
-void print_scenics(t_data *cub);
+/*cleares texture path from empty spaces at the end*/
+char		*clear_path(char *line);
+
+/*testers printing some parser and structure data*/
+void		print_color_mapcpy(t_data *cub);
+
+void		print_color_map(t_data *cub);
+
+void		color_select(int i);
+
+void		print_scenics(t_data *cub);
 
 /* ************************************************************************** */
 /*                              CONTROLS_BONUS                                */

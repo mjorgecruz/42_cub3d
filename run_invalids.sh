@@ -9,6 +9,6 @@ for map in \
   color_none.cub map_first.cub test_map_hole.cub textures_not_xpm.cub wrong10.cub wrong19.cub wrong27.cub wrong35.cub wrong7.cub \
   duplicated_setting.cub map_middle.cub textures_dir2.cub textures_value_missing.cub wrong11.cub wrong1.cub wrong28.cub wrong36.cub wrong8.cub \
   empty.cub map_missing.cub textures_dir.cub triangle_open.cub wrong12.cub wrong20.cub wrong29.cub wrong37.cub wrong9.cub wrong_setting.cub; do
-  valgrind ./cub3d maps/invalid/$map $ 
+  valgrind ./cub3d_bonus maps/invalid/$map $ 
 done
 

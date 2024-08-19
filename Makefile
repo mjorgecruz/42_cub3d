@@ -30,7 +30,7 @@ SRC := closing.c freeing.c handlers.c init_window.c \
 		main.c main_utils.c minimaper.c raycaster.c \
 		errors.c render.c minimaper_utils.c render_utils.c \
 		minimaper_renders.c fileread.c fileread_utils.c\
-		rgb.c parser_cub.c map_build.c tests.c fileread_utils2.c\
+		rgb.c parser_cub.c map_build.c tests.c fileread_utils2.c \
 		fileread_xpm.c player.c raycaster_cont.c raycaster_cont2.c
 
 BONUS_SRC = closing_bonus.c freeing_bonus.c handlers_bonus.c init_window_bonus.c \
@@ -38,9 +38,10 @@ BONUS_SRC = closing_bonus.c freeing_bonus.c handlers_bonus.c init_window_bonus.c
 		raycaster_bonus2.c raycaster_bonus3.c raycaster_bonus4.c\
 		raycaster_bonus_utils.c raycaster_bonus_utils2.c \
 		errors_bonus.c render_bonus.c minimaper_utils_bonus.c render_utils_bonus.c \
-		minimaper_renders_bonus.c fileread_bonus.c fileread_utils_bonus.c\
+		minimaper_renders_bonus.c\
 		rgb_bonus.c parser_cub_bonus.c map_build_bonus.c tests_bonus.c controls_bonus.c \
-		animation.c animation_utils.c
+		animation.c animation_utils.c \
+		fileread_xpm.c fileread_utils2.c fileread.c fileread_utils.c
 
 OBJ := $(patsubst %.c, $(ODIR)/%.o,$(SRC))
 

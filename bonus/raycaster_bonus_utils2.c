@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:57:10 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/19 14:42:30 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:23:04 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -71,6 +71,20 @@ int	wallx_calculator_door(t_data *cub, double wallDist, int side, int door_num)
 	else
 		wall_pos = cub->player->posY + cub->doors[door_num].position * 0.8 + (wallDist) * cub->player->cam->rayDirY;
 	wall_pos-=(double)((int) wall_pos);
+	wallX = (int)(wall_pos * (double)(cub->texnorth.width));
+	return(wallX);
+}
+
+int	wallx_calc_fire(t_data *cub, double wallDist, int side, int door_num)
+{
+	double wall_pos;
+	int wallX;
+
+	if(side == 20)
+		wall_pos = (cub->player->posX - cub->doors[door_num].position * 0.8 + (wallDist) * cub->player->cam->rayDirX);
+	else
+		wall_pos = cub->player->posY + cub->doors[door_num].position * 0.8 + (wallDist) * cub->player->cam->rayDirY;
+	wall_pos-=(double)((int) wall_pos);
 	wallX = (int)(wall_pos * (double)(cub->texNorth.width));
 	return(wallX);
 }
@@ -95,16 +109,16 @@ int	line_maker(t_data *cub, t_castInfo line_prop, int side)
 	if (side == 1)
 	{
 		if (cub->player->cam->rayDirX > 0)
-			liner(cub, line_prop, cub->texEast);
+			liner(cub, line_prop, cub->texeast);
 		else
-			liner(cub, line_prop, cub->texWest);
+			liner(cub, line_prop, cub->texwest);
 	}
 	else if (side == 0)
 	{
 		if (cub->player->cam->rayDirY < 0)
-			liner(cub, line_prop, cub->texNorth);
+			liner(cub, line_prop, cub->texnorth);
 		else
-			liner(cub, line_prop, cub->texSouth);	
+			liner(cub, line_prop, cub->texsouth);	
 	}
 	else if (side == 20 || side == 21)
 		liner_fire(cub, line_prop);

@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 09:57:38 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/19 11:40:39 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:21:17 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -15,26 +15,12 @@
 int	main(int argc, char **argv)
 {
 	t_data	cub;
-
-	tex_preparer(&cub);
-	cub.map_h = 0;
-	cub.map_w = 0;
-	cub.count[0] = 0;
-	cub.count[1] = 0;
-	cub.count[2] = 0;
-	cub.count[3] = 0;
-	cub.count[4] = 0;
-	cub.count[5] = 0;
-	cub.l_start = 0;
-	cub.init_x = -1;
-	cub.init_y = -1;
-    cub.lc = 0;
-	cub.line = NULL;
-	cub.in_map = false;
+	
+	field_filler(&cub);
 	check_user_input(argc, argv[1], &cub);
 	read_mapfile(&cub, argv[1]);
 	read_lines(&cub);
-	parser_first_bonus(&cub);	
+	parser_first(&cub);	
 	init_fields_bonus(&cub);
 	run_window_bonus(&cub);
 	general_free(&cub);
