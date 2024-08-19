@@ -159,6 +159,7 @@ typedef struct s_data
 	t_img		fire2;
 	t_img		fire3;
 	int			fire_num;
+	double		fire_last_time;
 	t_keys		keys;
 }		t_data;
 
