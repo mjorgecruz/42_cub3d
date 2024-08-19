@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   init_window_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/19 15:20:37 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:01:09 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
 
@@ -58,8 +58,8 @@ void init_orientation(t_player *player, char player_init_ori)
 		player->p_ang = 180 * DG_RAD;
 	else
 		player->p_ang = 90 * DG_RAD;
-	player->pov->dirX = cos(player->p_ang);
-	player->pov->dirY = sin(player->p_ang);
+	player->pov->dirx = cos(player->p_ang);
+	player->pov->diry = sin(player->p_ang);
 }
 
 void init_position_bonus(t_data *cub)
@@ -71,8 +71,8 @@ void init_position_bonus(t_data *cub)
 
 	count_doors = 0;
 	count_fires = 0;
-	cub->player->posX = (double) cub->init_x + 0.5;
-	cub->player->posY = (double) cub->init_y + 0.5;
+	cub->player->posx = (double) cub->init_x + 0.5;
+	cub->player->posy = (double) cub->init_y + 0.5;
     i = -1;
 	while (++i < cub->map_h)
 	{
@@ -176,8 +176,8 @@ void init_camera(t_player *player, t_data *cub)
 	player->cam = (t_camera *) malloc(sizeof(t_camera) * 1);
 	if (player->cam == NULL)
 		ft_error(CAMERA, cub);
-	player->cam->planeX = -player->pov->dirY * tan(player->fov / 2);
-	player->cam->planeY = player->pov->dirX * tan(player->fov / 2);
+	player->cam->planex = -player->pov->diry * tan(player->fov / 2);
+	player->cam->planey = player->pov->dirx * tan(player->fov / 2);
 }
 
 void textures_definer_bonus(t_data *cub)

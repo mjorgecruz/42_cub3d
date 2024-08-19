@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimaper_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:32:31 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/18 02:40:28 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:56:04 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int minimaper_bonus(t_data *cub)
 
 	map_scale = 20;
 	map_drawing_bonus(cub, map_scale);
-	render_point_player(cub, (int) (cub->player->posX * map_scale), (int) (cub->player->posY * map_scale));
+	render_point_player(cub, (int) (cub->player->posx * map_scale), (int) (cub->player->posy * map_scale));
 	render_direction_bonus(cub);
 	return (1);
 
@@ -68,46 +68,46 @@ void render_direction_bonus(t_data *cub)
 			hit_point_horizontal_door(cub);
 		else if (side == 11)
 			hit_point_vertical_door(cub);
-		bresenham(cub, cub->player->pov->hitX, cub->player->pov->hitY);
+		bresenham(cub, cub->player->pov->hitx, cub->player->pov->hity);
 		ang+=0.05;
 	}
 }
 
 void hit_point_vertical(t_data *cub)
 {
-	if (cub->player->pov->stepX == -1)
+	if (cub->player->pov->stepx == -1)
 	{
-		cub->player->pov->hitX = cub->player->pov->mapX + 1;
-		cub->player->pov->hitY = cub->player->posY + (cub->player->pov->sideDistX - cub->player->pov->deltaX) * cub->player->pov->dirY;
+		cub->player->pov->hitx = cub->player->pov->mapx + 1;
+		cub->player->pov->hity = cub->player->posy + (cub->player->pov->sidedistx - cub->player->pov->deltax) * cub->player->pov->diry;
 	}
 	else
 	{
-		cub->player->pov->hitX = cub->player->pov->mapX;
-		cub->player->pov->hitY = cub->player->posY + (cub->player->pov->sideDistX - cub->player->pov->deltaX) * cub->player->pov->dirY;
+		cub->player->pov->hitx = cub->player->pov->mapx;
+		cub->player->pov->hity = cub->player->posy + (cub->player->pov->sidedistx - cub->player->pov->deltax) * cub->player->pov->diry;
 	}
 }
 
 void hit_point_horizontal(t_data *cub)
 {
-	if (cub->player->pov->stepY == -1)
+	if (cub->player->pov->stepy == -1)
 	{
-		cub->player->pov->hitX = cub->player->posX + (cub->player->pov->sideDistY - cub->player->pov->deltaY) * cub->player->pov->dirX;
-		cub->player->pov->hitY = cub->player->pov->mapY + 1;
+		cub->player->pov->hitx = cub->player->posx + (cub->player->pov->sidedisty - cub->player->pov->deltay) * cub->player->pov->dirx;
+		cub->player->pov->hity = cub->player->pov->mapy + 1;
 	}
 	else
 	{
-		cub->player->pov->hitX = cub->player->posX + (cub->player->pov->sideDistY - cub->player->pov->deltaY) * cub->player->pov->dirX;
-		cub->player->pov->hitY = cub->player->pov->mapY;
+		cub->player->pov->hitx = cub->player->posx + (cub->player->pov->sidedisty - cub->player->pov->deltay) * cub->player->pov->dirx;
+		cub->player->pov->hity = cub->player->pov->mapy;
 	}
 }
 void hit_point_vertical_door(t_data *cub)
 {
-	cub->player->pov->hitX = (double) cub->player->pov->mapX + 0.5;
-	cub->player->pov->hitY = cub->player->posY + (cub->player->pov->sideDistX) * cub->player->pov->dirY;
+	cub->player->pov->hitx = (double) cub->player->pov->mapx + 0.5;
+	cub->player->pov->hity = cub->player->posy + (cub->player->pov->sidedistx) * cub->player->pov->diry;
 }
 
 void hit_point_horizontal_door(t_data *cub)
 {
-	cub->player->pov->hitX = cub->player->posX + (cub->player->pov->sideDistY ) * cub->player->pov->dirX;
-	cub->player->pov->hitY = cub->player->pov->mapY + 0.5;
+	cub->player->pov->hitx = cub->player->posx + (cub->player->pov->sidedisty ) * cub->player->pov->dirx;
+	cub->player->pov->hity = cub->player->pov->mapy + 0.5;
 }

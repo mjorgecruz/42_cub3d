@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   render_utils_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 00:23:23 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/15 21:13:04 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:47:20 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
+
+void	pixel_put(t_data *data, int x, int y, int color);
+int	bresenham(t_data *img, double u1, double v1);
+int	max_finder(double varu, double varv);
 
 void	pixel_put(t_data *data, int x, int y, int color)
 {
@@ -28,26 +32,25 @@ int	bresenham(t_data *img, double u1, double v1)
 	double	varu;
 	double	varv;
 	int		max;
-	int		map_scale = 20;
-	
-	double u;
-	double v;
-	u = img->player->posX * map_scale;
-	v = img->player->posY * map_scale;
+	int		map_scale;
+	int		i;
+
+	map_scale = 20;
+	img->u = img->player->posx * map_scale;
+	img->v = img->player->posy * map_scale;
 	u1 = u1 * map_scale;
 	v1 = v1 * map_scale;
-	varu =  u1 - u;
-	varv = v1 - v;
+	varu = u1 - img->u;
+	varv = v1 - img->v;
 	max = max_finder(varu, varv);
 	varu /= max;
 	varv /= max;
-	int i = 0;
-	
-	while (((int)(u - u1) || (int)(v - v1)))
+	i = 0;
+	while (((int)(img->u - u1) || (int)(img->v - v1)))
 	{
-		pixel_put(img, (int) u, (int) v, 0xFFFFFF);
-		u += varu;
-		v += varv;
+		pixel_put(img, (int)img->u, (int)img->v, 0xFFFFFF);
+		img->u += varu;
+		img->v += varv;
 		i++;
 	}
 	return (1);

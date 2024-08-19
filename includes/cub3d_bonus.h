@@ -14,7 +14,6 @@
 # include <sys/types.h>
 # include <stdbool.h>
 # include <sys/time.h> 
-
 # include "../lib/mlx.h"
 # include "../libft/libft.h"
 
@@ -22,57 +21,47 @@
 # define WIN_H 1080
 # define DG_RAD 0.0174533
 # define FOV 1.16674601
-
 # define SPEED 0.002
 # define ROT 0.025
 
-
 typedef struct s_pov
 {
-	double deltaX; //distance to progress one unit in x
-	double deltaY; //distance to progress one unit in x
-	
-	double dirX;
-	double dirY;
-
-	int mapX;
-	int mapY;
-
-	double sideDistX; //distance to the next edge in x
-	double sideDistY; //distance to the next edge in y
-	int stepX;
-	int stepY;
-
-	double hitX;
-	double hitY;
-
+	double deltax;
+	double deltay;
+	double dirx;
+	double diry;
+	int mapx;
+	int mapy;
+	double sidedistx;
+	double sidedisty;
+	int stepx;
+	int stepy;
+	double hitx;
+	double hity;
 }   t_pov;
-
 
 typedef struct s_camera
 {
-	double cameraX;
-	double rayDirX;
-	double rayDirY;
-	double planeX;
-	double planeY;
-
-	double r_deltaX; //distance to progress one unit in x
-	double r_deltaY; 
-	int r_mapX;
-	int r_mapY;
-	double r_sideDistX; //distance to the next edge in x
-	double r_sideDistY; //distance to the next edge in y
-	int r_stepX;
-	int r_stepY;
+	double camerax;
+	double raydirx;
+	double raydiry;
+	double planex;
+	double planey;
+	double r_deltax;
+	double r_deltay; 
+	int r_mapx;
+	int r_mapy;
+	double r_sidedistx;
+	double r_sidedisty;
+	int r_stepx;
+	int r_stepy;
 
 }   t_camera;
 
 typedef struct s_player
 {
-	double posX;
-	double posY;
-
+	double posx;
+	double posy;
 	t_camera *cam;
 	double fov;
 	double p_ang;
@@ -161,16 +150,18 @@ typedef struct s_data
 	t_fire		*fires;
 	int			fire_num;
 	double		fire_last_time;
+	double 		u;
+	double		v;
 	t_keys		keys;
 }		t_data;
 
 typedef struct s_castInfo
 {
-	int		yStart;
-	int		yEnd;
+	int		ystart;
+	int		yend;
 	int		x;
 	int		line_height;
-	int		wallX;
+	int		wallx;
 }	t_castInfo;
 
 typedef struct s_closest
@@ -496,11 +487,11 @@ void    make_map_copy(t_data *cub);
 /*                                    RGB                                     */
 /* ************************************************************************** */
 
-int     ft_confirm_line_rgb(char *color);
-void    validate_rgb(char **color, t_data *cube);
-void    get_rgb_fr_str(char *line, t_data *cub, int id);
-void    check_color_range(t_data *cub);
-void    save_rgb(char *line, t_data *cub, int id);
+int		ft_confirm_line_rgb(char *color);
+void	validate_rgb(char **color, t_data *cub);
+void	get_rgb_fr_str(char *line, t_data *cub, int id);
+void	check_color_range(t_data *cub);
+void	save_rgb(char *line, t_data *cub, int id);
 
 /* ************************************************************************** */
 /*                            FILEREADER UTILS                                */
@@ -535,17 +526,10 @@ void		ft_error(int n, t_data *cub);
 /*                                  TESTS                                     */
 /* ************************************************************************** */
 
-/*cleares texture path from empty spaces at the end*/
-char		*clear_path(char *line);
-
-/*testers printing some parser and structure data*/
-void		print_color_mapcpy(t_data *cub);
-
-void		print_color_map(t_data *cub);
-
-void		color_select(int i);
-
-void		print_scenics(t_data *cub);
+void	print_color_mapcpy(t_data *cub);
+void	print_color_map(t_data *cub);
+void	color_select(int i);
+void	print_scenics(t_data *cub);
 
 /* ************************************************************************** */
 /*                              CONTROLS_BONUS                                */
