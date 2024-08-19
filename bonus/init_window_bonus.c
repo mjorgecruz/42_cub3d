@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/19 10:41:20 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/19 11:11:02 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -229,6 +229,7 @@ void texture_fire_bonus(t_data *cub)
 	cub->fire3.data = mlx_get_data_addr(cub->door.img, 
 			&cub->door.bits_per_pixel, &cub->door.line_length, 
 			&cub->door.endian);
+	cub->fire_num = 0;
 }
 
 void	init_keys(t_data *cub)

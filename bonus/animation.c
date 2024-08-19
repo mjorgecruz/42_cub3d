@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 18:17:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/19 09:55:36 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/19 11:12:20 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -53,7 +53,14 @@ void update_door_position(t_door *door)
     }
 }
 
-// void 	animate_fire(t_data *cub, int door_num)
-// {
-    
-// }
+void 	animate_fire(t_data *cub, int door_num)
+{
+    if (cub->doors[door_num].status == 0)
+        cub->doors[door_num].status = 1;
+    else if (cub->doors[door_num].status == 2)
+    {
+        cub->doors[door_num].status = 3;
+    }
+	cub->doors[door_num].last_time = get_time();
+	return;
+}

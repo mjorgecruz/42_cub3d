@@ -158,6 +158,7 @@ typedef struct s_data
 	t_img		fire1;
 	t_img		fire2;
 	t_img		fire3;
+	int			fire_num;
 	t_keys		keys;
 }		t_data;
 
