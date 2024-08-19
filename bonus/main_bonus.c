@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 09:57:38 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/19 10:30:04 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/19 11:40:39 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -67,4 +67,5 @@ void tex_preparer(t_data *cub)
 	cub->map_cpy = NULL;
 	cub->player = NULL;
 	cub->doors = NULL;
+	cub->fires = NULL;
 }

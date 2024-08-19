@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   raycaster_bonus_utils2.c                           :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:57:10 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/18 22:07:46 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/19 14:42:30 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d_bonus.h"
 
@@ -44,7 +44,20 @@ int wallX_calculator(t_data *cub, double wallDist, int side)
 	else
 		wall_pos = cub->player->posY + (wallDist) * cub->player->cam->rayDirY;
 	wall_pos-=(double)((int) wall_pos);
-	wallX = (int)(wall_pos * (double)(cub->texNorth.width));
+	if (side == 1 || side == 20)
+	{
+		if (cub->player->cam->rayDirX > 0)
+			wallX = (int)(wall_pos * (double)(cub->texEast.width));
+		else
+			wallX = (int)(wall_pos * (double)(cub->texWest.width));
+	}
+	else // if (side == 0 || side == 21)
+	{
+		if (cub->player->cam->rayDirY < 0)
+			wallX = (int)(wall_pos * (double)(cub->texNorth.width));
+		else
+			wallX = (int)(wall_pos * (double)(cub->texSouth.width));
+	}
 	return(wallX);
 }
 
@@ -54,6 +67,20 @@ int	wallx_calculator_door(t_data *cub, double wallDist, int side, int door_num)
 	int wallX;
 
 	if(side == 0 || side == 10)
+		wall_pos = (cub->player->posX - cub->doors[door_num].position * 0.8 + (wallDist) * cub->player->cam->rayDirX);
+	else
+		wall_pos = cub->player->posY + cub->doors[door_num].position * 0.8 + (wallDist) * cub->player->cam->rayDirY;
+	wall_pos-=(double)((int) wall_pos);
+	wallX = (int)(wall_pos * (double)(cub->texNorth.width));
+	return(wallX);
+}
+
+int	wallx_calc_fire(t_data *cub, double wallDist, int side, int door_num)
+{
+	double wall_pos;
+	int wallX;
+
+	if(side == 20)
 		wall_pos = (cub->player->posX - cub->doors[door_num].position * 0.8 + (wallDist) * cub->player->cam->rayDirX);
 	else
 		wall_pos = cub->player->posY + cub->doors[door_num].position * 0.8 + (wallDist) * cub->player->cam->rayDirY;
@@ -79,10 +106,10 @@ int	line_maker(t_data *cub, t_castInfo line_prop, int side)
 		else
 			liner(cub, line_prop, cub->texSouth);	
 	}
+	else if (side == 20 || side == 21)
+		liner_fire(cub, line_prop);
 	else
-	{
 		liner(cub, line_prop, cub->door);
-	}
 	return(1);
 }
 
@@ -103,6 +130,35 @@ void	liner(t_data *cub, t_castInfo line_prop, t_img tex)
 		texPos += step;
 		color = *((int *)(tex.data + (texY * tex.line_length + line_prop.wallX * (cub->texNorth.bits_per_pixel / 8))));
 		pixel_put(cub, line_prop.x, pos, color);
+		pos++;
+	}
+}
+
+void	liner_fire(t_data *cub, t_castInfo line_prop)
+{
+	int color;
+	double step;
+	int texY;
+	int pos;
+	double texPos;
+	t_img	tex;
+	
+	if (cub->fire_num == 0)
+		tex = cub->fire1;
+	else if (cub->fire_num == 1)
+		tex = cub->fire2;
+	else if (cub->fire_num == 2)
+		tex = cub->fire3;
+	step = 1.0 * tex.height / line_prop.line_height;
+	pos = line_prop.yStart;
+	texPos = (line_prop.yStart - WIN_H / 2 + line_prop.line_height / 2) * step;
+	while (pos <= line_prop.yEnd)
+	{
+		texY = (int)texPos & (tex.height - 1);
+		texPos += step;
+		color = *((int *)(tex.data + (texY * tex.line_length + line_prop.wallX * (cub->texNorth.bits_per_pixel / 8))));
+		if (color != 0x000000)
+			pixel_put(cub, line_prop.x, pos, color);
 		pos++;
 	}
 }

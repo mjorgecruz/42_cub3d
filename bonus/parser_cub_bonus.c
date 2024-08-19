@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:30:36 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/19 10:55:40 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/19 14:37:33 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -73,7 +73,7 @@ int floodfill_bonus(t_data *cub, int x, int y, int targ, int new)
     current = cub->map_cpy[y][x];
     if (current == 49)
         return 1;
-    if (current != targ && !is_valid_orient(current) && current != 'D')
+    if (current != targ && !is_valid_orient(current) && current != 'D' && current != 'F')
         return 0;
     cub->map_cpy[y][x] = new;
     ret += floodfill_bonus(cub, x - 1, y, targ, new);

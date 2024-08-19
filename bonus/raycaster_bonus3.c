@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   raycaster_bonus3.c                                 :+:      :+:    :+:   */
@@ -6,26 +6,34 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:54:56 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/18 20:01:37 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/19 14:33:19 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d_bonus.h"
 
-int distance_doors_cam(t_data *cub, int *side, int x)
+int distance_sprites_cam(t_data *cub, int *side, int x)
 {
-	int door_num;
+	int num;
+	int temp;
 
+	temp = *side;
 	if (cub->map[cub->player->cam->r_mapY][cub->player->cam->r_mapX] == '1')
 		return (1);
 	if (cub->map[cub->player->cam->r_mapY][cub->player->cam->r_mapX] == 'D')
 	{
-		*side = raycaster_recursive(cub, x);	
-		door_num = search_door(cub, (double)cub->player->cam->r_mapX, (double)cub->player->cam->r_mapY);
-		if (cub->doors[door_num].orientation == 1)
+		*side = raycaster_recursive(cub, x);
+		num = search_door(cub, (double)cub->player->cam->r_mapX, (double)cub->player->cam->r_mapY);
+		if (cub->doors[num].orientation == 1)
 			*side = door_side_calc_x(cub);
-		else if (cub->doors[door_num].orientation == 0)
+		else if (cub->doors[num].orientation == 0)
 			*side = door_side_calc_y(cub);
+	}
+	if (cub->map[cub->player->cam->r_mapY][cub->player->cam->r_mapX] == 'F')
+	{
+		*side = raycaster_recursive(cub, x);
+		num = search_fire(cub, (double)cub->player->cam->r_mapX, (double)cub->player->cam->r_mapY);
+		*side = 20 + temp;
 	}
 	return 1;
 }
@@ -49,7 +57,7 @@ int	raycaster_recursive(t_data *cub, int x)
 		cub->player->cam->r_mapY += cub->player->cam->r_stepY;
 		side = 0;
 	}
-	door_displayer(cub, x);
+	sprite_displayer(cub, x);
 	cub->player->cam->r_mapX = door.mapx;
 	cub->player->cam->r_mapY = door.mapy;
 	cub->player->cam->r_sideDistX = door.sidedistx;
@@ -105,3 +113,24 @@ int door_side_calc_y(t_data *cub)
 		side = 1;
 	return (side);
 }
+
+// int fire_calc(t_data *cub, int num)
+// {
+// 	double mid_disty;
+// 	int side;
+
+// 	side = 20;
+
+// 	if (cub->player->cam->r_stepY == -1)
+// 		mid_disty = (cub->player->posY - (cub->player->cam->r_mapY + 0.5)) * cub->player->cam->r_deltaY;
+// 	else
+// 		mid_disty = ((cub->player->cam->r_mapY + 0.5) - cub->player->posY) * cub->player->cam->r_deltaY;
+// 	if (fabs(mid_disty) < fabs(cub->player->cam->r_sideDistX))
+// 	{
+// 		cub->player->cam->r_sideDistY = mid_disty;
+// 		side = 20;
+// 	}
+// 	else
+// 		side = 1;
+// 	return (side);
+// }

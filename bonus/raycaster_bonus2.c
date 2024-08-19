@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   raycaster_bonus2.c                                 :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:50:49 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/18 17:57:22 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/19 12:08:19 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d_bonus.h"
 
@@ -66,7 +66,7 @@ int side_calc_ray_bonus(t_data *cub, int x)
 		else
 			side = smaller_y_step(cub);
 		if (cub->map[cub->player->cam->r_mapY][cub->player->cam->r_mapX] > '0')
-			hit = distance_doors_cam(cub, &side, x);
+			hit = distance_sprites_cam(cub, &side, x);
 	}
 	return (side);
 }

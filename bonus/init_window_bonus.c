@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/19 11:11:02 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/19 11:48:22 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -66,9 +66,11 @@ void init_position_bonus(t_data *cub)
 {
 	int i;
 	int j;
-	int count;
+	int count_doors;
+	int count_fires;
 
-	count = 0;
+	count_doors = 0;
+	count_fires = 0;
 	cub->player->posX = (double) cub->init_x + 0.5;
 	cub->player->posY = (double) cub->init_y + 0.5;
     i = -1;
@@ -80,13 +82,17 @@ void init_position_bonus(t_data *cub)
 			if (cub->map[i][j] == 'D'
 				&& ((cub->map[i + 1][j] == '1' && cub->map[i - 1][j] == '1') 
 				||(cub->map[i][j + 1] == '1' && cub->map[i][j - 1] == '1')))
-				count++;
+				count_doors++;
 			else if (cub->map[i][j] == 'D')
 				cub->map[i][j] = '0';
+			else if	(cub->map[i][j] == 'F')
+				count_fires++;
 		}
 	}
-	if (count > 0)
-		init_doors_bonus(cub, count);
+	if (count_doors > 0)
+		init_doors_bonus(cub, count_doors);
+	if (count_fires > 0)
+		init_fires_bonus(cub, count_fires);
 	return ;
 }
 
@@ -130,6 +136,39 @@ void	fill_door_info_bonus(t_data *cub, int door_num, int i, int j)
 	cub->doors[door_num].last_time = get_time();
 	cub->doors[door_num].position = 0.0;
 
+}
+
+void	init_fires_bonus(t_data *cub, int count)
+{
+	int i;
+	int j;
+	int fire_num;
+
+	fire_num = 0;
+	cub->fires = (t_fire *)malloc((count + 1) * sizeof(t_fire));
+	if (cub->fires == NULL)
+		ft_error(150, cub);
+	i = -1;
+	while (++i < cub->map_h)
+	{
+		j = -1;
+		while (++j < cub->map_w)
+		{
+			if (cub->map[i][j] == 'F')
+			{
+				fill_fire_info_bonus(cub, fire_num, i, j);
+				fire_num++;
+			}
+		}
+	}
+	cub->fires[count].pos_x = -1;
+	cub->fires[count].pos_y = -1;
+}
+
+void	fill_fire_info_bonus(t_data *cub, int num, int i, int j)
+{
+	cub->fires[num].pos_x = (double) j + 0.5;
+	cub->fires[num].pos_y = (double) i + 0.5;
 }
 
 void init_camera(t_player *player, t_data *cub)
@@ -230,6 +269,7 @@ void texture_fire_bonus(t_data *cub)
 			&cub->door.bits_per_pixel, &cub->door.line_length, 
 			&cub->door.endian);
 	cub->fire_num = 0;
+	cub->fire_last_time = 0.0;
 }
 
 void	init_keys(t_data *cub)

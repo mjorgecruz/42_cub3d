@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   raycaster_bonus_utils.c                            :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:55:44 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/18 21:56:06 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/19 14:28:59 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d_bonus.h"
 
@@ -90,6 +90,23 @@ int		line_display_door(t_data *cub, int x, double wallDist, int side)
     if(line_prop.yEnd >= WIN_H)
 		line_prop.yEnd = WIN_H - 1;
 	line_prop.wallX = wallx_calculator_door(cub, wallDist, side, door_num);
+	line_maker(cub, line_prop, side);
+	return(1);
+}
+
+int		line_display_fire(t_data *cub, int x, double wallDist, int side)
+{
+	t_castInfo line_prop;
+	
+	line_prop.x = x;
+	line_prop.line_height = WIN_H / wallDist;
+	line_prop.yStart = (int)(-line_prop.line_height / 2 + WIN_H / 2);
+    if(line_prop.yStart < 0)
+		line_prop.yStart = 0;
+    line_prop.yEnd = (int)(line_prop.line_height / 2 + WIN_H / 2);
+    if(line_prop.yEnd >= WIN_H)
+		line_prop.yEnd = WIN_H - 1;
+	line_prop.wallX = wallX_calculator(cub, wallDist, side);
 	line_maker(cub, line_prop, side);
 	return(1);
 }

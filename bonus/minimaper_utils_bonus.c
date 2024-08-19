@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minimaper_utils_bonus.c                            :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 00:16:41 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/17 01:10:16 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/19 13:51:54 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d_bonus.h"
 
@@ -206,6 +206,23 @@ int		search_door(t_data *cub, double x, double y)
 		if ((int)cub->doors[i].pos_x == (int) x)
 		{
 			if  ((int)cub->doors[i].pos_y == (int) y)
+				return (i);
+		}
+		i++;
+	}
+	return (-1);
+}
+
+int		search_fire(t_data *cub, double x, double y)
+{
+	int i;
+
+	i = 0;
+	while (cub->fires[i].pos_x != -1)
+	{
+		if ((int)cub->fires[i].pos_x == (int) x)
+		{
+			if  ((int)cub->fires[i].pos_y == (int) y)
 				return (i);
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:30:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/19 09:24:39 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:00:43 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -28,7 +28,7 @@ void display_bonus(t_data *cub)
 	while(x <  WIN_W)
 	{
 		camera_calculations(cub, x);
-		door_displayer(cub, x);
+		sprite_displayer(cub, x);
 		x++;
 	}
 }
@@ -59,7 +59,7 @@ void	wall_displayer(t_data *cub, int x)
 		line_display(cub, x, walldist, side);
 }
 
-void	door_displayer(t_data *cub, int x)
+void	sprite_displayer(t_data *cub, int x)
 {
 	int side;
 	double walldist;
@@ -70,8 +70,14 @@ void	door_displayer(t_data *cub, int x)
 		walldist = fabs((cub->player->cam->r_sideDistY));
 	else if (side == 11)
 		walldist = fabs((cub->player->cam->r_sideDistX));
+	else if(side == 21)
+		walldist = fabs((cub->player->cam->r_sideDistX  - cub->player->cam->r_deltaX));
+	else if (side == 20)
+		walldist = fabs((cub->player->cam->r_sideDistY - cub->player->cam->r_deltaY));
 	if (walldist < 0.0001)
 		walldist = 0.0001;
 	if (side == 10 || side == 11)
 		line_display_door(cub, x, walldist, side);
+	else if (side == 20 || side == 21)
+		line_display_fire(cub, x, walldist, side);
 }

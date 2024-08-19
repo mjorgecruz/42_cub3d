@@ -106,6 +106,12 @@ typedef struct s_door
 
 }	t_door;
 
+typedef struct s_fire
+{
+	double	pos_x;
+	double	pos_y;
+}	t_fire;
+
 typedef struct s_keys
 {
 	int		rotate;
@@ -158,6 +164,7 @@ typedef struct s_data
 	t_img		fire1;
 	t_img		fire2;
 	t_img		fire3;
+	t_fire		*fires;
 	int			fire_num;
 	double		fire_last_time;
 	t_keys		keys;
@@ -238,6 +245,10 @@ void	init_position_bonus(t_data *cub);
 void	init_doors_bonus(t_data *cub, int count);
 
 void	fill_door_info_bonus(t_data *cub, int door_num, int i, int j);
+
+void	init_fires_bonus(t_data *cub, int count);
+
+void	fill_fire_info_bonus(t_data *cub, int num, int i, int j);
 
 void	init_camera(t_player *player, t_data *cub);
 
@@ -364,6 +375,8 @@ int 	distance_doors_within(t_data *cub, int *side);
 
 int		search_door(t_data *cub, double x, double y);
 
+int		search_fire(t_data *cub, double x, double y);
+
 /* ************************************************************************** */
 /*                                RAYCASTER                                   */
 /* ************************************************************************** */
@@ -374,7 +387,7 @@ void	camera_calculations(t_data *cub, int x);
 
 void	wall_displayer(t_data *cub, int x);
 
-void	door_displayer(t_data *cub, int x);
+void	sprite_displayer(t_data *cub, int x);
 
 /* ************************************************************************** */
 /*                               RAYCASTER_2                                  */
@@ -392,7 +405,7 @@ int		side_calc_ray_bonus(t_data *cub, int x);
 /*                               RAYCASTER_3                                  */
 /* ************************************************************************** */
 
-int 	distance_doors_cam(t_data *cub, int *side, int x);
+int 	distance_sprites_cam(t_data *cub, int *side, int x);
 
 int		raycaster_recursive(t_data *cub, int x);
 
@@ -401,6 +414,8 @@ t_closest	temp_var_holder(t_data *cub);
 int		door_side_calc_x(t_data *cub);
 
 int		door_side_calc_y(t_data *cub);
+
+int		fire_calc(t_data *cub, int num);
 
 /* ************************************************************************** */
 /*                               RAYCASTER_4                                  */
@@ -420,19 +435,27 @@ int		line_display(t_data *cub, int x, double wallDist, int side);
 
 int		line_display_door(t_data *cub, int x, double wallDist, int side);
 
+int		line_display_fire(t_data *cub, int x, double wallDist, int side);
+
 /* ************************************************************************** */
 /*                            RAYCASTER_UTILS_2                               */
 /* ************************************************************************** */
 
 int		line_to_print(t_data *cub, int door_num, double walldist);
 
+int		line_display_fire(t_data *cub, int x, double wallDist, int side);
+
 int 	wallX_calculator(t_data *cub, double wallDist, int side);
 
 int		wallx_calculator_door(t_data *cub, double wallDist, int side, int door_num);
 
+int		wallx_calc_fire(t_data *cub, double wallDist, int side, int door_num);
+
 int		line_maker(t_data *cub, t_castInfo line_prop, int side);
 
 void	liner(t_data *cub, t_castInfo line_prop, t_img tex);
+
+void	liner_fire(t_data *cub, t_castInfo line_prop);
 
 /* ************************************************************************** */
 /*                               FILEREADER                                   */
@@ -518,6 +541,8 @@ int	handle_mouse_move(int x, int y, t_data *cub);
 void 	animate_door_opening(t_data *cub, int door_num);
 
 void	update_door_position(t_door *door);
+
+void 	update_fire(t_data *cub);
 
 /* ************************************************************************** */
 /*                              ANIMATION_UTILS	                              */
