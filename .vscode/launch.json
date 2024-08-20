@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/cub3d_bonus",
-            "args": ["maps/valid/test_pos_top.cub"],
+            "args": ["maps/valid/test_pos_left.cub"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
