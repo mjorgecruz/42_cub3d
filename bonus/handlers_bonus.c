@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:53:30 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/20 13:34:51 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:40:42 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -304,12 +304,12 @@ void	tester_side_neg(t_data *cub, int finalX, int finalY)
 
 void	door_col_s_neg_ver(t_data *cub, int door_num)
 {	
-	if (-sin(cub->player->p_ang)/20 < 0)
+	if (sin(cub->player->p_ang)/20 < 0)
 	{
-		if (cub->player->posx + sin(cub->player->p_ang)/20 >= cub->doors[door_num].pos_x + 0.2)
+		if (cub->player->posx + sin(cub->player->p_ang)/20 < cub->doors[door_num].pos_x - 0.2)
 			cub->player->posx = cub->player->posx + sin(cub->player->p_ang)/20;
-		else if (cub->player->posx + sin(cub->player->p_ang)/20 >= cub->doors[door_num].pos_x)
-			cub->player->posx = cub->player->posx + 0.2;
+		else if (cub->player->posx + sin(cub->player->p_ang)/20 < cub->doors[door_num].pos_x)
+			cub->player->posx = cub->player->posx - 0.2;
 		else
 			cub->player->posx = cub->player->posx + sin(cub->player->p_ang)/20;
 	}
