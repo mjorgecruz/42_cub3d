@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:53:30 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/20 12:04:12 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:34:51 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -216,7 +216,7 @@ void	control_sides_dirpos(t_data *cub)
 	tester_side_pos(cub, finalX, finalY);
 	if (cub->map[finalY][finalX] == 'D')
 	{
-		door_num = search_door(cub, cub->player->posx + cos(cub->player->p_ang)/20, cub->player->posy + sin(cub->player->p_ang)/20);
+		door_num = search_door(cub, cub->player->posx - sin(cub->player->p_ang)/20, cub->player->posy + cos(cub->player->p_ang)/20);
 		if (cub->doors[door_num].open == false)
 		{
 			if (cub->doors[door_num].orientation == 1)
@@ -256,15 +256,17 @@ void	door_col_s_pos_ver(t_data *cub, int door_num)
 
 void	door_col_s_pos_hor(t_data *cub, int door_num)
 {
-	if (cub->player->posy + cos(cub->player->p_ang)/20 < cub->doors[door_num].pos_y - 0.2)
-		cub->player->posy = cub->player->posy + cos(cub->player->p_ang)/20;
-	else if (cub->player->posy + cos(cub->player->p_ang)/20 < cub->doors[door_num].pos_y)
-		cub->player->posy = cub->player->posy - 0.2;
-	else
-		cub->player->posy = cub->player->posy + cos(cub->player->p_ang)/20;
+	if (cos(cub->player->p_ang)/20 > 0) 
+	{
+		if (cub->player->posy + cos(cub->player->p_ang)/20 < cub->doors[door_num].pos_y - 0.2)
+			cub->player->posy = cub->player->posy + cos(cub->player->p_ang)/20;
+		else if (cub->player->posy + cos(cub->player->p_ang)/20 < cub->doors[door_num].pos_y)
+			cub->player->posy = cub->player->posy - 0.2;
+		else
+			cub->player->posy = cub->player->posy + cos(cub->player->p_ang)/20;
+	}
 	cub->player->posx = cub->player->posx - sin(cub->player->p_ang)/20;
 }
-
 
 void control_sides_dirneg(t_data* cub)
 {
@@ -277,7 +279,7 @@ void control_sides_dirneg(t_data* cub)
 	tester_side_neg(cub, finalX, finalY);
 	if (cub->map[finalY][finalX] == 'D')
 	{
-		door_num = search_door(cub, cub->player->posx + sin(cub->player->p_ang)/20, cub->player->posy - sin(cub->player->p_ang)/20);
+		door_num = search_door(cub, cub->player->posx + sin(cub->player->p_ang)/20, cub->player->posy - cos(cub->player->p_ang)/20);
 		if (cub->doors[door_num].open == false)
 		{
 			if (cub->doors[door_num].orientation == 1)
@@ -301,23 +303,29 @@ void	tester_side_neg(t_data *cub, int finalX, int finalY)
 }
 
 void	door_col_s_neg_ver(t_data *cub, int door_num)
-{
-	if (cub->player->posx + sin(cub->player->p_ang)/20 >= cub->doors[door_num].pos_x + 0.2)
-		cub->player->posx = cub->player->posx + sin(cub->player->p_ang)/20;
-	else if (cub->player->posx + sin(cub->player->p_ang)/20 >= cub->doors[door_num].pos_x)
-		cub->player->posx = cub->player->posx + 0.2;
-	else
-		cub->player->posx = cub->player->posx + sin(cub->player->p_ang)/20;
+{	
+	if (-sin(cub->player->p_ang)/20 < 0)
+	{
+		if (cub->player->posx + sin(cub->player->p_ang)/20 >= cub->doors[door_num].pos_x + 0.2)
+			cub->player->posx = cub->player->posx + sin(cub->player->p_ang)/20;
+		else if (cub->player->posx + sin(cub->player->p_ang)/20 >= cub->doors[door_num].pos_x)
+			cub->player->posx = cub->player->posx + 0.2;
+		else
+			cub->player->posx = cub->player->posx + sin(cub->player->p_ang)/20;
+	}
 	cub->player->posy = cub->player->posy - cos(cub->player->p_ang)/20;
 }
 void	door_col_s_neg_hor(t_data *cub, int door_num)
 {
-	if (cub->player->posy - cos(cub->player->p_ang)/20 < cub->doors[door_num].pos_y + 0.2)
-		cub->player->posy = cub->player->posy - cos(cub->player->p_ang)/20;
-	else if (cub->player->posy - cos(cub->player->p_ang)/20 < cub->doors[door_num].pos_y)
-		cub->player->posy = cub->player->posy + 0.2;
-	else
-		cub->player->posy = cub->player->posy - cos(cub->player->p_ang)/20;
+	if (cos(cub->player->p_ang)/20 < 0)
+	{
+		if (cub->player->posy - cos(cub->player->p_ang)/20 < cub->doors[door_num].pos_y + 0.2)
+			cub->player->posy = cub->player->posy - cos(cub->player->p_ang)/20;
+		else if (cub->player->posy - cos(cub->player->p_ang)/20 < cub->doors[door_num].pos_y)
+			cub->player->posy = cub->player->posy + 0.2;
+		else
+			cub->player->posy = cub->player->posy - cos(cub->player->p_ang)/20;
+	}
 	cub->player->posx = cub->player->posx +sin(cub->player->p_ang)/20;
 }
 
