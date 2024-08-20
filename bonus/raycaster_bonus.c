@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:30:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/19 15:54:15 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/19 19:13:40 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,12 @@ void	sprite_displayer(t_data *cub, int x)
 		walldist = fabs((cub->player->cam->r_sidedisty));
 	else if (side == 11)
 		walldist = fabs((cub->player->cam->r_sidedistx));
-	else if(side == 21)
-		walldist = fabs((cub->player->cam->r_sidedistx  - cub->player->cam->r_deltax));
-	else if (side == 20)
-		walldist = fabs((cub->player->cam->r_sidedisty - cub->player->cam->r_deltay));
+	else if(side == 20)
+		walldist = fabs((cub->player->cam->r_sidedisty));
 	if (walldist < 0.0001)
 		walldist = 0.0001;
 	if (side == 10 || side == 11)
 		line_display_door(cub, x, walldist, side);
-	else if (side == 20 || side == 21)
+	else if (side == 20)
 		line_display_fire(cub, x, walldist, side);
 }

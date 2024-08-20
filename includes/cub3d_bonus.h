@@ -99,6 +99,7 @@ typedef struct s_fire
 {
 	double	pos_x;
 	double	pos_y;
+	int		drawn;
 }	t_fire;
 
 typedef struct s_keys
@@ -431,13 +432,9 @@ int		line_display_fire(t_data *cub, int x, double wallDist, int side);
 
 int		line_to_print(t_data *cub, int door_num, double walldist);
 
-int		line_display_fire(t_data *cub, int x, double wallDist, int side);
-
 int 	wallX_calculator(t_data *cub, double wallDist, int side);
 
 int		wallx_calculator_door(t_data *cub, double wallDist, int side, int door_num);
-
-int		wallx_calc_fire(t_data *cub, double wallDist, int side, int door_num);
 
 int		line_maker(t_data *cub, t_castInfo line_prop, int side);
 
@@ -573,7 +570,7 @@ int			handle_mouse_move(int x, int y, t_data *cub);
 /*                                ANIMATION	                                  */
 /* ************************************************************************** */
 
-void		nimate_door_opening(t_data *cub, int door_num);
+void		animate_door_opening(t_data *cub, int door_num);
 
 void		update_door_position(t_door *door);
 
@@ -597,5 +594,11 @@ animation
 animation utils
 errors
 */
+
+//ADDITIONAL FUNCTIONS
+void	render_rect_fire(t_data *img, double pos_x, double pos_y, int scale);
+
+int		draw_fire(t_data *cub, double wallDist, int num, int x);
+
 
 #endif

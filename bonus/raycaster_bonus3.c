@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_bonus3.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:54:56 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/19 15:49:45 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/20 00:32:42 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 int distance_sprites_cam(t_data *cub, int *side, int x)
 {
 	int num;
-	int temp;
 
-	temp = *side;
 	if (cub->map[cub->player->cam->r_mapy][cub->player->cam->r_mapx] == '1')
 		return (1);
 	if (cub->map[cub->player->cam->r_mapy][cub->player->cam->r_mapx] == 'D')
@@ -33,7 +31,10 @@ int distance_sprites_cam(t_data *cub, int *side, int x)
 	{
 		*side = raycaster_recursive(cub, x);
 		num = search_fire(cub, (double)cub->player->cam->r_mapx, (double)cub->player->cam->r_mapy);
-		*side = 20 + temp;
+		if (cub->fires[num].drawn == 0)
+			*side = fire_calc(cub, num);
+		else
+			*side = 99;
 	}
 	return 1;
 }
@@ -114,23 +115,15 @@ int door_side_calc_y(t_data *cub)
 	return (side);
 }
 
-// int fire_calc(t_data *cub, int num)
-// {
-// 	double mid_disty;
-// 	int side;
+int fire_calc(t_data *cub, int num)
+{
+	double perp_dist_x;
+    double perp_dist_y;
+    double perpendicular_distance;
 
-// 	side = 20;
-
-// 	if (cub->player->cam->r_stepy == -1)
-// 		mid_disty = (cub->player->posy - (cub->player->cam->r_mapy + 0.5)) * cub->player->cam->r_deltay;
-// 	else
-// 		mid_disty = ((cub->player->cam->r_mapy + 0.5) - cub->player->posy) * cub->player->cam->r_deltay;
-// 	if (fabs(mid_disty) < fabs(cub->player->cam->r_sidedistx))
-// 	{
-// 		cub->player->cam->r_sidedisty = mid_disty;
-// 		side = 20;
-// 	}
-// 	else
-// 		side = 1;
-// 	return (side);
-// }
+    perp_dist_x = (cub->fires[num].pos_x- cub->player->posx )* cub->player->pov->dirx;
+    perp_dist_y =  (cub->fires[num].pos_y- cub->player->posy)* cub->player->pov->diry;
+    perpendicular_distance = perp_dist_x + perp_dist_y;
+    cub->player->cam->r_sidedisty = fabs(perpendicular_distance);
+    return 20; 
+}

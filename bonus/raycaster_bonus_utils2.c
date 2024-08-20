@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_bonus_utils2.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:57:10 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/19 16:02:19 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/20 01:01:03 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ int wallX_calculator(t_data *cub, double wallDist, int side)
 	else
 		wall_pos = cub->player->posy + (wallDist) * cub->player->cam->raydiry;
 	wall_pos-=(double)((int) wall_pos);
-	if (side == 1 || side == 20)
+	if (side == 1 )
 	{
 		if (cub->player->cam->raydirx > 0)
 			wallx = (int)(wall_pos * (double)(cub->texeast.width));
 		else
 			wallx = (int)(wall_pos * (double)(cub->texwest.width));
 	}
-	else // if (side == 0 || side == 21)
+	else // if (side == 0 || side)
 	{
 		if (cub->player->cam->raydiry < 0)
 			wallx = (int)(wall_pos * (double)(cub->texnorth.width));
@@ -67,20 +67,6 @@ int	wallx_calculator_door(t_data *cub, double wallDist, int side, int door_num)
 	int wallx;
 
 	if(side == 0 || side == 10)
-		wall_pos = (cub->player->posx - cub->doors[door_num].position * 0.8 + (wallDist) * cub->player->cam->raydirx);
-	else
-		wall_pos = cub->player->posy + cub->doors[door_num].position * 0.8 + (wallDist) * cub->player->cam->raydiry;
-	wall_pos-=(double)((int) wall_pos);
-	wallx = (int)(wall_pos * (double)(cub->texnorth.width));
-	return(wallx);
-}
-
-int	wallx_calc_fire(t_data *cub, double wallDist, int side, int door_num)
-{
-	double wall_pos;
-	int wallx;
-
-	if(side == 20)
 		wall_pos = (cub->player->posx - cub->doors[door_num].position * 0.8 + (wallDist) * cub->player->cam->raydirx);
 	else
 		wall_pos = cub->player->posy + cub->doors[door_num].position * 0.8 + (wallDist) * cub->player->cam->raydiry;
@@ -143,12 +129,12 @@ void	liner_fire(t_data *cub, t_castInfo line_prop)
 	double texPos;
 	t_img	tex;
 	
-	if (cub->fire_num == 0)
+	// if (cub->fire_num == 0)
 		tex = cub->fire1;
-	else if (cub->fire_num == 1)
-		tex = cub->fire2;
-	else if (cub->fire_num == 2)
-		tex = cub->fire3;
+	// else if (cub->fire_num == 1)
+	// 	tex = cub->fire2;
+	// else if (cub->fire_num == 2)
+	// 	tex = cub->fire3;
 	step = 1.0 * tex.height / line_prop.line_height;
 	pos = line_prop.ystart;
 	texPos = (line_prop.ystart - WIN_H / 2 + line_prop.line_height / 2) * step;
@@ -156,7 +142,7 @@ void	liner_fire(t_data *cub, t_castInfo line_prop)
 	{
 		texY = (int)texPos & (tex.height - 1);
 		texPos += step;
-		color = *((int *)(tex.data + (texY * tex.line_length + line_prop.wallx * (cub->texnorth.bits_per_pixel / 8))));
+		color = *((int *)(tex.data + (texY * tex.line_length + line_prop.wallx * (tex.bits_per_pixel / 8))));
 		if (color != 0x000000)
 			pixel_put(cub, line_prop.x, pos, color);
 		pos++;

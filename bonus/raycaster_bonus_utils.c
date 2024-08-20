@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_bonus_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:55:44 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/19 15:59:11 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/20 01:14:55 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,17 +96,15 @@ int		line_display_door(t_data *cub, int x, double wallDist, int side)
 
 int		line_display_fire(t_data *cub, int x, double wallDist, int side)
 {
-	t_castInfo line_prop;
-	
-	line_prop.x = x;
-	line_prop.line_height = WIN_H / wallDist;
-	line_prop.ystart = (int)(-line_prop.line_height / 2 + WIN_H / 2);
-    if(line_prop.ystart < 0)
-		line_prop.ystart = 0;
-    line_prop.yend = (int)(line_prop.line_height / 2 + WIN_H / 2);
-    if(line_prop.yend >= WIN_H)
-		line_prop.yend = WIN_H - 1;
-	line_prop.wallx = wallX_calculator(cub, wallDist, side);
-	line_maker(cub, line_prop, side);
+	(void) side;
+	int		hitx;
+	int		hity;
+	int		num;
+
+	hitx = cub->player->posx + wallDist * cub->player->cam->raydirx;
+	hity = cub->player->posy + wallDist * cub->player->cam->raydiry;
+	num = search_fire(cub, hitx, hity);
+	if (cub->fires[num].drawn == 0)
+		draw_fire(cub, wallDist, num, x);
 	return(1);
 }

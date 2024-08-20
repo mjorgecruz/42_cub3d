@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 18:17:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/19 16:15:31 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/19 23:44:59 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,26 @@ void	update_fire(t_data *cub)
 {
 	double	current_time;
 	double	ongoing_time;
+	int i;
 
+	i = 0;
 	current_time = get_time();
 	ongoing_time = current_time - cub->fire_last_time;
-	if (ongoing_time < 500)
+	if (ongoing_time < 250)
 		cub->fire_num = 0;
-	else if (ongoing_time < 1000)
+	else if (ongoing_time < 500)
 		cub->fire_num = 1;
-	else if (ongoing_time < 1500)
+	else if (ongoing_time < 750)
 		cub->fire_num = 2;
 	else
 	{
 		cub->fire_num = 0;
 		cub->fire_last_time = current_time;
+	}
+	while (cub->fires[i].pos_x != -1)
+	{
+		cub->fires[i].drawn = 0;
+		i++;
 	}
 	return ;
 }

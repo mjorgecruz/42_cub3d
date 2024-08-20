@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimaper_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:32:31 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/19 15:56:04 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/19 17:01:48 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void 	map_drawing_bonus(t_data *cub, int map_scale)
 				render_rect_ground(cub, x, y, map_scale);
 			else if (cub->map[(int) y][(int) x] == 'D')
 				render_rect_door(cub, x, y, map_scale);
+			else if (cub->map[(int) y][(int) x] == 'F')
+				render_rect_fire(cub, x, y, map_scale);
 			x++;
 		}
 		y++;

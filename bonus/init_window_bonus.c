@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_window_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:44:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/19 16:01:09 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/19 23:42:38 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,8 @@ void	fill_fire_info_bonus(t_data *cub, int num, int i, int j)
 {
 	cub->fires[num].pos_x = (double) j + 0.5;
 	cub->fires[num].pos_y = (double) i + 0.5;
+	cub->fires[num].drawn = 0;
+	
 }
 
 void init_camera(t_player *player, t_data *cub)
