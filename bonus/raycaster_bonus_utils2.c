@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:57:10 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/20 01:01:03 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/20 01:21:12 by masoares         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	line_maker(t_data *cub, t_castInfo line_prop, int side)
 		else
 			liner(cub, line_prop, cub->texsouth);	
 	}
-	else if (side == 20 || side == 21)
+	else if (side == 20)
 		liner_fire(cub, line_prop);
 	else
 		liner(cub, line_prop, cub->door);
