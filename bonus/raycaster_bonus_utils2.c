@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   raycaster_bonus_utils2.c                           :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:57:10 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/20 01:21:12 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/20 08:42:50 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d_bonus.h"
 
@@ -129,12 +129,12 @@ void	liner_fire(t_data *cub, t_castInfo line_prop)
 	double texPos;
 	t_img	tex;
 	
-	// if (cub->fire_num == 0)
+	if (cub->fire_num == 0)
 		tex = cub->fire1;
-	// else if (cub->fire_num == 1)
-	// 	tex = cub->fire2;
-	// else if (cub->fire_num == 2)
-	// 	tex = cub->fire3;
+	else if (cub->fire_num == 1)
+		tex = cub->fire2;
+	else if (cub->fire_num == 2)
+		tex = cub->fire3;
 	step = 1.0 * tex.height / line_prop.line_height;
 	pos = line_prop.ystart;
 	texPos = (line_prop.ystart - WIN_H / 2 + line_prop.line_height / 2) * step;
