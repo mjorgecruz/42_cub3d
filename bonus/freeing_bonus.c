@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   freeing_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:07:04 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/20 13:56:28 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:01:54 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d_bonus.h"
 
@@ -52,6 +52,14 @@ void	free_mlx_checker(t_data *cub)
 		mlx_destroy_image(cub->mlx_ptr, cub->texsouth.img);
 	if (cub->texwest.img)
 		mlx_destroy_image(cub->mlx_ptr, cub->texwest.img);
+	if (cub->fire1.img)
+		mlx_destroy_image(cub->mlx_ptr, cub->fire1.img);
+	if (cub->fire2.img)
+		mlx_destroy_image(cub->mlx_ptr, cub->fire2.img);
+	if (cub->fire3.img)
+		mlx_destroy_image(cub->mlx_ptr, cub->fire3.img);
+	if (cub->door.img)
+		mlx_destroy_image(cub->mlx_ptr, cub->door.img);
 }
 
 void	ft_free_struct_a(t_data *cub)
