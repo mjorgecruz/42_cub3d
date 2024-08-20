@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   animation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 18:17:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/20 13:43:44 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:52:25 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
 
@@ -59,13 +59,11 @@ void	update_door_position(t_door *door)
 
 void	update_fire(t_data *cub)
 {
-	double	current_time;
 	double	ongoing_time;
-	int i;
+	int		i;
 
 	i = 0;
-	current_time = get_time();
-	ongoing_time = current_time - cub->fire_last_time;
+	ongoing_time = get_time() - cub->fire_last_time;
 	if (ongoing_time < 250)
 		cub->fire_num = 0;
 	else if (ongoing_time < 500)
@@ -75,9 +73,9 @@ void	update_fire(t_data *cub)
 	else
 	{
 		cub->fire_num = 0;
-		cub->fire_last_time = current_time;
+		cub->fire_last_time = get_time();
 	}
-	if(cub->fires)
+	if (cub->fires)
 	{
 		while (cub->fires[i].pos_x != -1)
 		{

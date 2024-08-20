@@ -3,36 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   minimaper_renders_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 00:19:22 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/18 02:31:14 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:20:37 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
 
+void	render_point_player(t_data *img, double pos_x, double pos_y);
+void	render_rect_wall(t_data *img, int pos_x, int pos_y, int scale);
+void	render_rect_ground(t_data *img, int pos_x, int pos_y, int scale);
+void	render_rect_door(t_data *img, double pos_x, double pos_y, int scale);
+void	render_h_door(t_data *img, int door_num, int scale);
+
 void	render_point_player(t_data *img, double pos_x, double pos_y)
 {
-	int     color;
+	int		color;
 
 	color = 0xFFFFFF;
-	pixel_put(img, (int) pos_x, (int) pos_y, color);
-	pixel_put(img, (int) pos_x + 1, (int)pos_y, color);
-	pixel_put(img, (int) pos_x - 1, (int) pos_y , color);
-	pixel_put(img, (int) pos_x, (int) pos_y + 1, color);
-	pixel_put(img, (int) pos_x, (int) pos_y - 1, color);
+	pixel_put(img, (int)pos_x, (int)pos_y, color);
+	pixel_put(img, (int)pos_x + 1, (int)pos_y, color);
+	pixel_put(img, (int)pos_x - 1, (int) pos_y, color);
+	pixel_put(img, (int)pos_x, (int)pos_y + 1, color);
+	pixel_put(img, (int)pos_x, (int)pos_y - 1, color);
 }
 
 void	render_rect_wall(t_data *img, int pos_x, int pos_y, int scale)
 {
 	int		i;
 	int		j;
-	int     color;
+	int		color;
 
 	i = pos_x * scale;
 	j = pos_y * scale;
-
 	while (i < pos_x * scale + scale - 1)
 	{
 		j = pos_y * scale;
@@ -50,7 +55,7 @@ void	render_rect_ground(t_data *img, int pos_x, int pos_y, int scale)
 {
 	int		i;
 	int		j;
-	int     color;
+	int		color;
 
 	i = pos_x * scale;
 	j = pos_y * scale;
@@ -69,8 +74,8 @@ void	render_rect_ground(t_data *img, int pos_x, int pos_y, int scale)
 
 void	render_rect_door(t_data *img, double pos_x, double pos_y, int scale)
 {
-	int door_num;
-	
+	int	door_num;
+
 	door_num = search_door(img, pos_x, pos_y);
 	if (door_num == -1)
 		ft_error(135, img);
@@ -83,44 +88,22 @@ void	render_rect_door(t_data *img, double pos_x, double pos_y, int scale)
 
 void	render_h_door(t_data *img, int door_num, int scale)
 {
-	int		i;
-	int		j;
-	int     color;
+	int	i;
+	int	j;
+	int	color;
 
-	i = (int) (img->doors[door_num].pos_x * (double) scale - (double) scale / 5);
+	i = (int)(img->doors[door_num].pos_x * \
+		(double) scale - (double) scale / 5);
 	j = (int) img->doors[door_num].pos_y * scale;
 	if (img->doors[door_num].open == false)
 		color = 0xFF1060;
 	else
 		color = 0x30FF60;
-	while (i < (int) (img->doors[door_num].pos_x * (double) scale + (double) scale / 5))
+	while (i < (int)(img->doors[door_num].pos_x * \
+		(double)scale + (double)scale / 5))
 	{
 		j = (int) img->doors[door_num].pos_y * scale;
 		while (j < (int) img->doors[door_num].pos_y * scale + scale - 1)
-		{
-			pixel_put(img, i, j, color);
-			j++;
-		}
-		i++;
-	}
-}
-
-void	render_v_door(t_data *img, int door_num, int scale)
-{
-	int		i;
-	int		j;
-	int     color;
-
-	i = (int) img->doors[door_num].pos_x * scale;
-	j = (int) (img->doors[door_num].pos_y* (double) scale - (double) scale / 5);
-	if (img->doors[door_num].open == false)
-		color = 0xFF1060;
-	else
-		color = 0x30FF60;
-	while (i < (int) img->doors[door_num].pos_x * scale + scale - 1)
-	{
-		j = (int) (img->doors[door_num].pos_y * (double) scale - (double) scale / 5);
-		while (j < (int) (img->doors[door_num].pos_y * (double) scale + (double) scale / 5))
 		{
 			pixel_put(img, i, j, color);
 			j++;
