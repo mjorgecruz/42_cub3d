@@ -6,11 +6,11 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:25:06 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/16 13:43:16 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:32:35 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 bool	is_valid_orient(int c);
 bool	is_empty_line(char *str);

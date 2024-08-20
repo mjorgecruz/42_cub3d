@@ -6,11 +6,11 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:17:34 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/16 16:25:39 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:32:32 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 void	check_scenics_count(t_data *cub);
 void	check_scenics(t_data *cub);

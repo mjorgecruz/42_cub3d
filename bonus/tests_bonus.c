@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 11:09:53 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/19 15:42:26 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:46:18 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	print_color_mapcpy(t_data *cub);
 void	print_color_map(t_data *cub);
 void	color_select(int i);
 void	print_scenics(t_data *cub);
+char	*clear_path(char *line);
 
 void	print_scenics(t_data *cub)
 {

@@ -6,11 +6,11 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:23:03 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/17 14:23:17 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:32:22 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 void	save_path(char *line, t_data *cub, int id);
 bool	has_reached_map(char *line, t_data *cub);

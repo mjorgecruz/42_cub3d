@@ -6,11 +6,17 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:43:00 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/19 15:51:08 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:42:58 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
+
+void	run_window_bonus(t_data *cub);
+int		render_bonus(t_data *cub);
+void	render_cel_gr(t_data *cub);
+void	check_dirs(t_data *cub);
+void	check_rots(t_data *cub);
 
 void	run_window_bonus(t_data *cub)
 {
@@ -22,10 +28,10 @@ void	run_window_bonus(t_data *cub)
 	mlx_loop(cub->mlx_ptr);
 }
 
-int render_bonus(t_data *cub)
+int	render_bonus(t_data *cub)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	check_dirs(cub);
 	check_rots(cub);
@@ -41,20 +47,20 @@ int render_bonus(t_data *cub)
 	display_bonus(cub);
 	minimaper_bonus(cub);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
-	return(0);
+	return (0);
 }
 
 void	render_cel_gr(t_data *cub)
 {
-	int x;
-	int y;
-	int c_color;
-	int g_color;
-	
+	int	x;
+	int	y;
+	int	c_color;
+	int	g_color;
+
 	x = 0;
 	y = 0;
-	g_color = (cub->fl_rgb[0]<< 16) + (cub->fl_rgb[1] << 8) + cub->fl_rgb[2];
-	c_color = (cub->cl_rgb[0]<< 16) + (cub->cl_rgb[1] << 8) + cub->cl_rgb[2];
+	g_color = (cub->fl_rgb[0] << 16) + (cub->fl_rgb[1] << 8) + cub->fl_rgb[2];
+	c_color = (cub->cl_rgb[0] << 16) + (cub->cl_rgb[1] << 8) + cub->cl_rgb[2];
 	while (y < WIN_H / 2)
 	{
 		x = 0;
@@ -82,7 +88,7 @@ void	check_dirs(t_data *cub)
 	if (cub->keys.left_right == -1)
 		control_sides(cub, -1);
 }
-	
+
 void	check_rots(t_data *cub)
 {
 	if (cub->keys.rotate == 1)

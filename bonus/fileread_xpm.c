@@ -6,11 +6,11 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:23:33 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/17 09:31:09 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:32:40 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 bool	is_xpm_file(char *xpm);
 bool	compare_id_xpm(char *xpm);
