@@ -1,5 +1,17 @@
-#ifndef CUB3D_H
-# define CUB3D_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/20 16:40:05 by luis-ffe          #+#    #+#             */
+/*   Updated: 2024/08/20 16:46:14 by luis-ffe         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -26,37 +38,36 @@
 
 typedef struct s_pov
 {
-	double deltax;
-	double deltay;
-	double dirx;
-	double diry;
-	int mapx;
-	int mapy;
-	double sidedistx;
-	double sidedisty;
-	int stepx;
-	int stepy;
-	double hitx;
-	double hity;
-}   t_pov;
+	double	deltax;
+	double	deltay;
+	double	dirx;
+	double	diry;
+	int		mapx;
+	int		mapy;
+	double	sidedistx;
+	double	sidedisty;
+	int		stepx;
+	int		stepy;
+	double	hitx;
+	double	hity;
+}		t_pov;
 
 typedef struct s_camera
 {
-	double camerax;
-	double raydirx;
-	double raydiry;
-	double planex;
-	double planey;
-	double r_deltax;
-	double r_deltay; 
-	int r_mapx;
-	int r_mapy;
-	double r_sidedistx;
-	double r_sidedisty;
-	int r_stepx;
-	int r_stepy;
-
-}   t_camera;
+	double	camerax;
+	double	raydirx;
+	double	raydiry;
+	double	planex;
+	double	planey;
+	double	r_deltax;
+	double	r_deltay; 
+	int		r_mapx;
+	int		r_mapy;
+	double	r_sidedistx;
+	double	r_sidedisty;
+	int		r_stepx;
+	int		r_stepy;
+}		t_camera;
 
 typedef struct s_player
 {
@@ -453,7 +464,7 @@ int		line_display_fire(t_data *cub, int x, double wallDist, int side);
 
 int		line_to_print(t_data *cub, int door_num, double walldist);
 
-int 	wallX_calculator(t_data *cub, double wallDist, int side);
+int 	wallx_calculator(t_data *cub, double wallDist, int side);
 
 int		wallx_calculator_door(t_data *cub, double wallDist, int side, int door_num);
 
@@ -461,7 +472,7 @@ int		line_maker(t_data *cub, t_castInfo line_prop, int side);
 
 void	liner(t_data *cub, t_castInfo line_prop, t_img tex);
 
-void	liner_fire(t_data *cub, t_castInfo line_prop);
+void	liner_fire(t_data *cub, t_castInfo line_prop, int pos);
 
 /* ************************************************************************** */
 /*                               FILEREADER                                   */

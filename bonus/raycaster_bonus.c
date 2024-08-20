@@ -3,29 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:30:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/19 19:13:40 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/20 16:09:47 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
 
-void display_bonus(t_data *cub)
+void	display_bonus(t_data *cub);
+void	camera_calculations(t_data *cub, int x);
+void	wall_displayer(t_data *cub, int x);
+void	sprite_displayer(t_data *cub, int x);
+
+void	display_bonus(t_data *cub)
 {
-	double x;
-	
-	x =  1;
+	double	x;
+
+	x = 1;
 	direction_calc(cub, 0);
-	while(x <  WIN_W)
+	while (x < WIN_W)
 	{
 		camera_calculations(cub, x);
 		wall_displayer(cub, x);
 		x++;
 	}
 	x = 1;
-	while(x <  WIN_W)
+	while (x < WIN_W)
 	{
 		camera_calculations(cub, x);
 		sprite_displayer(cub, x);
@@ -36,23 +41,27 @@ void display_bonus(t_data *cub)
 void	camera_calculations(t_data *cub, int x)
 {
 	cub->player->cam->camerax = (2 * x / (double) WIN_W) - 1;
-	cub->player->cam->raydirx = cub->player->pov->dirx + cub->player->cam->planex * cub->player->cam->camerax;
-	cub->player->cam->raydiry = cub->player->pov->diry + cub->player->cam->planey * cub->player->cam->camerax;
+	cub->player->cam->raydirx = cub->player->pov->dirx + \
+		cub->player->cam->planex * cub->player->cam->camerax;
+	cub->player->cam->raydiry = cub->player->pov->diry + \
+		cub->player->cam->planey * cub->player->cam->camerax;
 	delta_calc_ray(cub);
-	step_calc_ray(cub);	
+	step_calc_ray(cub);
 }
 
 void	wall_displayer(t_data *cub, int x)
 {
-	int side;
-	double walldist;
-	
+	int		side;
+	double	walldist;
+
 	walldist = 0.0;
 	side = side_calc_ray(cub);
-	if(side == 1)
-		walldist = fabs((cub->player->cam->r_sidedistx  - cub->player->cam->r_deltax));
+	if (side == 1)
+		walldist = fabs((cub->player->cam->r_sidedistx - \
+			cub->player->cam->r_deltax));
 	else if (side == 0)
-		walldist = fabs((cub->player->cam->r_sidedisty - cub->player->cam->r_deltay));
+		walldist = fabs((cub->player->cam->r_sidedisty - \
+			cub->player->cam->r_deltay));
 	if (walldist < 0.0001)
 		walldist = 0.0001;
 	if (side == 0 || side == 1)
@@ -61,16 +70,16 @@ void	wall_displayer(t_data *cub, int x)
 
 void	sprite_displayer(t_data *cub, int x)
 {
-	int side;
-	double walldist;
-	
+	int		side;
+	double	walldist;
+
 	walldist = 0.0;
 	side = side_calc_ray_bonus(cub, x);
 	if (side == 10)
 		walldist = fabs((cub->player->cam->r_sidedisty));
 	else if (side == 11)
 		walldist = fabs((cub->player->cam->r_sidedistx));
-	else if(side == 20)
+	else if (side == 20)
 		walldist = fabs((cub->player->cam->r_sidedisty));
 	if (walldist < 0.0001)
 		walldist = 0.0001;
