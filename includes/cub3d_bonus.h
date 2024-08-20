@@ -283,11 +283,32 @@ int	key_undetect(int key, t_data *cub);
 
 void control_rot(t_data *cub, int dir);
 
-void control_trans(t_data *cub, int dir);
+void 	control_trans(t_data *cub, int dir);
+void 	control_trans_dirpos(t_data* cub);
+void	tester_pos_trans(t_data *cub, int finalX, int finalY);
+void	door_col_t_pos_ver(t_data *cub, int door_num);
+void	door_col_t_pos_hor(t_data *cub, int door_num);
+
+void 	control_trans_dirneg(t_data* cub);
+void	tester_neg_trans(t_data *cub, int finalX, int finalY);
+void	tester_side_pos(t_data *cub, int finalX, int finalY);
+void	door_col_t_neg_ver(t_data *cub, int door_num);
+void	door_col_t_neg_hor(t_data *cub, int door_num);
 
 void control_door(t_data *cub);
 
+int control_door_rest(t_data *cub, double ang);
+
 void	control_sides(t_data *cub, int dir);
+void	control_sides_dirpos(t_data *cub);
+void	tester_side_pos(t_data *cub, int finalX, int finalY);
+void	door_col_s_pos_ver(t_data *cub, int door_num);
+void	door_col_s_pos_hor(t_data *cub, int door_num);
+
+void	control_sides_dirneg(t_data *cub);
+void	tester_side_neg(t_data *cub, int finalX, int finalY);
+void	door_col_s_neg_ver(t_data *cub, int door_num);
+void	door_col_s_neg_hor(t_data *cub, int door_num);
 
 void 	animate_door_opening(t_data *cub, int door_num);
 
