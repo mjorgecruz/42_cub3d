@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:57:10 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/20 08:42:50 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/20 16:12:20 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -67,7 +67,7 @@ int	wallx_calculator_door(t_data *cub, double wallDist, int side, int door_num)
 	int wallx;
 
 	if(side == 0 || side == 10)
-		wall_pos = (cub->player->posx - cub->doors[door_num].position * 0.8 + (wallDist) * cub->player->cam->raydirx);
+		wall_pos = (cub->player->posx + cub->doors[door_num].position * 0.8 + (wallDist) * cub->player->cam->raydirx);
 	else
 		wall_pos = cub->player->posy + cub->doors[door_num].position * 0.8 + (wallDist) * cub->player->cam->raydiry;
 	wall_pos-=(double)((int) wall_pos);
