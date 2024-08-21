@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 13:01:54 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/21 13:08:43 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/21 13:20:42 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_keys(t_data *cub);
 void	texture_door_bonus(t_data *cub);
-void	init_position_bonus(t_data *cub);
+void	init_position_bonus(t_data *cub, int i, int j);
 void	init_fires_bonus(t_data *cub, int count);
 void	fill_fire_info_bonus(t_data *cub, int num, int i, int j);
 
@@ -43,19 +43,15 @@ void	texture_door_bonus(t_data *cub)
 			&cub->door.endian);
 }
 
-void	init_position_bonus(t_data *cub)
+void	init_position_bonus(t_data *cub, int i, int j)
 {
-	int	i;
-	int	j;
 	int	count_doors;
 	int	count_fires;
 
 	count_doors = 0;
 	count_fires = init_pos_bonus_helper(cub);
-	i = -1;
 	while (++i < cub->map_h)
 	{
-		j = -1;
 		while (++j < cub->map_w)
 		{
 			if (cub->map[i][j] == 'D'

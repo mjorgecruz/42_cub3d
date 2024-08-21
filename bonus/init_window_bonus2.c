@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 12:57:55 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/21 13:00:08 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/21 13:21:57 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	init_fields_bonus(t_data *cub)
 	cub->addr = mlx_get_data_addr(cub->img, &cub->bits_per_pixel,
 			&cub->line_length, &cub->endian);
 	cub->player = init_player(cub);
-	init_position_bonus(cub);
+	init_position_bonus(cub, -1, -1);
 	init_keys(cub);
 	textures_definer_bonus(cub);
 	return (0);

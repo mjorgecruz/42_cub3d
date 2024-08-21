@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 16:40:05 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/21 13:24:33 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/21 13:27:24 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -270,7 +270,7 @@ void		fill_door_info_bonus(t_data *cub, int door_num, int i, int j);
 
 void		init_keys(t_data *cub);
 void		texture_door_bonus(t_data *cub);
-void		init_position_bonus(t_data *cub);
+void		init_position_bonus(t_data *cub, int i, int j);
 void		init_fires_bonus(t_data *cub, int count);
 void		fill_fire_info_bonus(t_data *cub, int num, int i, int j);
 
@@ -600,11 +600,12 @@ void		update_fire(t_data *cub);
 
 long		get_time(void);
 
-/*fim*/
+/* ************************************************************************** */
+/*                            ADICIONAL FUNCTIONS                             */
+/* ************************************************************************** */
 
-void		render_rect_fire(t_data *img, \
-			double pos_x, double pos_y, int scale);
-
-int			draw_fire(t_data *cub, double wallDist, int num, int x);
+void		render_rect_fire(t_data *img, double pos_x, double pos_y, int scale);
+int			draw_fire(t_data *cub, double walldist, int num, int x);
+int			calc_fire(t_data *cub, int num, t_castInfo *line_prop);
 
 #endif
