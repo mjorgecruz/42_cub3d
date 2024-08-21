@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 16:40:05 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/21 13:15:09 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/21 13:21:21 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,7 +270,7 @@ void		fill_door_info_bonus(t_data *cub, int door_num, int i, int j);
 
 void		init_keys(t_data *cub);
 void		texture_door_bonus(t_data *cub);
-void		init_position_bonus(t_data *cub);
+void		init_position_bonus(t_data *cub, int i, int j);
 void		init_fires_bonus(t_data *cub, int count);
 void		fill_fire_info_bonus(t_data *cub, int num, int i, int j);
 
