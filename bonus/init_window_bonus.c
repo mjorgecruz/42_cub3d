@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 13:26:15 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/21 14:30:03 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/21 14:42:01 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -37,15 +37,15 @@ void	texture_fire_bonus(t_data *cub)
 
 	fd = open("./textures/fire1.xpm", O_RDONLY, 0);
 	if (fd < 0)
-		ft_error(20, cub);
+		ft_error(MISSTEXT, cub);
 	close(fd);
 	fd = open("./textures/fire2.xpm", O_RDONLY, 0);
 	if (fd < 0)
-		ft_error(20, cub);
+		ft_error(MISSTEXT, cub);
 	close(fd);
 	fd = open("./textures/fire3.xpm", O_RDONLY, 0);
 	if (fd < 0)
-		ft_error(20, cub);
+		ft_error(MISSTEXT, cub);
 	close(fd);
 	texture_fire_bonus_tex(cub);
 	cub->fire_num = 0;
