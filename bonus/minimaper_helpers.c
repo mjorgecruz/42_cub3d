@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 14:29:11 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/20 14:45:10 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/21 10:20:00 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int	side_calc_helper(t_data *cub);
 int	side_calc_helper_2(t_data *cub);
 int	side_calc(t_data *cub);
+int	search_door(t_data *cub, double x, double y);
+int	search_fire(t_data *cub, double x, double y);
 
 int	side_calc_helper(t_data *cub)
 {

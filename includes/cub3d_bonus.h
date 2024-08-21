@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 16:40:05 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/20 16:59:51 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/21 10:36:22 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,22 @@ enum e_DIRECTION
 };
 
 /* ************************************************************************** */
+/*                                 DOORS 2                                    */
+/* ************************************************************************** */
+
+int			distance_doors(t_data *cub, int *side);
+int			distance_doors_within(t_data *cub, int *side);
+
+/* ************************************************************************** */
+/*                                 DOORS                                      */
+/* ************************************************************************** */
+
+int			door_side_calc_x_mini(t_data *cub);
+int			door_side_calc_y_mini(t_data *cub);
+int			door_calc_within_x_mini(t_data *cub);
+int			door_calc_within_y_mini(t_data *cub);
+
+/* ************************************************************************** */
 /*                               MAIN_UTILS                                   */
 /* ************************************************************************** */
 
@@ -262,59 +278,68 @@ void		init_keys(t_data *cub);
 /* ************************************************************************** */
 
 /*manages all window updates and updates based on input*/
-void		run_window_bonus(t_data *cub);
-
-int			render_bonus(t_data *cub);
-
-void		render_cel_gr(t_data *cub);
-
-void		check_dirs(t_data *cub);
-
-void		check_rots(t_data *cub);
+void		pixel_put(t_data *data, int x, int y, int color);
+int			bresenham(t_data *img, double u1, double v1);
+int			max_finder(double varu, double varv);
 
 /* ************************************************************************** */
 /*                              RENDER_UTILS                                  */
 /* ************************************************************************** */
 
-void		pixel_put(t_data *data, int x, int y, int color);
-
-int			bresenham(t_data *img, double u1, double v1);
-
-int			max_finder(double varu, double varv);
+void		run_window_bonus(t_data *cub);
+int			render_bonus(t_data *cub);
+void		render_cel_gr(t_data *cub);
+void		check_dirs(t_data *cub);
+void		check_rots(t_data *cub);
 
 /* ************************************************************************** */
 /*                               HANDLERS                                     */
 /* ************************************************************************** */
 
-/*define behaviour for specific key pressed*/
 int			key_detect(int key, t_data *cub);
-
 int			key_undetect(int key, t_data *cub);
-
 void		control_rot(t_data *cub, int dir);
-
 void		control_trans(t_data *cub, int dir);
-void		control_trans_dirpos(t_data* cub);
-void		tester_pos_trans(t_data *cub, int finalX, int finalY);
+void		ctrl_trans_helper(t_data *cub);
+
+/* ************************************************************************** */
+/*                               HANDLERS  2                                  */
+/* ************************************************************************** */
+
+void		control_trans_dirpos(t_data *cub);
+void		control_trans_dirneg(t_data* cub);
+void		tester_pos_trans(t_data *cub, int finalx, int finaly);
 void		door_col_t_pos_ver(t_data *cub, int door_num);
 void		door_col_t_pos_hor(t_data *cub, int door_num);
-void 		control_trans_dirneg(t_data* cub);
-void		tester_neg_trans(t_data *cub, int finalX, int finalY);
-void		tester_side_pos(t_data *cub, int finalX, int finalY);
+
+/* ************************************************************************** */
+/*                               HANDLERS  3                                  */
+/* ************************************************************************** */
+
+void		tester_neg_trans(t_data *cub, int finalx, int finaly);
 void		door_col_t_neg_ver(t_data *cub, int door_num);
 void		door_col_t_neg_hor(t_data *cub, int door_num);
-void 		control_door(t_data *cub);
-int 		control_door_rest(t_data *cub, double ang);
 void		control_sides(t_data *cub, int dir);
 void		control_sides_dirpos(t_data *cub);
-void		tester_side_pos(t_data *cub, int finalX, int finalY);
+
+/* ************************************************************************** */
+/*                               HANDLERS  4                                  */
+/* ************************************************************************** */
+
+void		tester_side_pos(t_data *cub, int finalx, int finaly);
 void		door_col_s_pos_ver(t_data *cub, int door_num);
 void		door_col_s_pos_hor(t_data *cub, int door_num);
-void		control_sides_dirneg(t_data *cub);
-void		tester_side_neg(t_data *cub, int finalX, int finalY);
+void		control_sides_dirneg(t_data* cub);
+void		tester_side_neg(t_data *cub, int finalx, int finaly);
+
+/* ************************************************************************** */
+/*                               HANDLERS  5                                  */
+/* ************************************************************************** */
+
 void		door_col_s_neg_ver(t_data *cub, int door_num);
 void		door_col_s_neg_hor(t_data *cub, int door_num);
-void		animate_door_opening(t_data *cub, int door_num);
+void		control_door(t_data *cub);
+int			control_door_rest(t_data *cub, double ang);
 
 /* ************************************************************************** */
 /*                               CLOSING                                      */
@@ -329,11 +354,8 @@ int			close_win_free(t_data *cub);
 
 /**/
 void		ft_free_split(char **array);
-
 void		general_free(t_data *cub);
-
 void		ft_free_array(t_data *cub, int **array);
-
 void		free_mlx_checker(t_data *cub);
 
 /* ************************************************************************** */
@@ -341,32 +363,24 @@ void		free_mlx_checker(t_data *cub);
 /* ************************************************************************** */
 
 int			minimaper_bonus(t_data *cub);
-
 void		map_drawing_bonus(t_data *cub, int map_scale);
-
 void		render_direction_bonus(t_data *cub);
-
 void		hit_point_vertical(t_data *cub);
-
 void		hit_point_horizontal(t_data *cub);
-
-void		hit_point_vertical_door(t_data *cub);
-
-void		hit_point_horizontal_door(t_data *cub);
 
 /* ************************************************************************** */
 /*                           MINIMAPER_RENDERS                                */
 /* ************************************************************************** */
 
 void		render_point_player(t_data *img, double pos_x, double pos_y);
-
 void		render_rect_wall(t_data *img, int pos_x, int pos_y, int scale);
-
 void		render_rect_ground(t_data *img, int pos_x, int pos_y, int scale);
-
 void		render_rect_door(t_data *img, double pos_x, double pos_y, int scale);
-
 void		render_h_door(t_data *img, int door_num, int scale);
+
+/* ************************************************************************** */
+/*                           MINIMAPER_RENDERS 2                              */
+/* ************************************************************************** */
 
 void		render_v_door(t_data *img, int door_num, int scale);
 
@@ -375,31 +389,34 @@ void		render_v_door(t_data *img, int door_num, int scale);
 /* ************************************************************************** */
 
 void		direction_calc(t_data *cub, double ang);
-
 void		delta_calc(t_data *cub);
-
 void		step_calc(t_data *cub);
 
+/* ************************************************************************** */
+/*                          MINIMAPER_EXTRA_UTILS                             */
+/* ************************************************************************** */
+
+void		hit_point_vertical_door(t_data *cub);
+void		hit_point_horizontal_door(t_data *cub);
+
+/* ************************************************************************** */
+/*                           MINIMAPER_HELPERS                                */
+/* ************************************************************************** */
+
+int			side_calc_helper(t_data *cub);
+int			side_calc_helper_2(t_data *cub);
 int			side_calc(t_data *cub);
-
-int 		distance_doors(t_data *cub, int *side);
-
-int 		distance_doors_within(t_data *cub, int *side);
-
 int			search_door(t_data *cub, double x, double y);
-
 int			search_fire(t_data *cub, double x, double y);
+
 
 /* ************************************************************************** */
 /*                                RAYCASTER                                   */
 /* ************************************************************************** */
 
-void 		display_bonus(t_data *cub);
-
+void		display_bonus(t_data *cub);
 void		camera_calculations(t_data *cub, int x);
-
 void		wall_displayer(t_data *cub, int x);
-
 void		sprite_displayer(t_data *cub, int x);
 
 /* ************************************************************************** */
@@ -407,63 +424,52 @@ void		sprite_displayer(t_data *cub, int x);
 /* ************************************************************************** */
 
 int			side_calc_ray(t_data *cub);
-
 int			smaller_x_step(t_data *cub);
-
 int			smaller_y_step(t_data *cub);
-
 int			side_calc_ray_bonus(t_data *cub, int x);
 
 /* ************************************************************************** */
 /*                               RAYCASTER_3                                  */
 /* ************************************************************************** */
 
-int 		distance_sprites_cam(t_data *cub, int *side, int x);
-
+int			distance_sprites_cam(t_data *cub, int *side, int x);
 int			raycaster_recursive(t_data *cub, int x);
-
 t_closest	temp_var_holder(t_data *cub);
-
 int			door_side_calc_x(t_data *cub);
-
 int			door_side_calc_y(t_data *cub);
-
-int			fire_calc(t_data *cub, int num);
 
 /* ************************************************************************** */
 /*                               RAYCASTER_4                                  */
 /* ************************************************************************** */
 
-int 		distance_doors_within_cam(t_data *cub, int *side, int x);
+int			distance_doors_within_cam(t_data *cub, int *side, int x);
+
+/* ************************************************************************** */
+/*                               RAYCASTER_5                                  */
+/* ************************************************************************** */
+
+int			fire_calc(t_data *cub, int num);
+int			wallx_calculator(t_data *cub, double walldist, int side);
+int			wallx_calculator_door(t_data *cub, double walldist, \
+			int side, int door_num);
 
 /* ************************************************************************** */
 /*                             RAYCASTER_UTILS                                */
 /* ************************************************************************** */
 
 void		delta_calc_ray(t_data *cub);
-
 void		step_calc_ray(t_data *cub);
-
-int			line_display(t_data *cub, int x, double wallDist, int side);
-
-int			line_display_door(t_data *cub, int x, double wallDist, int side);
-
-int			line_display_fire(t_data *cub, int x, double wallDist, int side);
+int			line_display(t_data *cub, int x, double walldist, int side);
+int			line_display_door(t_data *cub, int x, double walldist, int side);
+int			line_display_fire(t_data *cub, int x, double walldist, int side);
 
 /* ************************************************************************** */
 /*                            RAYCASTER_UTILS_2                               */
 /* ************************************************************************** */
 
 int			line_to_print(t_data *cub, int door_num, double walldist);
-
-int 		wallx_calculator(t_data *cub, double wallDist, int side);
-
-int			wallx_calculator_door(t_data *cub, double wallDist, int side, int door_num);
-
 int			line_maker(t_data *cub, t_castInfo line_prop, int side);
-
 void		liner(t_data *cub, t_castInfo line_prop, t_img tex);
-
 void		liner_fire(t_data *cub, t_castInfo line_prop, int pos);
 
 /* ************************************************************************** */
@@ -471,13 +477,9 @@ void		liner_fire(t_data *cub, t_castInfo line_prop, int pos);
 /* ************************************************************************** */
 
 void		save_path(char *line, t_data *cub, int id);
-
 bool		has_reached_map(char *line, t_data *cub);
-
 void		read_mapfile(t_data *cub, char *filename);
-
 void		read_lines(t_data *cub);
-
 void		check_xpm_exist(t_data *cub);
 
 /* ************************************************************************** */
@@ -485,13 +487,9 @@ void		check_xpm_exist(t_data *cub);
 /* ************************************************************************** */
 
 bool		is_valid_orient(int c);
-
 bool		is_empty_line(char *str);
-
 void		is_fd_invalid(int fd, t_data *cub);
-
 int			ft_iswhitespace(int c);
-
 int			jump_whitepaces(char *line);
 
 /* ************************************************************************** */
@@ -499,13 +497,9 @@ int			jump_whitepaces(char *line);
 /* ************************************************************************** */
 
 void		check_scenics_count(t_data *cub);
-
 void		check_scenics(t_data *cub);
-
 void		check_duplicates(t_data *cub, int id);
-
 void		fill_counter(t_data *cub, int id);
-
 void		get_scenic_id(t_data *cub, int i);
 
 /* ************************************************************************** */
@@ -513,15 +507,10 @@ void		get_scenic_id(t_data *cub, int i);
 /* ************************************************************************** */
 
 bool		is_xpm_file(char *xpm);
-
 bool		compare_id_xpm(char *xpm);
-
 bool		check_texture_match(char *xpm);
-
 bool		check_texture_str(char *xpm);
-
 void		check_xpm_format(t_data *cub);
-
 
 /* ************************************************************************** */
 /*                                MAP_BUILD                                   */
@@ -542,17 +531,6 @@ void		check_color_range(t_data *cub);
 void		save_rgb(char *line, t_data *cub, int id);
 
 /* ************************************************************************** */
-/*                            FILEREADER UTILS                                */
-/* ************************************************************************** */
-
-// bool is_valid_orient(int c);
-// bool is_empty_line(char *str);
-// void is_fd_invalid(int fd, t_data *cub);
-// int ft_iswhitespace(int c);
-// int jump_whitepaces(char *line);
-
-
-/* ************************************************************************** */
 /*                               PARSER_CUB                                   */
 /* ************************************************************************** */
 
@@ -567,9 +545,7 @@ void		parser_first(t_data *cub);
 
 /*has a free and exit inside to terminate everything when displaying the error*/
 void		ft_perror(char *msg);
-
 void		ft_error_plus(int n, t_data *cub);
-
 void		ft_error(int n, t_data *cub);
 
 /* ************************************************************************** */
@@ -577,13 +553,9 @@ void		ft_error(int n, t_data *cub);
 /* ************************************************************************** */
 
 void		print_color_mapcpy(t_data *cub);
-
 void		print_color_map(t_data *cub);
-
 void		color_select(int i);
-
 void		print_scenics(t_data *cub);
-
 char		*clear_path(char *line);
 
 /* ************************************************************************** */
@@ -597,9 +569,7 @@ int			handle_mouse_move(int x, int y, t_data *cub);
 /* ************************************************************************** */
 
 void		animate_door_opening(t_data *cub, int door_num);
-
 void		update_door_position(t_door *door);
-
 void		update_fire(t_data *cub);
 
 /* ************************************************************************** */
@@ -608,10 +578,11 @@ void		update_fire(t_data *cub);
 
 long		get_time(void);
 
-//ADDITIONAL FUNCTIONS
-void		render_rect_fire(t_data *img, double pos_x, double pos_y, int scale);
+/*fim*/
+
+void		render_rect_fire(t_data *img, \
+			double pos_x, double pos_y, int scale);
 
 int			draw_fire(t_data *cub, double wallDist, int num, int x);
-
 
 #endif
