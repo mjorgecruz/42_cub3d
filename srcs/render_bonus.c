@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:43:00 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/21 14:31:17 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/21 14:34:46 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -24,7 +24,6 @@ void	run_window_bonus(t_data *cub)
 	mlx_hook(cub->win_ptr, KeyPress, KeyPressMask, key_detect, cub);
 	mlx_hook(cub->win_ptr, KeyRelease, KeyReleaseMask, key_undetect, cub);
 	mlx_hook(cub->win_ptr, DestroyNotify, NoEventMask, close_win_free, cub);
-	mlx_hook(cub->win_ptr, 6, 1L << 6, &handle_mouse_move, cub);
 	mlx_loop(cub->mlx_ptr);
 }
 
@@ -35,10 +34,17 @@ int	render_bonus(t_data *cub)
 	i = 0;
 	check_dirs(cub);
 	check_rots(cub);
+	update_fire(cub);
+	if (cub->doors)
+	{
+		while (cub->doors[i].orientation >= 0)
+			update_door_position(&(cub->doors[i++]));
+	}
 	mlx_destroy_image(cub->mlx_ptr, cub->img);
 	cub->img = mlx_new_image(cub->mlx_ptr, cub->img_w, cub->img_h);
 	render_cel_gr(cub);
 	display_bonus(cub);
+	minimaper_bonus(cub);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
 	return (0);
 }

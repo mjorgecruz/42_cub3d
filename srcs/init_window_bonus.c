@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   init_window_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 13:26:15 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/21 14:30:03 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/21 13:29:00 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
 
@@ -29,6 +29,8 @@ void	init_camera(t_player *player, t_data *cub)
 void	textures_definer_bonus(t_data *cub)
 {
 	textures_definer_bonus_tex(cub);
+	texture_door_bonus(cub);
+	texture_fire_bonus(cub);
 }
 
 void	texture_fire_bonus(t_data *cub)
