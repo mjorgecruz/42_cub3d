@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 16:40:05 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/21 13:21:21 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/21 13:22:47 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -593,10 +593,8 @@ void		update_fire(t_data *cub);
 long		get_time(void);
 
 /*fim*/
-
 void		render_rect_fire(t_data *img, \
 			double pos_x, double pos_y, int scale);
-
 int			draw_fire(t_data *cub, double wallDist, int num, int x);
 
 #endif
