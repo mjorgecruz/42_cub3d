@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   handlers_bonus.c                                   :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:53:30 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/20 23:12:59 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/21 11:32:42 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d_bonus.h"
 
@@ -167,7 +167,7 @@ void	door_col_t_pos_hor(t_data *cub, int door_num)
 			cub->player->posy = cub->player->posy + sin(cub->player->p_ang)/20;
 		else
 		{
-			if(cub->player->posy + sin(cub->player->p_ang)/20 < cub->doors[door_num].pos_y + 0.6)
+			if(cub->player->posy + sin(cub->player->p_ang)/20 > cub->doors[door_num].pos_y + 0.6)
 				cub->player->posy = cub->player->posy + sin(cub->player->p_ang)/20;
 		} 
 	}
@@ -227,8 +227,6 @@ void	door_col_t_neg_hor(t_data *cub, int door_num)
 		{
 			if (cub->player->posy - sin(cub->player->p_ang)/20 > cub->doors[door_num].pos_y + 0.6)
 				cub->player->posy = cub->player->posy - sin(cub->player->p_ang)/20;
-			else
-				cub->player->posy = cub->player->posy + 0.6;
 		}
 	}
 	else
@@ -315,7 +313,7 @@ void	door_col_s_pos_ver(t_data *cub, int door_num)
 
 void	door_col_s_pos_hor(t_data *cub, int door_num)
 {
-	if (cub->player->posx > cub->doors[door_num].pos_x)
+	if (cub->player->posy > cub->doors[door_num].pos_y)
 	{
 		if (cos(cub->player->p_ang)/20 > 0) 
 			cub->player->posy = cub->player->posy + cos(cub->player->p_ang)/20;
@@ -398,7 +396,7 @@ void	door_col_s_neg_ver(t_data *cub, int door_num)
 }
 void	door_col_s_neg_hor(t_data *cub, int door_num)
 {
-	if (cub->player->posx > cub->doors[door_num].pos_x)
+	if (cub->player->posy > cub->doors[door_num].pos_y)
 	{
 		if (-cos(cub->player->p_ang)/20 > 0)
 			cub->player->posy = cub->player->posy - cos(cub->player->p_ang)/20;

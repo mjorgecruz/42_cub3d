@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   raycaster_bonus_utils2.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:57:10 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/20 16:48:00 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/21 10:12:55 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d_bonus.h"
 
@@ -78,7 +78,7 @@ void	liner(t_data *cub, t_castInfo line_prop, t_img tex)
 		texy = (int)texpos & (tex.height - 1);
 		texpos += step;
 		color = *((int *)(tex.data + (texy * tex.line_length + \
-			line_prop.wallx * (cub->texnorth.bits_per_pixel / 8))));
+			line_prop.wallx * (tex.bits_per_pixel/ 8))));
 		pixel_put(cub, line_prop.x, pos, color);
 		pos++;
 	}

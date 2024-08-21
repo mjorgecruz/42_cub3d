@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   animation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 18:17:26 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/20 13:52:25 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/21 11:02:24 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d_bonus.h"
 
@@ -64,11 +64,11 @@ void	update_fire(t_data *cub)
 
 	i = 0;
 	ongoing_time = get_time() - cub->fire_last_time;
-	if (ongoing_time < 250)
+	if (ongoing_time < 50)
 		cub->fire_num = 0;
-	else if (ongoing_time < 500)
+	else if (ongoing_time < 100)
 		cub->fire_num = 1;
-	else if (ongoing_time < 750)
+	else if (ongoing_time < 150)
 		cub->fire_num = 2;
 	else
 	{

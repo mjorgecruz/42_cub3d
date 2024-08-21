@@ -11,6 +11,8 @@ NAME_BONUS = cub3d_bonus
 
 CFLAGS = -Wall -Werror -Wextra -g
 
+VGFLAGS = VGFLAGS = valgrind --leak-check=full --suppressions=sup --track-origins=yes --show-leak-kinds=all --log-file=leaks.log -s
+
 LIBMLX_DIR = lib/
 LIBMLX = $(addprefix $(LIBMLX_DIR), libmlx.a)
 
@@ -49,7 +51,7 @@ OBJ := $(patsubst %.c, $(ODIR)/%.o,$(SRC))
 
 OBJ_BONUS = $(patsubst %.c, $(ODIR_BONUS)/%.o,$(BONUS_SRC))
 
-LIBFLAGS = $(LIBFT) -I$(LIBMLX_DIR) -L$(LIBMLX_DIR) -lmlx -lX11 -lXext -lm
+LIBFLAGS = $(LIBFT) -I$(LIBMLX_DIR) -L$(LIBMLX_DIR) -lmlx -lX11 -lXext -lm -O3
 
 CC = cc
 
@@ -106,7 +108,45 @@ fclean: clean
 clean:
 	@$(RM) $(OBJ)
 	@$(RM) $(OBJ_BONUS)
+	@$(RM) valgrind_failures.log
 	@make fclean -C $(LIBFT_DIR)
 	@echo "${RED}cub3d is no more...${END}"
 
 re: fclean all
+
+suppress: sup_file all
+	@echo "${BOLD_YELLOW}LEAK CHECKER ON${END}"
+	
+leaks: ./cub3d_bonus
+	$(VGFLAGS) ./run_invalids.sh 
+
+sup_file: 
+	$(file > sup, $(SUP_BODY))
+	@echo "${BOLD_YELLOW}Suppressing mousemove leaks${END}"
+	
+define SUP_BODY
+{
+	mlx_mouse_hide
+	Memcheck:Leak
+	...
+	fun:mlx_mouse_hide
+}
+{
+	leak XrmGetStringDatabase
+	Memcheck:Leak
+	...
+	fun:XrmGetStringDatabase
+}
+{
+	leak _dl_open
+	Memcheck:Leak
+	...
+	fun:_dl_open
+}
+{
+	leak _XrmInitParseInfo
+	Memcheck:Leak
+	...
+	fun:_XrmInitParseInfo
+}
+endef

@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:07:04 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/20 17:01:54 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/21 10:42:21 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -82,6 +82,10 @@ void	ft_free_struct_a(t_data *cub)
 		free(cub->player);
 	}
 	free_mlx_checker(cub);
+	if (cub->fires)
+		free(cub->fires);
+	if (cub->doors)
+		free(cub->doors);
 }
 
 void	general_free(t_data *cub)
