@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minimaper_helpers.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 14:29:11 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/21 10:20:00 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/21 13:30:31 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d_bonus.h"
 
@@ -59,14 +59,17 @@ int	search_door(t_data *cub, double x, double y)
 	int	i;
 
 	i = 0;
-	while (cub->doors[i].orientation != -1)
+	if (cub->doors)
 	{
-		if ((int)cub->doors[i].pos_x == (int) x)
+		while (cub->doors[i].orientation != -1)
 		{
-			if ((int)cub->doors[i].pos_y == (int) y)
-				return (i);
-		}
-		i++;
+			if ((int)cub->doors[i].pos_x == (int) x)
+			{
+				if ((int)cub->doors[i].pos_y == (int) y)
+					return (i);
+			}
+			i++;
+		}	
 	}
 	return (-1);
 }
