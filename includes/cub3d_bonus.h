@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 16:40:05 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/21 10:36:22 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/21 10:43:36 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,7 +307,7 @@ void		ctrl_trans_helper(t_data *cub);
 /* ************************************************************************** */
 
 void		control_trans_dirpos(t_data *cub);
-void		control_trans_dirneg(t_data* cub);
+void		control_trans_dirneg(t_data *cub);
 void		tester_pos_trans(t_data *cub, int finalx, int finaly);
 void		door_col_t_pos_ver(t_data *cub, int door_num);
 void		door_col_t_pos_hor(t_data *cub, int door_num);
@@ -329,7 +329,7 @@ void		control_sides_dirpos(t_data *cub);
 void		tester_side_pos(t_data *cub, int finalx, int finaly);
 void		door_col_s_pos_ver(t_data *cub, int door_num);
 void		door_col_s_pos_hor(t_data *cub, int door_num);
-void		control_sides_dirneg(t_data* cub);
+void		control_sides_dirneg(t_data *cub);
 void		tester_side_neg(t_data *cub, int finalx, int finaly);
 
 /* ************************************************************************** */
@@ -375,7 +375,8 @@ void		hit_point_horizontal(t_data *cub);
 void		render_point_player(t_data *img, double pos_x, double pos_y);
 void		render_rect_wall(t_data *img, int pos_x, int pos_y, int scale);
 void		render_rect_ground(t_data *img, int pos_x, int pos_y, int scale);
-void		render_rect_door(t_data *img, double pos_x, double pos_y, int scale);
+void		render_rect_door(t_data *img, \
+			double pos_x, double pos_y, int scale);
 void		render_h_door(t_data *img, int door_num, int scale);
 
 /* ************************************************************************** */
@@ -408,7 +409,6 @@ int			side_calc_helper_2(t_data *cub);
 int			side_calc(t_data *cub);
 int			search_door(t_data *cub, double x, double y);
 int			search_fire(t_data *cub, double x, double y);
-
 
 /* ************************************************************************** */
 /*                                RAYCASTER                                   */
