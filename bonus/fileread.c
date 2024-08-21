@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:23:03 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/21 14:53:58 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/21 14:56:12 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -55,9 +55,7 @@ bool	has_reached_map(char *line, t_data *cub)
 		return (false);
 	else if (cub->in_map == false)
 	{
-		while (line[i] == '1' || line[i] == '0' || line[i] == ' ' \
-			|| line[i] == 'N' || line[i] == 'E' || line[i] == 'W' \
-			|| line[i] == 'S')
+		while (line[i] == '1' || line[i] == '0' || line[i] == ' ')
 			i++;
 		if (line[i] == '\0' || line[i] == '\n')
 			cub->in_map = true;
