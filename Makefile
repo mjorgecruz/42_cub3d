@@ -46,6 +46,8 @@ BONUS_SRC = closing_bonus.c freeing_bonus.c handlers_bonus.c init_window_bonus.c
 		fileread_xpm.c fileread_utils2.c fileread.c fileread_utils.c \
 		additional_functions.c minimaper_extra_utils.c minimap_render_2.c \
 		raycaster_bonus5.c minimaper_helpers.c doors_functions.c \
+		handlers_bonus2.c handlers_bonus3.c handlers_bonus4.c handlers_bonus5.c \
+		doors2.c \
 
 OBJ := $(patsubst %.c, $(ODIR)/%.o,$(SRC))
 
