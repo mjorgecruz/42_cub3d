@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   handlers_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:53:30 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/21 11:55:59 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/21 12:22:06 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
 
@@ -85,10 +85,4 @@ void	ctrl_trans_helper(t_data *cub)
 {
 	cub->player->posy = cub->player->posy + sin(cub->player->p_ang) / 20;
 	cub->player->posx = cub->player->posx + cos(cub->player->p_ang) / 20;
-}
-
-void	ctrl_trans_helper_neg(t_data *cub)
-{
-	cub->player->posy = cub->player->posy - sin(cub->player->p_ang) / 20;
-	cub->player->posx = cub->player->posx - cos(cub->player->p_ang) / 20;
 }

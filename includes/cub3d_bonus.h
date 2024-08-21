@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 16:40:05 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/21 11:57:09 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/21 13:15:09 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef CUB3D_BONUS_H
 # define CUB3D_BONUS_H
@@ -165,6 +165,7 @@ typedef struct s_data
 	double		fire_last_time;
 	double		u;
 	double		v;
+	double		invdet;
 	t_keys		keys;
 }		t_data;
 
@@ -247,35 +248,31 @@ void		field_filler(t_data *cub);
 /* ************************************************************************** */
 /*                             INIT_WINDOWS                                   */
 /* ************************************************************************** */
-/*Initialize values for struct cub, create window and first image*/
-int			init_fields_bonus(t_data *cub);
-
-/*Initialize all player infos*/
-t_player	*init_player(t_data *cub);
-
-/*Define initial orientation of player*/
-void		init_orientation(t_player *player, char player_init_ori);
-
-/*Define initial position of player*/
-void		init_position_bonus(t_data *cub);
-
-void		init_doors_bonus(t_data *cub, int count);
-
-void		fill_door_info_bonus(t_data *cub, int door_num, int i, int j);
-
-void		init_fires_bonus(t_data *cub, int count);
-
-void		fill_fire_info_bonus(t_data *cub, int num, int i, int j);
 
 void		init_camera(t_player *player, t_data *cub);
-
 void		textures_definer_bonus(t_data *cub);
-
-void		texture_door_bonus(t_data *cub);
-
 void		texture_fire_bonus(t_data *cub);
+int			init_pos_bonus_helper(t_data *cub);
+
+/* ************************************************************************** */
+/*                             INIT_WINDOWS 2                                 */
+/* ************************************************************************** */
+
+int			init_fields_bonus(t_data *cub);
+t_player	*init_player(t_data *cub);
+void		init_orientation(t_player *player, char player_init_ori);
+void		init_doors_bonus(t_data *cub, int count);
+void		fill_door_info_bonus(t_data *cub, int door_num, int i, int j);
+
+/* ************************************************************************** */
+/*                             INIT_WINDOWS 3                                 */
+/* ************************************************************************** */
 
 void		init_keys(t_data *cub);
+void		texture_door_bonus(t_data *cub);
+void		init_position_bonus(t_data *cub);
+void		init_fires_bonus(t_data *cub, int count);
+void		fill_fire_info_bonus(t_data *cub, int num, int i, int j);
 
 /* ************************************************************************** */
 /*                                 RENDER                                     */
@@ -346,6 +343,16 @@ void		door_col_s_neg_hor(t_data *cub, int door_num);
 void		control_door(t_data *cub);
 int			control_door_rest(t_data *cub, double ang);
 void		help_dor_col_t(t_data *cub);
+
+/* ************************************************************************** */
+/*                               HANDLERS  6                                  */
+/* ************************************************************************** */
+
+void		ctrl_trans_helper_neg(t_data *cub);
+void		math_helper_door1(t_data *cub);
+void		math_helper_door2(t_data *cub);
+void		math_helper_door3(t_data *cub);
+void		math_door4_helper(t_data *cub);
 
 /* ************************************************************************** */
 /*                               CLOSING                                      */
@@ -449,6 +456,7 @@ int			door_side_calc_y(t_data *cub);
 /* ************************************************************************** */
 
 int			distance_doors_within_cam(t_data *cub, int *side, int x);
+void		math_helper_door5(t_data *cub);
 
 /* ************************************************************************** */
 /*                               RAYCASTER_5                                  */

@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:59:22 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/20 15:45:28 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/21 12:40:38 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,9 @@ int	distance_doors_within_cam(t_data *cub, int *side, int x)
 	else if (cub->doors[door_num].orientation == 0)
 		*side = door_side_calc_y(cub);
 	return (1);
+}
+
+void	math_helper_door5(t_data *cub)
+{
+	cub->player->posx = cub->player->posx + sin(cub->player->p_ang) / 20;
 }

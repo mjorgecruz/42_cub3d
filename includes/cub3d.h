@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 11:16:40 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/18 11:28:59 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/21 13:09:59 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,9 +315,9 @@ void		step_calc_ray(t_data *cub);
 
 int			side_calc_ray(t_data *cub);
 
-int	smaller_x_step(t_data *cub);
+int			smaller_x_step(t_data *cub);
 
-int	smaller_y_step(t_data *cub);
+int			smaller_y_step(t_data *cub);
 
 /* ************************************************************************** */
 /*                             RAYCASTER_CONT_2                               */
