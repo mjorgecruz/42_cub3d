@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 13:01:54 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/21 13:20:42 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/21 14:06:32 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	init_position_bonus(t_data *cub, int i, int j)
 	count_fires = init_pos_bonus_helper(cub);
 	while (++i < cub->map_h)
 	{
+		j = -1;
 		while (++j < cub->map_w)
 		{
 			if (cub->map[i][j] == 'D'
