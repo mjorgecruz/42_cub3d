@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 09:57:38 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/21 14:50:42 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:03:12 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -15,6 +15,7 @@
 int	main(int argc, char **argv)
 {
 	t_data	cub;
+	
 	printf("\t  W or UP : move forward");
 	printf("\tS or DOWN : move backward\n");
 	printf("\t     A    : strafe left\t");
