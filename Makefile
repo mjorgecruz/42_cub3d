@@ -28,12 +28,20 @@ ODIR:=obj
 INCDIR_BONUS:=bonus
 ODIR_BONUS:=obj_bonus
 
-SRC := closing.c freeing.c handlers.c init_window.c \
-		main.c main_utils.c minimaper.c raycaster.c \
-		errors.c render.c minimaper_utils.c render_utils.c \
-		minimaper_renders.c fileread.c fileread_utils.c\
-		rgb.c parser_cub.c map_build.c tests.c fileread_utils2.c \
-		fileread_xpm.c player.c raycaster_cont.c raycaster_cont2.c
+SRC := closing_bonus.c freeing_bonus.c handlers_bonus.c init_window_bonus.c \
+		main_bonus.c main_utils_bonus.c minimaper_bonus.c raycaster_bonus.c \
+		raycaster_bonus2.c raycaster_bonus3.c raycaster_bonus4.c\
+		raycaster_bonus_utils.c raycaster_bonus_utils2.c \
+		errors_bonus.c render_bonus.c minimaper_utils_bonus.c render_utils_bonus.c \
+		minimaper_renders_bonus.c\
+		rgb_bonus.c parser_cub_bonus.c map_build_bonus.c tests_bonus.c controls_bonus.c \
+		animation.c animation_utils.c \
+		fileread_xpm.c fileread_utils2.c fileread.c fileread_utils.c \
+		additional_functions.c minimaper_extra_utils.c minimap_render_2.c \
+		raycaster_bonus5.c minimaper_helpers.c doors_functions.c \
+		handlers_bonus2.c handlers_bonus3.c handlers_bonus4.c handlers_bonus5.c \
+		doors2.c handlers_bonus6.c init_window_bonus2.c init_window_bonus3.c\
+		init_window_bonus4.c
 
 BONUS_SRC = closing_bonus.c freeing_bonus.c handlers_bonus.c init_window_bonus.c \
 		main_bonus.c main_utils_bonus.c minimaper_bonus.c raycaster_bonus.c \

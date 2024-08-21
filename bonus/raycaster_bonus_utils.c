@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   raycaster_bonus_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:55:44 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/20 16:37:54 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/21 14:25:29 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d_bonus.h"
 
@@ -112,7 +112,10 @@ int	line_display_fire(t_data *cub, int x, double walldist, int side)
 	hitx = cub->player->posx + walldist * cub->player->cam->raydirx;
 	hity = cub->player->posy + walldist * cub->player->cam->raydiry;
 	num = search_fire(cub, hitx, hity);
-	if (cub->fires[num].drawn == 0)
-		draw_fire(cub, walldist, num, x);
+	if (cub->fires && num != -1)
+	{
+		if (cub->fires[num].drawn == 0)
+			draw_fire(cub, walldist, num, x);
+	}
 	return (1);
 }
