@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 16:40:05 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/21 10:43:36 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/21 11:26:30 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,8 +218,11 @@ enum e_DIRECTION
 /*                                 DOORS 2                                    */
 /* ************************************************************************** */
 
+void		door_pos_hor_helper(t_data *cub);
 int			distance_doors(t_data *cub, int *side);
 int			distance_doors_within(t_data *cub, int *side);
+void		door_math_helper(t_data *cub);
+void		door_neg_ver_helper(t_data *cub);
 
 /* ************************************************************************** */
 /*                                 DOORS                                      */
@@ -229,6 +232,7 @@ int			door_side_calc_x_mini(t_data *cub);
 int			door_side_calc_y_mini(t_data *cub);
 int			door_calc_within_x_mini(t_data *cub);
 int			door_calc_within_y_mini(t_data *cub);
+void		ctrl_sid_dirposhelper(t_data *cub);
 
 /* ************************************************************************** */
 /*                               MAIN_UTILS                                   */
@@ -340,6 +344,7 @@ void		door_col_s_neg_ver(t_data *cub, int door_num);
 void		door_col_s_neg_hor(t_data *cub, int door_num);
 void		control_door(t_data *cub);
 int			control_door_rest(t_data *cub, double ang);
+void		help_dor_col_t(t_data *cub);
 
 /* ************************************************************************** */
 /*                               CLOSING                                      */

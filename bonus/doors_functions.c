@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 14:31:58 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/21 10:53:57 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/21 11:26:06 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,4 +119,10 @@ int	door_calc_within_y_mini(t_data *cub)
 		side = 1;
 	}
 	return (side);
+}
+
+void	ctrl_sid_dirposhelper(t_data *cub)
+{
+	cub->player->posy = cub->player->posy + cos(cub->player->p_ang) / 20;
+	cub->player->posx = cub->player->posx + -sin(cub->player->p_ang) / 20;
 }

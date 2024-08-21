@@ -6,7 +6,7 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 09:55:35 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/21 10:02:59 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/21 11:31:52 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@ void	door_col_s_neg_ver(t_data *cub, int door_num);
 void	door_col_s_neg_hor(t_data *cub, int door_num);
 void	control_door(t_data *cub);
 int		control_door_rest(t_data *cub, double ang);
+void	help_dor_col_t(t_data *cub);
+
+void	help_dor_col_t(t_data *cub)
+{
+	cub->player->posx = cub->player->posx + cos(cub->player->p_ang) / 20;
+}
 
 void	door_col_s_neg_ver(t_data *cub, int door_num)
 {	
@@ -43,7 +49,7 @@ void	door_col_s_neg_ver(t_data *cub, int door_num)
 }
 void	door_col_s_neg_hor(t_data *cub, int door_num)
 {
-	if (cub->player->posx > cub->doors[door_num].pos_x)
+	if (cub->player->posy > cub->doors[door_num].pos_y)
 	{
 		if (-cos(cub->player->p_ang)/20 > 0)
 			cub->player->posy = cub->player->posy - cos(cub->player->p_ang)/20;

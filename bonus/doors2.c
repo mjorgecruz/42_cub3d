@@ -6,11 +6,16 @@
 /*   By: luis-ffe <luis-ffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 10:30:35 by luis-ffe          #+#    #+#             */
-/*   Updated: 2024/08/21 10:51:22 by luis-ffe         ###   ########.fr       */
+/*   Updated: 2024/08/21 11:45:36 by luis-ffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
+
+void	door_pos_hor_helper(t_data *cub)
+{
+	cub->player->posy = cub->player->posy + sin(cub->player->p_ang) / 20;
+}
 
 int	distance_doors(t_data *cub, int *side)
 {
@@ -52,4 +57,14 @@ int	distance_doors_within(t_data *cub, int *side)
 		*side = door_calc_within_y_mini(cub);
 	}
 	return (1);
+}
+
+void	door_neg_ver_helper(t_data *cub)
+{
+	cub->player->posx = cub->player->posx - cos(cub->player->p_ang) / 20;
+}
+
+void	door_math_helper(t_data *cub)
+{
+	cub->player->posy = cub->player->posy - sin(cub->player->p_ang) / 20;
 }
