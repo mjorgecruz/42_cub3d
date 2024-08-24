@@ -6,8 +6,8 @@ BOLD_GREEN = \033[1;32m
 BOLD_YELLOW = \033[1;33m
 END = \033[0m
 
-NAME = cub3d
-NAME_BONUS = cub3d_bonus
+NAME = cub3D
+NAME_BONUS = cub3D_bonus
 
 CFLAGS = -Wall -Werror -Wextra -g
 

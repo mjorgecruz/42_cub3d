@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:31:18 by masoares          #+#    #+#             */
-/*   Updated: 2024/08/21 16:57:30 by masoares         ###   ########.fr       */
+/*   Updated: 2024/08/24 14:06:20 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -56,7 +56,7 @@ void	ft_error(int n, t_data *cub)
 	else if (n == MISSTEXT)
 		ft_perror("\033[31m Invalid Texture.\033[0m\n");
 	else if (n == PLAYER)
-		ft_perror("\033[31mPlayr Position ERROR.\033[0m\n");
+		ft_perror("\033[31mPlayer Position ERROR.\033[0m\n");
 	else if (n == IVALIDMAP)
 		ft_perror("\033[31mInvalid Map.\033[0m\n");
 	else if (n == RGBS)
