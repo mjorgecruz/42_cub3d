@@ -1,6 +1,7 @@
-#Cub3D
+# Cub3D
 
 </br>
+
 ___
 
 </br>
@@ -8,4 +9,4 @@ ___
 
 Group Project : Credits
 Jorge Cruz(me)
-Luis Carvalho (
+[Luis Carvalho](https://github.com/luis-ffe)
