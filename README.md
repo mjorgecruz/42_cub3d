@@ -40,7 +40,7 @@ The configuration file (`.cub` format) specifies the map and textures and has to
   - `F R,G,B` (Floor color)
   - `C R,G,B` (Ceiling color)
 - **Map:**
-  - `1` for walls, `0` for empty space, `N`, `S`, `E`, `W` for the player's starting position and orientation.
+  - `1` for walls, `0` for empty space, `N`, `S`, `E`, `W` for the player's starting position and orientation, `D` for doors and `F` for animated fires.
 
 ### Example
 
